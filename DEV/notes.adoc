@@ -1,0 +1,25 @@
+= IDEAS
+
+== The combat system should be interesting
+The combat system should be interesting for all types of characters, but not too cumbersom to take too much time to use.
+
+=== Magic
+* The caster should be able to cast spells at various levels of potency. e.g. chose the precentage or power-level for a spell when binding to a quick slot. Ammount of flexibility could be affected by a "mana-control" proficiency skill.
+* Some traits/skills should affect mana points, magick potency, etc.
+* stealth could play a part.
+* (? could make things over-complicated) charged trinkets could be used to power-up or even cast some spells.
+
+=== Melee
+* Strength skill could affect damage, wepon skill should reduce fatigue needed for attacks, dexterity should affect to-hit ratios.
+* If weilding a weapon with requirements for another proficiency, a fighter skilled enough in a different proficiency should still get some bonus compared to non-fighters i.e. some skills should default to others at a penalty.
+* Possible to enchant the weapon temporarily via magic or potion/salve.
+* stealth could play some part.
+
+=== Ranged
+* Strength should affect range, proficiency should affect accuracy and fatigue, perception should (?)conciderably affect accuracy.
+* stealth could play a big part.
+* special projectiles (e.g. poison, enchanted arrows, etc)
+* weapon could be enchanted and charged to enchant it's on shot for a limited ammount shots/time.
+
+=== All
+* Potions, charged trinkets, etc to temporarily enhance ability, etc.
