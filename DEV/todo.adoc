@@ -1,0 +1,7 @@
+= TODO
+
+* [ ] use c++17 standard
+* [ ] overhaul makefile
+* [ ] rename cpp headers to use .hpp suffix
+* [ ] review each included homebrew bit - think of improvements/overhaul
+* [ ] implement pauses using nanosleep or similar instead of the SDL_Delay because the latter is of rather low resolution.
