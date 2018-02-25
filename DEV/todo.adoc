@@ -1,7 +1,16 @@
 = TODO
 
-* [ ] use c++17 standard
+== prepare
 * [ ] overhaul makefile
+* [ ] use the `c++17` standard
 * [ ] rename cpp headers to use .hpp suffix
-* [ ] review each included homebrew bit - think of improvements/overhaul
+
+== basic rendering
+* [ ] run the display loop, framerate capping not necessary at this early stage
+* [ ] conjure a way to efficiently keep and pass tile textures
+* [ ] render a tiled floor test-level
+
+== basic rendering 2
+* [ ] implement efficient text printing via the texture-atlas method, monospaced font would be quite enough for now, but design keeping in mind a future update to both mono and variable spaced fonts.
 * [ ] implement pauses using nanosleep or similar instead of the SDL_Delay because the latter is of rather low resolution.
+* [ ] framerate handling/capping
