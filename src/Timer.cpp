@@ -1,16 +1,10 @@
-#include "Timer.h"
+#include "Timer.hpp"
 
-void Timer::set_start(Uint32 _t)
-{
-	m_start = _t;
-}
+void Timer::start() { this->start_tm = Clock::now(); }
+void Timer::set_start(Clock::time_point _t) { this->start_tm = _t; }
 
-void Timer::set_end(Uint32 _t)
-{
-	m_end = _t;
-}
 
-Uint32 Timer::get_duration()
+std::chrono::nanoseconds Timer::get_dur()
 {
-	return m_end - m_start;
+    return Clock::now() - this->start_tm;
 }
