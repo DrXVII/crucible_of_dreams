@@ -1,21 +1,42 @@
-SRC = src/*.cpp
-INCLUDE = -I inc
-
 CXX = g++
+LL = g++
+CC = gcc
+CXX_FLAGS = -std=c++17 #-Wall
+CC_FLAGS = -Wall
+DBG_FLAGS = -ggdb
+LIBS = -lSDL2 -lSDL2_image -lSDL2_ttf
+SRC_DIR = src
+INCLUDE = -I inc
+OBJ_DIR = obj
+OBJ = $(OBJ_DIR)/main.o\
+      $(OBJ_DIR)/Timer.o
+NAME = crucible
 
-#COMPILER_FLAGS specifies the additional compilation options we are using
-# -w suppress all warnings
-COMPILER_FLAGS = -std=c++14
+all: $(NAME)
 
-#LINKER_FLAGS specifies the libraries we're linking against
-LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf
+$(NAME): $(OBJ)
+	echo "LL $@ ($^)"
+	$(LL) $(INCLUDE) $(CXX_FLAGS) -o $@ $(OBJ) $(LIBS)
 
-#OBJ_NAME specifies the name of our exectuable
-OBJ_NAME = crucible
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp $(OBJ_DIR)
+	echo "CXX $@ ($<)"
+	$(CXX) $(INCLUDE) $(CXX_FLAGS) $(DBG_FLAGS) -c -o $@ $<
 
-#This is the target that compiles our executable
-all : $(SRC)
-	$(CXX) $(SRC) $(INCLUDE) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(OBJ_DIR)
+	echo "CC $@ ($<)"
+	$(CC) $(INCLUDE) $(CC_FLAGS) $(DBG_FLAGS) -c -o $@ $<
 
-debug : $(OBJS)
-	$(CXX) -ggdb $(SRC) $(INCLUDE) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
+$(OBJ_DIR):
+	mkdir -p $@
+
+#release -----------------------------------------------------------------------
+#  nothing here yet
+
+#other -------------------------------------------------------------------------
+clean:
+	echo RM $(OBJ)
+	rm -vf $(OBJ)
+	echo RM $(NAME)
+	rm -vf $(NAME)
+
+.PHONY: all clean
