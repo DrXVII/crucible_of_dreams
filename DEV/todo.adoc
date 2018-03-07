@@ -1,17 +1,22 @@
 = TODO
 
-== prepare
-* [x] overhaul makefile
-** [x] use the `c++17` standard
-* [x] rename cpp headers to use .hpp suffix
-
 == basic rendering
 * [x] the basic input-update-display loop
 * [x] framerate capping
 ** [x] implement time duration registering at nanosecond resolution
 ** [x] implement pauses at nanosecond resolution.
-* [ ] conjure a way to keep and pass tile textures efficiently.
+* [x] read and store pixel data from png
+* [x] conjure a way to keep and pass tile textures efficiently.
 * [ ] render a tiled floor test-level
 
 == basic rendering 2
 * [ ] implement efficient text printing via the texture-atlas method, monospaced font would be quite enough for now, but design keeping in mind a future update to both mono and variable spaced fonts.
+
+== mop up
+* [ ] review and refactor changes
+* [ ] plan further
+
+== prepare
+* [x] overhaul makefile
+** [x] use the `c++17` standard
+* [x] rename cpp headers to use .hpp suffix

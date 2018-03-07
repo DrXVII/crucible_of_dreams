@@ -17,7 +17,6 @@ using std::acos;
 #include <chrono>
 #include <thread>
 
-
 //3rd party libs
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -25,6 +24,8 @@ using std::acos;
 
 //homebrew
 #include "Timer.hpp"
+#include "utils.hpp"
+#include "Tile.hpp"
 
 #define SEC_NS 1000000000 /* one second expressed in nanoseconds int literal */
 //TODO default font paths should be set differently, preferably from cfg files
@@ -39,9 +40,8 @@ int create_main_win(SDL_Window*& _win,
                     string const& _title, const int _w, const int _h);
 int create_win_renderer(SDL_Window* _win, SDL_Renderer*& _ren);
 void close(SDL_Window*& _win, SDL_Renderer*& _ren);
-void run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h);
-SDL_Texture* txt_to_tx(string const& _txt, int _sz, SDL_Colour _col,
-                      string const& _fpath, SDL_Renderer* _ren);
+//void run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h);
+void run_game(SDL_Renderer* _ren);
 
 int main()
 {
@@ -63,7 +63,8 @@ int main()
         return 1;
     }
 
-    run_game(ren_main, win_w, win_h);
+    //run_game(ren_main, win_w, win_h);
+    run_game(ren_main);
     
     close(win_main, ren_main);
     return 0;
@@ -139,14 +140,18 @@ void close(SDL_Window*& _win, SDL_Renderer*& _ren)
     SDL_Quit();
 }
 
-void run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h)
+//void run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h)
+void run_game(SDL_Renderer* _ren)
 {
     //init game
     Timer loop_timer;
-    const int tgt_fps {60};
+    int tgt_fps {60};
     std::chrono::nanoseconds tgt_frm_len = std::chrono::nanoseconds{SEC_NS} / tgt_fps;
     std::chrono::nanoseconds frm_delta {0}; //how long the frame took to execute
     bool show_fps {false};
+
+    vector<SDL_Texture*> tx_arr = load_textures(_ren);
+    if(tx_arr.size() < 2) { cerr << "smth wrong w tx_arr\n"; return; }
 
     //main loop
     bool flag_quit {false};
@@ -165,12 +170,26 @@ void run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h)
                     else {show_fps = true;}
                 }
                 if(key_states[SDL_SCANCODE_Q]) { flag_quit = true; }
+                if(key_states[SDL_SCANCODE_U]) {
+                    if(tgt_fps < 10000) {
+                        tgt_fps = 10000;
+                        tgt_frm_len =
+                            std::chrono::nanoseconds{SEC_NS} / tgt_fps;
+                    }
+                    else {
+                        tgt_fps = 60;
+                        tgt_frm_len =
+                            std::chrono::nanoseconds{SEC_NS} / tgt_fps;
+                    }
+                }
             }
             else if(event.type == SDL_QUIT) {flag_quit = true;}
         }
 
-        //TODO ASAP (redo) just a placeholer, think of how to implement textured objects the best
-        SDL_Texture* fps_tx = NULL;
+        //TODO ASAP (redo) just a placeholer
+        SDL_Texture* fps_tx = nullptr;
+        Tile border(tx_arr[0]);
+        Tile cobble(tx_arr[1]);
         //--placeholder------------------------------------------------------
 
         if(show_fps) {
@@ -184,6 +203,11 @@ void run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h)
 
         //render phase
         SDL_RenderClear(_ren);
+
+        SDL_Point ren_pt{50, 50};
+        border.render(_ren, &ren_pt);
+        ren_pt.y += 20;
+        cobble.render(_ren, &ren_pt);
 
         if(show_fps) {
             //TODO ASAP (redo) just a placeholer, think of how to implement textured objects the best
@@ -204,10 +228,8 @@ void run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h)
         SDL_RenderPresent(_ren);
 
         //limit framerate
-        //loop_timer.set_end(SDL_GetTicks());
         frm_delta = loop_timer.get_dur();
         if(frm_delta < tgt_frm_len) {
-            //Uint32 wait_len = tgt_frm_len - frm_delta;
             std::chrono::nanoseconds wait_len = tgt_frm_len - frm_delta;
             if(wait_len > std::chrono::nanoseconds{0}) {
                 //SDL_Delay(wait_len);
@@ -224,36 +246,6 @@ void run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h)
             }
         }
     }
-}
 
-SDL_Texture* txt_to_tx(string const& _txt, int _sz, SDL_Colour _col,
-                      string const& _fpath, SDL_Renderer* _ren)
-{
-    TTF_Font* ft = TTF_OpenFont(_fpath.c_str(), _sz);
-    if(ft == nullptr) {
-        cerr << "ERROR: could not load font! "
-             << "SDL_ttf error = " << TTF_GetError() << "\n";
-        return nullptr;
-    }
-
-    SDL_Surface* surf = TTF_RenderText_Solid(ft, _txt.c_str(), _col);
-    //SDL_Surface* surf = TTF_RenderText_Shaded(ft, _txt.c_str(), _col, SDL_Colour{0x80,0x80,0x80,0x00});
-    //SDL_Surface* surf = TTF_RenderText_Blended(ft, _txt.c_str(), _col);
-    if(surf == nullptr) {
-        cerr << "ERROR: could not render surface from font! "
-             << "SDL_ttf error = " << TTF_GetError() << "\n";
-
-        TTF_CloseFont(ft);
-        return nullptr;
-    }
-
-    SDL_Texture* tx = SDL_CreateTextureFromSurface(_ren, surf);
-    if(tx == nullptr) {
-        cerr << "ERROR: could not create texture from surface! "
-             << "SDL error = " << SDL_GetError() << "\n";
-    }
-
-    TTF_CloseFont(ft);
-    SDL_FreeSurface(surf);
-    return tx;
+    unload_textures(&tx_arr);
 }

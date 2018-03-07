@@ -1,7 +1,7 @@
 CXX = g++
 LL = g++
 CC = gcc
-CXX_FLAGS = -std=c++17 -Wall #-Wextra
+CXX_FLAGS = -std=c++17 -Wall -Wextra
 CC_FLAGS = -Wall -Wextra
 LD_FLAGS =
 DBG_FLAGS = -ggdb -DDEBUG=10
@@ -11,7 +11,9 @@ SRC_DIR = src
 OBJ_DIR = obj
 
 _OBJ = main.o \
-       Timer.o
+       Timer.o \
+       utils.o \
+       Tile.o
 OBJ = $(patsubst %, $(OBJ_DIR)/%, $(_OBJ))
 NAME = crucible
 
