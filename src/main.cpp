@@ -29,7 +29,7 @@ using std::acos;
 
 #define SEC_NS 1000000000 /* one second expressed in nanoseconds int literal */
 //TODO default font paths should be set differently, preferably from cfg files
-#define DEF_MONO_FONT_PATH "data/fonts/mononoki-Regular.ttf"
+#define DEF_MONO_FONT_PATH "data/fonts/terminus/TerminusTTF-4.46.0.ttf"
 
 const int win_w = 800;
 const int win_h = 640;
@@ -149,6 +149,7 @@ void run_game(SDL_Renderer* _ren)
     std::chrono::nanoseconds tgt_frm_len = std::chrono::nanoseconds{SEC_NS} / tgt_fps;
     std::chrono::nanoseconds frm_delta {0}; //how long the frame took to execute
     bool show_fps {false};
+    bool cap_fps {true};
 
     vector<SDL_Texture*> tx_arr = load_textures(_ren);
     if(tx_arr.size() < 2) { cerr << "smth wrong w tx_arr\n"; return; }
@@ -229,7 +230,7 @@ void run_game(SDL_Renderer* _ren)
 
         //limit framerate
         frm_delta = loop_timer.get_dur();
-        if(frm_delta < tgt_frm_len) {
+        if(cap_fps && frm_delta < tgt_frm_len) {
             std::chrono::nanoseconds wait_len = tgt_frm_len - frm_delta;
             if(wait_len > std::chrono::nanoseconds{0}) {
                 //SDL_Delay(wait_len);
@@ -245,6 +246,10 @@ void run_game(SDL_Renderer* _ren)
                 frm_delta += wait_len;
             }
         }
+
+        //TODO
+        //final length of the frame (after frame-cap procedure if any, etc)
+        //frm_delta = loop_timer.get_dur();
     }
 
     unload_textures(&tx_arr);
