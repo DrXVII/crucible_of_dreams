@@ -26,6 +26,7 @@ using std::acos;
 #include "Timer.hpp"
 #include "utils.hpp"
 #include "Tile.hpp"
+#include "Font_atlas.hpp"
 
 #define SEC_NS 1000000000 /* one second expressed in nanoseconds int literal */
 //TODO default font paths should be set differently, preferably from cfg files
@@ -150,9 +151,14 @@ void run_game(SDL_Renderer* _ren)
     std::chrono::nanoseconds frm_delta {0}; //how long the frame took to execute
     bool show_fps {false};
     bool cap_fps {true};
+    //TODO should probs move the fps position, etc data to a text object
+    string fps_txt;
+    SDL_Point fps_xy {20, 20};
 
     vector<SDL_Texture*> tx_arr = load_textures(_ren);
     if(tx_arr.size() < 2) { cerr << "smth wrong w tx_arr\n"; return; }
+
+    Font_atlas def_mono_font(DEF_MONO_FONT_PATH, 12, _ren);
 
     //main loop
     bool flag_quit {false};
@@ -188,18 +194,13 @@ void run_game(SDL_Renderer* _ren)
         }
 
         //TODO ASAP (redo) just a placeholer
-        SDL_Texture* fps_tx = nullptr;
         Tile border(tx_arr[0]);
         Tile cobble(tx_arr[1]);
         //--placeholder------------------------------------------------------
 
         if(show_fps) {
-            /*TODO (speed) use more efficient text rendering (when implemented)
-             * this brought potential FPS from 10k to 300 */
             //TODO?(speed) think of a more efficient way to get the number
-            fps_tx = txt_to_tx("FPS: " + to_string(SEC_NS / frm_delta.count()),
-                    12, SDL_Colour{0x00, 0x00, 0xFF, 0x00},
-                    DEF_MONO_FONT_PATH, _ren);
+            fps_txt = "FPS: " + to_string(SEC_NS / frm_delta.count());
         }
 
         //render phase
@@ -211,15 +212,7 @@ void run_game(SDL_Renderer* _ren)
         cobble.render(_ren, &ren_pt);
 
         if(show_fps) {
-            //TODO ASAP (redo) just a placeholer, think of how to implement textured objects the best
-            int w = 100, h = 100;
-            if(SDL_QueryTexture(fps_tx, NULL, NULL, &w, &h)) {
-                cerr << "SDL_QueryTexture ERROR: " << SDL_GetError() << "\n";
-            }
-            SDL_Rect fps_tx_rect {20, 20, w*2, h*2};
-            //--placeholder------------------------------------------------------
-
-            SDL_RenderCopy(_ren, fps_tx, NULL, &fps_tx_rect);
+            def_mono_font.print(fps_txt, &fps_xy, _ren);
         }
 
         if(flag_quit == true) {

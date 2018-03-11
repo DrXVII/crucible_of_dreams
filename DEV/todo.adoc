@@ -7,10 +7,11 @@
 ** [x] implement pauses at nanosecond resolution.
 * [x] read and store pixel data from png
 * [x] conjure a way to keep and pass tile textures efficiently.
-* [ ] render a tiled floor test-level
+* [x] implement efficient text printing via the texture-atlas method, monospaced font would be quite enough for now, but design keeping in mind a future update to both mono and variable spaced fonts.
 
 == basic rendering 2
-* [ ] implement efficient text printing via the texture-atlas method, monospaced font would be quite enough for now, but design keeping in mind a future update to both mono and variable spaced fonts.
+* [ ] come up with architecture to keep and call textures
+* [ ] render a tiled floor test-level
 
 == mop up
 * [ ] review and refactor changes
