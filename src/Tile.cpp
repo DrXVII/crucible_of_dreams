@@ -12,13 +12,13 @@ Tile::Tile(SDL_Texture* _tx, int _w, int _h)
 
 int Tile::wh_to_tx()
 {
-    //TODO test what happens if tx is NULL, handle if brakes
     return SDL_QueryTexture(this->tx, NULL, NULL, &this->w, &this->h);
 }
 
 void Tile::render(SDL_Renderer* _ren, SDL_Point* _pt)
 {
-    //TODO error handling
     SDL_Rect rect {_pt->x, _pt->y, this->w, this->h};
-    SDL_RenderCopy(_ren, this->tx, NULL, &rect);
+    if(SDL_RenderCopy(_ren, this->tx, NULL, &rect) != 0) {
+        errlog(ERRLOG_SDL, "could not render tile.");
+    }
 }

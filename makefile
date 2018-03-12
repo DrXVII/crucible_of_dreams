@@ -4,7 +4,7 @@ CC = gcc
 CXX_FLAGS = -std=c++17 -Wall -Wextra
 CC_FLAGS = -Wall -Wextra
 LD_FLAGS =
-DBG_FLAGS = -ggdb -DDEBUG=10
+DBG_FLAGS = -ggdb -DDEBUG=9
 INCLUDE = -I inc
 LIBS = -lSDL2 -lSDL2_image -lSDL2_ttf
 SRC_DIR = src
@@ -40,6 +40,11 @@ $(OBJ_DIR):
 #  nothing here yet
 
 #other -------------------------------------------------------------------------
+.PHONY: todo
+todo:
+	bash -c "grep "TODO" -n -A2 {inc,src}/* > todo.txt"
+
+.PHONY: ctags
 ctags:
 	bash -c "ctags {src,inc}/*"
 

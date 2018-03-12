@@ -1,12 +1,12 @@
+#ifndef FONT_ATLAS_HPP
+#define FONT_ATLAS_HPP
+
 //c++ std lib
 #include <string>
 using std::string;
 
-#ifndef FONT_ATLAS_HPP
-#define FONT_ATLAS_HPP
-//c++ std lib
-#include <string>
-using std::string;
+//c std lib
+#include <string.h>
 
 //homebrew
 #include "Texture_obj.hpp"
@@ -24,7 +24,9 @@ public:
     ~Font_atlas();
 
     //render text with _ren
-    int print(string const& _txt, SDL_Point* _xy, SDL_Renderer* _ren);
+    int print(const char* _txt, SDL_Point* _xy, SDL_Renderer* _ren);
+    int nprint(const char* _txt, SDL_Point* _xy, int _txt_len,
+        SDL_Renderer* _ren);
 
 #ifdef DEBUG
     void test(SDL_Renderer* _ren);
@@ -33,7 +35,7 @@ public:
 private:
     int fill(string const& _fpath, int _sz, SDL_Renderer* _ren);
 
-    Texture_obj textures[FONT_ATLAS_TX_ARR_LEN];
+    Texture_obj glyphs[FONT_ATLAS_TX_ARR_LEN];
 };
 
 #endif //#ifndef FONT_ATLAS_HPP
