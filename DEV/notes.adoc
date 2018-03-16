@@ -25,39 +25,27 @@ The combat system should be interesting for all types of characters, but not too
 * Potions, charged trinkets, etc to temporarily enhance ability, etc.
 
 == Non-combat Possibilities of Magic Users
-How to balance it in regards to other classes?
+Interdimensional storage can lessen or even eliminate the need of pack animals.
+Interdimensional travel spells can save a member from a deadly blow or could be used to gain passage to warded areas.
+Personal dimension / arcane sanctuary can serve as a safe spot for resting, maybe even training/learning/research at higher levels.
 
-Magic levels for below comparisons 1 = novice 10 = legendary master
+== General Gameplay
 
-=== Interdimensional Box
-summary::
-Summon a box to store some items. The box dissapears back to it's origin dimension when the spell ends, and retains the items stored the next time it is summoned.
+=== Aging
+The party will definitely age - this would lead to some immersive elements having more sense and impact e.g. training, getting incarcerated, time-passage difference between different dimensions (e.g. mages could use magical dimensions to learn/train a lot and not get much older), seeking for a way to stave-off death or get younger is a nice questing possibility, etc.
 
-usage notes::
-Quite useful to reduce ones encumberance as one does not need to physically carry stored items around, and said items are accessible any time the box is summoned.
-Not useful to store items that might become needed immediately e.g. weapons. Because the spell taks some time to cast and uses energy that could otherwise be used for combat spells. A mage of extraordinary skill could mostly overcome these limitations though.
+== Randomly Generated Content
 
-* LVL around 5
-* energy use - casting:moderate maintaining:moderate(about 10min max initially for average human)
-* casting time - a few minutes
+=== Random generated levels
+Could be a good way to level-up and/or find some treasure.
 
-=== Interdimensional Room
-summary::
-The caster enters a room outside normal space and time. Here he can has considerable space for storage and other things because nothing changes here between visits. Time passes differently in this dimension, thus the caster can do most mental things here e.g. studying, but no physical or magical effects on the body will progress or take effect if acquired in this dimension - this means that time will not heal or kill, and consuming any mundane or magical substances or casting spells is of no use here.
-Regardless of how much time one spends here, he returns to the parent dimension as if no time had passed at all - less magically adept wil not even notice that anything happened.
-It does take some energy to remain in the room for a considerable ammount of time, so spending more than a few days in this place is reserved for creatures that have absurd ammounts of magical power.
+Could be some levels or quests e.g. go find/kill something beneath/close-to this place that causes this place inconvenience/greed/danger.
+Other planes e.g. Astral, Arcane plane accessible through some long-forgotten magical door or a higher level spell.
 
-usage notes::
-Mages who use this spell, usualy use the place as a store room and a refuge for the mind.
-
-* LVL 7 or 8
-* energy use - casting:moderate maintaining:moderate(about 1h max initially for average human)
-* casting time - a few minutes
-
-=== Interdimensional Mansion
-(TODO) summary::
-Some constraints of the Interdimensional Room lifted, and the place is larger. The Interdimensional Room can be accessed from here at no additional cost - it is a part of this place.
-
-* LVL 10
-* energy use casting:moderate maintaining:low (a few days max initially for average human)
-* casting time - about an hour
+== Misc/Unsorted
+* magical portals
+* dragons
+* ancient ruins/castles/dungons
+* magical passage ways to other dimensions
+* legendary artefacts (some could be awesome equipment)
+* named artefacts especially legendary, unique, rare stuff (i.e. LOTR glamdring, sting, ancient mythril armor could have gained a name as well)

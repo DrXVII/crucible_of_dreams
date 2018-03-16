@@ -11,7 +11,9 @@
 
 == basic rendering 2
 * [ ] come up with architecture to keep and call textures
-* [ ] render a tiled floor test-level
+* [ ] implement first version of level files.
+* [ ] create a test level e.g. Ign Alazur - The Ancient Library. Should at least have floor and wall tiles, a few columns/pillars would be good as well.
+* [ ] render the test-level
 
 == mop up
 * [ ] review and refactor changes
