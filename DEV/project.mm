@@ -26,8 +26,9 @@
 <stylenode LOCALIZED_TEXT="styles.subsubtopic" COLOR="#669900">
 <font NAME="Liberation Sans" SIZE="10" BOLD="true"/>
 </stylenode>
-<stylenode LOCALIZED_TEXT="styles.important">
+<stylenode LOCALIZED_TEXT="styles.important" BACKGROUND_COLOR="#ffffff">
 <icon BUILTIN="yes"/>
+<edge COLOR="#cc0000"/>
 </stylenode>
 </stylenode>
 <stylenode LOCALIZED_TEXT="styles.AutomaticLayout" POSITION="right">
@@ -51,9 +52,99 @@
 </map_styles>
 </hook>
 <font NAME="Ubuntu"/>
+<node TEXT="project management" LOCALIZED_STYLE_REF="styles.important" POSITION="left" ID="ID_1310023025" CREATED="1522506889089" MODIFIED="1522507843358">
+<icon BUILTIN="full-1"/>
+<node TEXT="move to a closed repo" LOCALIZED_STYLE_REF="styles.important" ID="ID_851671823" CREATED="1522506896592" MODIFIED="1522507856203"><richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      the options include:
+    </p>
+    <p>
+      * payed git-hub account
+    </p>
+    <p>
+      * bit-bucket
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="think on additional backup means" ID="ID_850386282" CREATED="1522506937312" MODIFIED="1522508142545"><richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      ideas:
+    </p>
+    <p>
+      * external HDD
+    </p>
+    <p>
+      * semi/automatic sync to own R-pi server with HDD attached
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="get something like a kanban board started" ID="ID_1604000880" CREATED="1522507066294" MODIFIED="1522507600019"><richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      options include:
+    </p>
+    <p>
+      * trello
+    </p>
+    <p>
+      * github project
+    </p>
+    <p>
+      * look for more solutions
+    </p>
+  </body>
+</html>
+
+</richcontent>
+<richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      * git hub project?
+    </p>
+    <p>
+      * trello board
+    </p>
+    <p>
+      * something else? (look around)
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="lay out a rough roadmap with milestones with dates" ID="ID_1414516550" CREATED="1522508291963" MODIFIED="1522508326071"/>
+</node>
 <node TEXT="GUI" POSITION="right" ID="ID_645972176" CREATED="1521199856441" MODIFIED="1521471303747">
 <edge COLOR="#000099"/>
-<node TEXT="main view" ID="ID_1378555589" CREATED="1521201067961" MODIFIED="1521201078954">
+<node TEXT="main game screen" ID="ID_1378555589" CREATED="1521201067961" MODIFIED="1522505075881">
 <node TEXT="game_text_log" ID="ID_1148108455" CREATED="1521199882916" MODIFIED="1521200958291"><richcontent TYPE="NOTE">
 
 <html>
@@ -96,8 +187,9 @@
 <node TEXT="main menu" ID="ID_1819114896" CREATED="1521201320872" MODIFIED="1521201330408"/>
 <node TEXT="inventory" ID="ID_1549839412" CREATED="1521201330912" MODIFIED="1521201341352"/>
 <node TEXT="journal" ID="ID_1564264248" CREATED="1521201341912" MODIFIED="1521201344041"/>
+<node TEXT="character info" ID="ID_1319047025" CREATED="1522505289002" MODIFIED="1522505295391"/>
+<node TEXT="spells/magic" ID="ID_1778675867" CREATED="1521201351840" MODIFIED="1522506022783"/>
 <node TEXT="abilities" ID="ID_685870306" CREATED="1521201344595" MODIFIED="1521201351353"/>
-<node TEXT="spells" ID="ID_1778675867" CREATED="1521201351840" MODIFIED="1521201353183"/>
 <node TEXT="rest" ID="ID_1242826233" CREATED="1521201353840" MODIFIED="1521201356760"/>
 <node TEXT="time of day (skyline)" ID="ID_97537996" CREATED="1521201573360" MODIFIED="1521201594888"/>
 <node TEXT="pause" ID="ID_1929336685" CREATED="1521201596752" MODIFIED="1521201600719"/>
@@ -112,17 +204,83 @@
 <node TEXT="direction of north" ID="ID_563071002" CREATED="1521201090113" MODIFIED="1521201123420"/>
 <node TEXT="? date year/month/day" ID="ID_1172604771" CREATED="1521206724946" MODIFIED="1521206749579"/>
 </node>
+<node TEXT="inventory window" ID="ID_1483204129" CREATED="1522505268715" MODIFIED="1522505280503"/>
+<node TEXT="main menu" ID="ID_1816847510" CREATED="1522505078187" MODIFIED="1522505089984"/>
+<node TEXT="GUI tools" ID="ID_1390755594" CREATED="1522505112172" MODIFIED="1522505120784">
+<node TEXT="button" ID="ID_1887095688" CREATED="1522505200331" MODIFIED="1522505209304"/>
+<node TEXT="scrollable list" ID="ID_371880663" CREATED="1522505209619" MODIFIED="1522505215520"/>
+<node TEXT="button menu" ID="ID_476590784" CREATED="1522505222491" MODIFIED="1522505227695"/>
+<node TEXT="tick box" ID="ID_1483449338" CREATED="1522505232227" MODIFIED="1522505240024"/>
+</node>
 </node>
 <node TEXT="gameplay" POSITION="right" ID="ID_1493560594" CREATED="1521199867552" MODIFIED="1521471272603">
 <edge COLOR="#000099"/>
-<node TEXT="time of day" ID="ID_876211035" CREATED="1521206831757" MODIFIED="1521206835050">
+<node TEXT="flow of time" ID="ID_876211035" CREATED="1521206831757" MODIFIED="1522505458793">
+<node TEXT="time of day" ID="ID_305659650" CREATED="1522505524018" MODIFIED="1522505527670">
 <node TEXT="creatures of the night" ID="ID_272247280" CREATED="1521449335655" MODIFIED="1521449342391"/>
+<node TEXT="character (not only NPC) bahaviour" ID="ID_1835380583" CREATED="1522505529561" MODIFIED="1522505559190"/>
+</node>
+<node TEXT="effects" ID="ID_1665163901" CREATED="1522505460850" MODIFIED="1522505465871">
+<node TEXT="health regeneration" ID="ID_1410951259" CREATED="1522505478626" MODIFIED="1522505487646"/>
+<node TEXT="stamina regeneration" ID="ID_1071766336" CREATED="1522505495650" MODIFIED="1522505502102"/>
+<node TEXT="rest" ID="ID_1892234499" CREATED="1522505657337" MODIFIED="1522505658149"/>
+</node>
+<node TEXT="traveling" ID="ID_1293654211" CREATED="1522505664081" MODIFIED="1522505677917"/>
+<node TEXT="different dimensions/planes" ID="ID_1527456771" CREATED="1522505708064" MODIFIED="1522505717101"/>
 </node>
 <node TEXT="combat" ID="ID_1448152466" CREATED="1521206835603" MODIFIED="1521206842546">
-<node TEXT="turn based or real-time with pause ?" ID="ID_498224140" CREATED="1521206851402" MODIFIED="1521206877858"/>
+<node TEXT="turn based or real-time with pause ?" ID="ID_498224140" CREATED="1521206851402" MODIFIED="1522508795844"><richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      see existing solutions in RPG and CRPG systems.
+    </p>
+    <p>
+      
+    </p>
+    <p>
+      Heard something about initiative scores in D&amp;D, how does GURPS handle that.
+    </p>
+    <p>
+      A straight-forward turn based system doesn't sound as the best thing probably, but simple real-time might be too far from tabletop RPG roots. I feel like character speed should be a factor in this, and players do take turns naturally when plaing a tabletop RPG, so it feels like it should be something turn-based'ey... with some sort of a twist maybe?
+    </p>
+  </body>
+</html>
+
+</richcontent>
 </node>
-<node TEXT="rules system" ID="ID_1371799708" CREATED="1521448693769" MODIFIED="1521448704921">
-<node TEXT="classes" ID="ID_1173923451" CREATED="1521448709839" MODIFIED="1521448714696">
+</node>
+<node TEXT="rules system" ID="ID_1371799708" CREATED="1521448693769" MODIFIED="1522505867767">
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="80" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_849925476" STARTINCLINATION="164;0;" ENDINCLINATION="164;0;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
+<node TEXT="classes" ID="ID_1173923451" CREATED="1521448709839" MODIFIED="1522508511447">
+<icon BUILTIN="messagebox_warning"/>
+<richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Have a good long think how much the classes/professions should be enforced.
+    </p>
+    <p>
+      Could avoid classes alltogetger, and instead have a selection of skills, possibly with grouping possibility for convenience, with some grapihcal guides to highlight which skills are more fitting to which profession(s).
+    </p>
+    <p>
+      
+    </p>
+    <p>
+      see some RPG systems lige D&amp;D, Pathfinder, GURPS, etc... for some ideas. Allso, consider how CRPGs implement that.
+    </p>
+  </body>
+</html>
+
+</richcontent>
 <node TEXT="warrior" ID="ID_1366656955" CREATED="1521448723059" MODIFIED="1521448726440"/>
 <node TEXT="mage" ID="ID_434168275" CREATED="1521448729174" MODIFIED="1521448730337"/>
 <node TEXT="rogue/thief" ID="ID_622529581" CREATED="1521448737173" MODIFIED="1521448757544"/>
@@ -131,10 +289,18 @@
 <node TEXT="sorcerer" ID="ID_610272894" CREATED="1521449388472" MODIFIED="1521449391046"/>
 </node>
 </node>
+<node TEXT="unseen/hidden areas" ID="ID_1895349804" CREATED="1522509387864" MODIFIED="1522509448893"/>
+<node TEXT="? line of sight" ID="ID_185159235" CREATED="1522509449711" MODIFIED="1522509455203"/>
 </node>
-<node TEXT="todo reasearch" POSITION="right" ID="ID_1749869023" CREATED="1521448763958" MODIFIED="1521801822186">
+<node TEXT="graphics" POSITION="right" ID="ID_414721570" CREATED="1522505130771" MODIFIED="1522506848774">
 <edge COLOR="#000099"/>
-<node TEXT="explore existing systems" ID="ID_849925476" CREATED="1521448784790" MODIFIED="1521449012733"><richcontent TYPE="NOTE">
+<node TEXT="GUI" ID="ID_143614907" CREATED="1522505157907" MODIFIED="1522505190183"/>
+</node>
+<node TEXT="do reasearch" POSITION="right" ID="ID_1749869023" CREATED="1521448763958" MODIFIED="1522508396096">
+<edge COLOR="#000099"/>
+<node TEXT="explore existing systems" ID="ID_849925476" CREATED="1521448784790" MODIFIED="1522508380354">
+<icon BUILTIN="0%"/>
+<richcontent TYPE="NOTE">
 
 <html>
   <head>
@@ -198,20 +364,44 @@
 <node TEXT="Shadowrun" ID="ID_1635537742" CREATED="1521449113431" MODIFIED="1521449116383"/>
 <node TEXT="World of Darkness" ID="ID_703806060" CREATED="1521449222575" MODIFIED="1521449241839"/>
 </node>
-<node TEXT="play/look at games" ID="ID_684576517" CREATED="1521449509728" MODIFIED="1521449515408">
-<node TEXT="classic RPGs [8/500h]" ID="ID_1000386887" CREATED="1521467187736" MODIFIED="1521804760201">
+<node TEXT="play/look at games" ID="ID_684576517" CREATED="1521449509728" MODIFIED="1522508368557">
 <icon BUILTIN="0%"/>
-<node TEXT="Baldur&apos;s Gate" ID="ID_1130777398" CREATED="1521449552632" MODIFIED="1521465180715">
+<node TEXT="classic RPGs [18/500h]" ID="ID_1000386887" CREATED="1521467187736" MODIFIED="1522506109795">
 <icon BUILTIN="0%"/>
+<node TEXT="Baldur&apos;s Gate (playthrough)" ID="ID_1130777398" CREATED="1521449552632" MODIFIED="1522506690650">
+<icon BUILTIN="0%"/>
+<hook NAME="plugins/TimeManagementReminder.xml">
+    <Parameters REMINDUSERAT="1527949680000" PERIOD="1" UNIT="DAY"/>
+</hook>
 </node>
-<node TEXT="Baldur&apos;s Gate 2" ID="ID_1479338201" CREATED="1521464874603" MODIFIED="1521464878644"/>
-<node TEXT="Icewind Dale 1" ID="ID_1187137767" CREATED="1521449560192" MODIFIED="1521464903908"/>
-<node TEXT="Icewind Dale 2" ID="ID_1021522075" CREATED="1521464904971" MODIFIED="1521464908115"/>
-<node TEXT="Neverwinter Nights 1" ID="ID_1227599727" CREATED="1521449565248" MODIFIED="1521464911500"/>
-<node TEXT="Neverwinter Nights 2" ID="ID_442355214" CREATED="1521464912611" MODIFIED="1521464916186"/>
-<node TEXT="Planescape Torment" ID="ID_298382815" CREATED="1521449572272" MODIFIED="1521449717151"/>
-<node TEXT="Divine/Beyond Divinity" ID="ID_1185408949" CREATED="1521449733232" MODIFIED="1521449753053"/>
-<node TEXT="Lands of Lore 1&amp;2" ID="ID_427815663" CREATED="1521450091481" MODIFIED="1521450101652"/>
+<node TEXT="Baldur&apos;s Gate 2 (playthrough)" ID="ID_1479338201" CREATED="1521464874603" MODIFIED="1522503920249"/>
+<node TEXT="Icewind Dale 1 (playthrough)" ID="ID_1187137767" CREATED="1521449560192" MODIFIED="1522503925296"/>
+<node TEXT="Icewind Dale 2 (playthrough)" ID="ID_1021522075" CREATED="1521464904971" MODIFIED="1522503929905"/>
+<node TEXT="Neverwinter Nights 1 (playthrough)" ID="ID_1227599727" CREATED="1521449565248" MODIFIED="1522503934304"/>
+<node TEXT="Neverwinter Nights 2 (playthrough)" ID="ID_442355214" CREATED="1521464912611" MODIFIED="1522503938592"/>
+<node TEXT="Planescape Torment (playthrough)" ID="ID_298382815" CREATED="1521449572272" MODIFIED="1522503958308"/>
+<node TEXT="Divine/Beyond Divinity (playthrough, LP?)" ID="ID_1185408949" CREATED="1521449733232" MODIFIED="1522505974355"/>
+<node TEXT="Lands of Lore 1&amp;2" ID="ID_427815663" CREATED="1521450091481" MODIFIED="1522503866942">
+<icon BUILTIN="25%"/>
+<node TEXT="Lands of Lore 1: The Throne of Chaos (LP, try?)" ID="ID_826818221" CREATED="1522503608230" MODIFIED="1522505936631">
+<icon BUILTIN="50%"/>
+<richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      let's play by Kikoskia on Youtube: https://www.youtube.com/playlist?list=PLTvwKQHVid4aalhMpFaUp3VkmLxMDnJHO
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="Lands of Lore 2: (LP, quick LP?, try?)" ID="ID_966059404" CREATED="1522503873204" MODIFIED="1522505950846"/>
+</node>
 </node>
 <node TEXT="new classic RPGs" ID="ID_1213726331" CREATED="1521449719136" MODIFIED="1521450006034">
 <node TEXT="Planescape Tides of Numenera" ID="ID_1636256960" CREATED="1521449758153" MODIFIED="1521449777655"/>
@@ -377,7 +567,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>

@@ -1,25 +1,25 @@
 = IDEAS
 
 == The combat system should be interesting
-The combat system should be interesting for all types of characters, but not too cumbersom to take too much time to use.
+The combat system should be interesting for all types of characters, but not too cumbersome to take too much time to use.
 
 === Magic
-* The caster should be able to cast spells at various levels of potency. e.g. chose the precentage or power-level for a spell when binding to a quick slot. Ammount of flexibility could be affected by a "mana-control" proficiency skill.
-* Some traits/skills should affect mana points, magick potency, etc.
+* The caster should be able to cast spells at various levels of potency. e.g. chose the percentage or power-level for a spell when binding to a quick slot. Amount of flexibility could be affected by a "mana-control" proficiency skill.
+* Some traits/skills should affect mana points, magic potency, etc.
 * stealth could play a part.
 * (? could make things over-complicated) charged trinkets could be used to power-up or even cast some spells.
 
 === Melee
-* Strength skill could affect damage, wepon skill should reduce fatigue needed for attacks, dexterity should affect to-hit ratios.
-* If weilding a weapon with requirements for another proficiency, a fighter skilled enough in a different proficiency should still get some bonus compared to non-fighters i.e. some skills should default to others at a penalty.
+* Strength skill could affect damage, weapon skill should reduce fatigue needed for attacks, dexterity should affect to-hit ratios.
+* If wielding a weapon with requirements for another proficiency, a fighter skilled enough in a different proficiency should still get some bonus compared to non-fighters i.e. some skills should default to others at a penalty.
 * Possible to enchant the weapon temporarily via magic or potion/salve.
 * stealth could play some part.
 
 === Ranged
-* Strength should affect range, proficiency should affect accuracy and fatigue, perception should (?)conciderably affect accuracy.
+* Strength should affect range, proficiency should affect accuracy and fatigue, perception should (?)considerably affect accuracy.
 * stealth could play a big part.
 * special projectiles (e.g. poison, enchanted arrows, etc)
-* weapon could be enchanted and charged to enchant it's on shot for a limited ammount shots/time.
+* weapon could be enchanted and charged to enchant it's on shot for a limited amount shots/time.
 
 === All
 * Potions, charged trinkets, etc to temporarily enhance ability, etc.
@@ -43,9 +43,24 @@ Could be some levels or quests e.g. go find/kill something beneath/close-to this
 Other planes e.g. Astral, Arcane plane accessible through some long-forgotten magical door or a higher level spell.
 
 == Misc/Unsorted
+* providing more than one means to acquire a quest/puzzle item or more than one place to acquire it seems like a good idea for a varied play-through ability (e.g. characters/parties with various strengths), and adds to replay value.
+* varied means of transportation between levels/areas (e.g. minecart ride, magnetic tunnel, falling/climbing down a pit)
+* additional means of distant travel: horse/carriage/boat/ship/air-ship
+* magical means of traveling and moving in general: teleport/fly/water-breathing+water-current/hover
+* bows/weapons that can shoot fireballs or other spells (at the expense of stamina?)
+* unseen/hidden areas (perception and rogue/tief skills come into play)
+* line of sight
+* enemies immune to most forms of attack, and enemies that can only be defeated with special artefacts.
+* explosives mundane and magical
+* trapped chests/doors
+* special locks & special keys
+* magic warded areas and magic locks on chests & doors
+* party members one can rescue
+* secret doors
+* breakable walls
 * magical portals
 * dragons
-* ancient ruins/castles/dungons
+* ancient ruins/castles/dungeons
 * magical passage ways to other dimensions
 * legendary artefacts (some could be awesome equipment)
 * named artefacts especially legendary, unique, rare stuff (i.e. LOTR glamdring, sting, ancient mythril armor could have gained a name as well)
