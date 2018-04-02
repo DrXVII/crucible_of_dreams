@@ -43,6 +43,11 @@ Could be some levels or quests e.g. go find/kill something beneath/close-to this
 Other planes e.g. Astral, Arcane plane accessible through some long-forgotten magical door or a higher level spell.
 
 == Misc/Unsorted
+* maps
+* resting
+** fatigue/sleep deprivation
+** ? setting up watch
+** resting in unsafe areas e.g. waking up to enemy ambush, or waking up to FIREBALLS, etc.
 * traps
 ** traps that transport a character or the entire party e.g. slides, pits, teleports, interplanary/planetary teleports, etc
 ** traps that summon creatures e.g. raises the nearby skeletons, calls creatures, summons elemental beasts
