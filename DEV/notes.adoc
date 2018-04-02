@@ -43,6 +43,10 @@ Could be some levels or quests e.g. go find/kill something beneath/close-to this
 Other planes e.g. Astral, Arcane plane accessible through some long-forgotten magical door or a higher level spell.
 
 == Misc/Unsorted
+* traps
+** traps that transport a character or the entire party e.g. slides, pits, teleports, interplanary/planetary teleports, etc
+** traps that summon creatures e.g. raises the nearby skeletons, calls creatures, summons elemental beasts
+** traps that lock one in (and you have to solve a puzzle and/or have a special item to get out)
 * magic can affect the enfironment (e.g. freezing spells freze swamp water and the party can safely walk over, fire spell sets off explosives/burns spider-webs/destroys monster nests/ etc.)
 * providing more than one means to acquire a quest/puzzle item or more than one place to acquire it seems like a good idea for a varied play-through ability (e.g. characters/parties with various strengths), and adds to replay value.
 * varied means of transportation between levels/areas (e.g. minecart ride, magnetic tunnel, falling/climbing down a pit)
