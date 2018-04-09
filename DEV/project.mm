@@ -54,27 +54,10 @@
 <font NAME="Ubuntu"/>
 <node TEXT="project management" LOCALIZED_STYLE_REF="styles.important" POSITION="left" ID="ID_1310023025" CREATED="1522506889089" MODIFIED="1522507843358">
 <icon BUILTIN="full-1"/>
-<node TEXT="move to a closed repo" LOCALIZED_STYLE_REF="styles.important" ID="ID_851671823" CREATED="1522506896592" MODIFIED="1522507856203"><richcontent TYPE="NOTE">
-
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      the options include:
-    </p>
-    <p>
-      * payed git-hub account
-    </p>
-    <p>
-      * bit-bucket
-    </p>
-  </body>
-</html>
-
-</richcontent>
+<node TEXT="move to a closed repo" LOCALIZED_STYLE_REF="styles.important" ID="ID_851671823" CREATED="1522506896592" MODIFIED="1523261934690">
+<icon BUILTIN="button_ok"/>
 </node>
+<node TEXT="remove old open repo" ID="ID_621617574" CREATED="1523261501707" MODIFIED="1523261511515"/>
 <node TEXT="think on additional backup means" ID="ID_850386282" CREATED="1522506937312" MODIFIED="1522508142545"><richcontent TYPE="NOTE">
 
 <html>
@@ -93,10 +76,9 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
-<node TEXT="get something like a kanban board started" ID="ID_1604000880" CREATED="1522507066294" MODIFIED="1522507600019"><richcontent TYPE="NOTE">
+<node TEXT="get something like a kanban board started" ID="ID_1604000880" CREATED="1522507066294" MODIFIED="1523261582996"><richcontent TYPE="DETAILS">
 
 <html>
   <head>
@@ -104,36 +86,7 @@
   </head>
   <body>
     <p>
-      options include:
-    </p>
-    <p>
-      * trello
-    </p>
-    <p>
-      * github project
-    </p>
-    <p>
-      * look for more solutions
-    </p>
-  </body>
-</html>
-
-</richcontent>
-<richcontent TYPE="DETAILS">
-
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      * git hub project?
-    </p>
-    <p>
-      * trello board
-    </p>
-    <p>
-      * something else? (look around)
+      * trello board (plus a board for milestones)
     </p>
   </body>
 </html>
@@ -250,7 +203,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -279,7 +231,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="warrior" ID="ID_1366656955" CREATED="1521448723059" MODIFIED="1521448726440"/>
 <node TEXT="mage" ID="ID_434168275" CREATED="1521448729174" MODIFIED="1521448730337"/>
@@ -366,7 +317,7 @@
 </node>
 <node TEXT="play/look at games" ID="ID_684576517" CREATED="1521449509728" MODIFIED="1522508368557">
 <icon BUILTIN="0%"/>
-<node TEXT="classic RPGs [18/500h]" ID="ID_1000386887" CREATED="1521467187736" MODIFIED="1522506109795">
+<node TEXT="classic RPGs [23/500h]" ID="ID_1000386887" CREATED="1521467187736" MODIFIED="1523261203293">
 <icon BUILTIN="0%"/>
 <node TEXT="Baldur&apos;s Gate (playthrough)" ID="ID_1130777398" CREATED="1521449552632" MODIFIED="1522506690650">
 <icon BUILTIN="0%"/>
@@ -380,11 +331,15 @@
 <node TEXT="Neverwinter Nights 1 (playthrough)" ID="ID_1227599727" CREATED="1521449565248" MODIFIED="1522503934304"/>
 <node TEXT="Neverwinter Nights 2 (playthrough)" ID="ID_442355214" CREATED="1521464912611" MODIFIED="1522503938592"/>
 <node TEXT="Planescape Torment (playthrough)" ID="ID_298382815" CREATED="1521449572272" MODIFIED="1522503958308"/>
-<node TEXT="Divine/Beyond Divinity (playthrough, LP?)" ID="ID_1185408949" CREATED="1521449733232" MODIFIED="1522505974355"/>
+<node TEXT="Divinity 1&amp;2 (playthrough, LP?)" ID="ID_1185408949" CREATED="1521449733232" MODIFIED="1523261835927">
+<node TEXT="Divine Divinity" ID="ID_684758750" CREATED="1523261837860" MODIFIED="1523261841493"/>
+<node TEXT="Beyond Divinity" ID="ID_599359666" CREATED="1523261841956" MODIFIED="1523261846051"/>
+</node>
 <node TEXT="Lands of Lore 1&amp;2" ID="ID_427815663" CREATED="1521450091481" MODIFIED="1522503866942">
 <icon BUILTIN="25%"/>
-<node TEXT="Lands of Lore 1: The Throne of Chaos (LP, try?)" ID="ID_826818221" CREATED="1522503608230" MODIFIED="1522505936631">
-<icon BUILTIN="50%"/>
+<node TEXT="Lands of Lore 1: The Throne of Chaos (LP, try?)" ID="ID_826818221" CREATED="1522503608230" MODIFIED="1523261040406">
+<icon BUILTIN="button_ok"/>
+<icon BUILTIN="100%"/>
 <richcontent TYPE="NOTE">
 
 <html>
@@ -397,7 +352,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="Lands of Lore 2: (LP, quick LP?, try?)" ID="ID_966059404" CREATED="1522503873204" MODIFIED="1522505950846"/>
@@ -550,9 +504,8 @@
 </node>
 <node TEXT="fantasy tbs" ID="ID_642337317" CREATED="1521450113249" MODIFIED="1521469579185">
 <node TEXT="Age of Wonders 1-3" ID="ID_1306278671" CREATED="1521450137041" MODIFIED="1521450142824"/>
-<node TEXT="Heroes of Might &amp; Magic 2-5" ID="ID_1304318995" CREATED="1521450144753" MODIFIED="1521464894074"/>
 <node TEXT="Disciples 1 &amp; 2" ID="ID_1769289285" CREATED="1521464742028" MODIFIED="1521464746795"/>
-<node TEXT="King&apos;s Bounty" ID="ID_1138555611" CREATED="1521801894005" MODIFIED="1521802146882"><richcontent TYPE="NOTE">
+<node TEXT="King&apos;s Bounty" ID="ID_1138555611" CREATED="1521801894005" MODIFIED="1523261222815"><richcontent TYPE="NOTE">
 
 <html>
   <head>
@@ -567,8 +520,10 @@
     </p>
   </body>
 </html>
+
 </richcontent>
 </node>
+<node TEXT="Heroes of Might &amp; Magic 2-5" ID="ID_1304318995" CREATED="1521450144753" MODIFIED="1521464894074"/>
 </node>
 <node TEXT="fantasy rts" ID="ID_1727486626" CREATED="1521469587618" MODIFIED="1521469599019">
 <node TEXT="War Wind 1&amp;2" ID="ID_639606358" CREATED="1521469611408" MODIFIED="1521470965194"/>
