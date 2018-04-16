@@ -78,7 +78,7 @@
 </html>
 </richcontent>
 </node>
-<node TEXT="get something like a kanban board started" ID="ID_1604000880" CREATED="1522507066294" MODIFIED="1523261582996"><richcontent TYPE="DETAILS">
+<node TEXT="get something like a kanban board started" ID="ID_1604000880" CREATED="1522507066294" MODIFIED="1523898473429"><richcontent TYPE="NOTE">
 
 <html>
   <head>
@@ -86,14 +86,86 @@
   </head>
   <body>
     <p>
-      * trello board (plus a board for milestones)
+      options include:
+    </p>
+    <p>
+      * trello
+    </p>
+    <p>
+      * github project
+    </p>
+    <p>
+      * look for more solutions
     </p>
   </body>
 </html>
+</richcontent>
+<richcontent TYPE="DETAILS">
 
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      * <b>manage it from (this) mind-map</b>
+    </p>
+    <p>
+      * trello board?
+    </p>
+    <p>
+      * treesheets?
+    </p>
+  </body>
+</html>
 </richcontent>
 </node>
 <node TEXT="lay out a rough roadmap with milestones with dates" ID="ID_1414516550" CREATED="1522508291963" MODIFIED="1522508326071"/>
+<node TEXT="tasks" ID="ID_1909777044" CREATED="1523898800197" MODIFIED="1523898820486"/>
+<node TEXT="roadmap" ID="ID_1643727211" CREATED="1523898821261" MODIFIED="1523898823450">
+<node TEXT="research games" ID="ID_875046253" CREATED="1523898825069" MODIFIED="1523899622267">
+<icon BUILTIN="0%"/>
+<hook URI="freeplaneresource:/images/svg/Progress_tenth_01.svg" SIZE="1.0" NAME="ExternalObject"/>
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="80" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1749869023" STARTINCLINATION="718;0;" ENDINCLINATION="718;0;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
+</node>
+<node TEXT="few levels for playground/testing" ID="ID_642468326" CREATED="1523898951219" MODIFIED="1523899118885">
+<icon BUILTIN="0%"/>
+<hook URI="freeplaneresource:/images/svg/Progress_tenth_00.svg" SIZE="1.0" NAME="ExternalObject"/>
+</node>
+<node TEXT="decide on movement rules" ID="ID_1595310480" CREATED="1523898840586" MODIFIED="1523899129794">
+<icon BUILTIN="0%"/>
+<richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      tile-based or free?
+    </p>
+  </body>
+</html>
+</richcontent>
+<hook URI="freeplaneresource:/images/svg/Progress_tenth_00.svg" SIZE="1.0" NAME="ExternalObject"/>
+</node>
+<node TEXT="decide on combat &amp; skill, etc rules" ID="ID_1179833898" CREATED="1523898880236" MODIFIED="1523899136883">
+<icon BUILTIN="0%"/>
+<hook URI="freeplaneresource:/images/svg/Progress_tenth_00.svg" SIZE="1.0" NAME="ExternalObject"/>
+</node>
+<node TEXT="first version of fully functional GUI" ID="ID_51349897" CREATED="1523898991811" MODIFIED="1523899158267">
+<icon BUILTIN="0%"/>
+<hook URI="freeplaneresource:/images/svg/Progress_tenth_00.svg" SIZE="1.0" NAME="ExternalObject"/>
+</node>
+<node TEXT="setting" ID="ID_1895058731" CREATED="1523899466881" MODIFIED="1523901435635">
+<icon BUILTIN="0%"/>
+<hook URI="freeplaneresource:/images/svg/Progress_tenth_00.svg" SIZE="1.0" NAME="ExternalObject"/>
+</node>
+<node TEXT="story" ID="ID_34138742" CREATED="1523899470224" MODIFIED="1523899495490">
+<icon BUILTIN="0%"/>
+<hook URI="freeplaneresource:/images/svg/Progress_tenth_00.svg" SIZE="1.0" NAME="ExternalObject"/>
+</node>
+</node>
 </node>
 <node TEXT="GUI" POSITION="right" ID="ID_645972176" CREATED="1521199856441" MODIFIED="1521471303747">
 <edge COLOR="#000099"/>
@@ -247,7 +319,24 @@
 <edge COLOR="#000099"/>
 <node TEXT="GUI" ID="ID_143614907" CREATED="1522505157907" MODIFIED="1522505190183"/>
 </node>
-<node TEXT="do reasearch" POSITION="right" ID="ID_1749869023" CREATED="1521448763958" MODIFIED="1522508396096">
+<node TEXT="gameworld" POSITION="right" ID="ID_1428979350" CREATED="1523900431091" MODIFIED="1523901453379">
+<edge COLOR="#0000cc"/>
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="80" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1895058731" STARTINCLINATION="608;0;" ENDINCLINATION="608;0;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
+<node TEXT="places" ID="ID_972821133" CREATED="1523899762743" MODIFIED="1523900070584">
+<node TEXT="overworld" ID="ID_1158081633" CREATED="1523899769559" MODIFIED="1523899773798">
+<node TEXT="sky ruler city" ID="ID_1910882644" CREATED="1523899786943" MODIFIED="1523899817153"/>
+<node TEXT="the chasm" ID="ID_965260102" CREATED="1523899832503" MODIFIED="1523899841507"/>
+<node TEXT="realms" ID="ID_433691568" CREATED="1523899847655" MODIFIED="1523899890215"/>
+<node TEXT="more regions" ID="ID_508471641" CREATED="1523899822895" MODIFIED="1523900088471"/>
+</node>
+<node TEXT="underworld" ID="ID_1959289887" CREATED="1523899774055" MODIFIED="1523899778111">
+<node TEXT="shallows" ID="ID_1372906651" CREATED="1523899899393" MODIFIED="1523899970523"/>
+<node TEXT="the depths" ID="ID_241610251" CREATED="1523899947182" MODIFIED="1523899960302"/>
+<node TEXT="fey-dark" ID="ID_1283609369" CREATED="1523900040473" MODIFIED="1523900047344"/>
+</node>
+</node>
+</node>
+<node TEXT="do reasearch" POSITION="right" ID="ID_1749869023" CREATED="1521448763958" MODIFIED="1523901432106">
 <edge COLOR="#000099"/>
 <node TEXT="explore existing systems" ID="ID_849925476" CREATED="1521448784790" MODIFIED="1522508380354">
 <icon BUILTIN="0%"/>
@@ -520,7 +609,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="Heroes of Might &amp; Magic 2-5" ID="ID_1304318995" CREATED="1521450144753" MODIFIED="1521464894074"/>
