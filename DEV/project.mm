@@ -52,11 +52,10 @@
 </map_styles>
 </hook>
 <font NAME="Ubuntu"/>
-<node TEXT="project management" LOCALIZED_STYLE_REF="styles.important" POSITION="left" ID="ID_1310023025" CREATED="1522506889089" MODIFIED="1522507843358">
-<icon BUILTIN="full-1"/>
-<node TEXT="move to a closed repo" LOCALIZED_STYLE_REF="styles.important" ID="ID_851671823" CREATED="1522506896592" MODIFIED="1523261934690">
-<icon BUILTIN="button_ok"/>
-</node>
+<node TEXT="project management" LOCALIZED_STYLE_REF="default" POSITION="left" ID="ID_1310023025" CREATED="1522506889089" MODIFIED="1524300272799">
+<node TEXT="tasks" ID="ID_1909777044" CREATED="1523898800197" MODIFIED="1523898820486">
+<node TEXT="backlog" ID="ID_1011090692" CREATED="1524298617489" MODIFIED="1524298634317"/>
+<node TEXT="todo" ID="ID_1702525652" CREATED="1524298634943" MODIFIED="1524298638024">
 <node TEXT="remove old open repo" ID="ID_621617574" CREATED="1523261501707" MODIFIED="1523261511515"/>
 <node TEXT="think on additional backup means" ID="ID_850386282" CREATED="1522506937312" MODIFIED="1522508142545"><richcontent TYPE="NOTE">
 
@@ -78,7 +77,17 @@
 </html>
 </richcontent>
 </node>
-<node TEXT="get something like a kanban board started" ID="ID_1604000880" CREATED="1522507066294" MODIFIED="1523898473429"><richcontent TYPE="NOTE">
+</node>
+<node TEXT="in progress" ID="ID_431900866" CREATED="1524298638614" MODIFIED="1524298640953">
+<node TEXT="lay out a rough roadmap with milestones with dates" ID="ID_1414516550" CREATED="1522508291963" MODIFIED="1522508326071"/>
+</node>
+<node TEXT="done" ID="ID_232780383" CREATED="1524300395577" MODIFIED="1524300397148">
+<node TEXT="move to a closed repo" LOCALIZED_STYLE_REF="default" ID="ID_851671823" CREATED="1522506896592" MODIFIED="1524300300883">
+<icon BUILTIN="button_ok"/>
+</node>
+<node TEXT="get something like a kanban board started" ID="ID_1604000880" CREATED="1522507066294" MODIFIED="1524300322361">
+<icon BUILTIN="button_ok"/>
+<richcontent TYPE="NOTE">
 
 <html>
   <head>
@@ -120,19 +129,23 @@
 </html>
 </richcontent>
 </node>
-<node TEXT="lay out a rough roadmap with milestones with dates" ID="ID_1414516550" CREATED="1522508291963" MODIFIED="1522508326071"/>
-<node TEXT="tasks" ID="ID_1909777044" CREATED="1523898800197" MODIFIED="1523898820486"/>
+</node>
+<node TEXT="releases / tags" ID="ID_1616362263" CREATED="1524298642855" MODIFIED="1524305060666">
+<node TEXT="v0.0.1 (2018-xx-xx)" ID="ID_1408200913" CREATED="1524298647672" MODIFIED="1524298706646"/>
+<node TEXT="v0.0.2 (2018-xx-xx)" ID="ID_43048752" CREATED="1524298656895" MODIFIED="1524298716937"/>
+<node TEXT="v0.0.3 (2018-xx-xx)" ID="ID_47341632" CREATED="1524298663071" MODIFIED="1524298719494"/>
+<node TEXT="..." ID="ID_545351620" CREATED="1524298667687" MODIFIED="1524298668937"/>
+</node>
+</node>
 <node TEXT="roadmap" ID="ID_1643727211" CREATED="1523898821261" MODIFIED="1523898823450">
-<node TEXT="research games" ID="ID_875046253" CREATED="1523898825069" MODIFIED="1523899622267">
+<node TEXT="initial research" ID="ID_875046253" CREATED="1523898825069" MODIFIED="1524298970558">
 <icon BUILTIN="0%"/>
 <hook URI="freeplaneresource:/images/svg/Progress_tenth_01.svg" SIZE="1.0" NAME="ExternalObject"/>
 <arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="80" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1749869023" STARTINCLINATION="718;0;" ENDINCLINATION="718;0;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
-</node>
 <node TEXT="few levels for playground/testing" ID="ID_642468326" CREATED="1523898951219" MODIFIED="1523899118885">
 <icon BUILTIN="0%"/>
 <hook URI="freeplaneresource:/images/svg/Progress_tenth_00.svg" SIZE="1.0" NAME="ExternalObject"/>
-</node>
-<node TEXT="decide on movement rules" ID="ID_1595310480" CREATED="1523898840586" MODIFIED="1523899129794">
+<node TEXT="game ruleset" ID="ID_1595310480" CREATED="1523898840586" MODIFIED="1524298897193">
 <icon BUILTIN="0%"/>
 <richcontent TYPE="DETAILS">
 
@@ -142,33 +155,54 @@
   </head>
   <body>
     <p>
-      tile-based or free?
+      * movement model
+    </p>
+    <p>
+      * combat
+    </p>
+    <p>
+      * skills
     </p>
   </body>
 </html>
 </richcontent>
 <hook URI="freeplaneresource:/images/svg/Progress_tenth_00.svg" SIZE="1.0" NAME="ExternalObject"/>
-</node>
-<node TEXT="decide on combat &amp; skill, etc rules" ID="ID_1179833898" CREATED="1523898880236" MODIFIED="1523899136883">
+<node TEXT="GUI" ID="ID_51349897" CREATED="1523898991811" MODIFIED="1524299640170">
 <icon BUILTIN="0%"/>
 <hook URI="freeplaneresource:/images/svg/Progress_tenth_00.svg" SIZE="1.0" NAME="ExternalObject"/>
-</node>
-<node TEXT="first version of fully functional GUI" ID="ID_51349897" CREATED="1523898991811" MODIFIED="1523899158267">
+<node TEXT="setting" ID="ID_1895058731" CREATED="1523899466881" MODIFIED="1524299016200">
 <icon BUILTIN="0%"/>
 <hook URI="freeplaneresource:/images/svg/Progress_tenth_00.svg" SIZE="1.0" NAME="ExternalObject"/>
-</node>
-<node TEXT="setting" ID="ID_1895058731" CREATED="1523899466881" MODIFIED="1523901435635">
-<icon BUILTIN="0%"/>
-<hook URI="freeplaneresource:/images/svg/Progress_tenth_00.svg" SIZE="1.0" NAME="ExternalObject"/>
-</node>
+<hook NAME="FirstGroupNode"/>
 <node TEXT="story" ID="ID_34138742" CREATED="1523899470224" MODIFIED="1523899495490">
 <icon BUILTIN="0%"/>
 <hook URI="freeplaneresource:/images/svg/Progress_tenth_00.svg" SIZE="1.0" NAME="ExternalObject"/>
+<node TEXT="graphics" ID="ID_924207292" CREATED="1524300040540" MODIFIED="1524300052855">
+<icon BUILTIN="0%"/>
+<hook URI="freeplaneresource:/images/svg/Progress_tenth_00.svg" SIZE="1.0" NAME="ExternalObject"/>
+<node TEXT="sound" ID="ID_1787631317" CREATED="1524299031395" MODIFIED="1524299399830">
+<icon BUILTIN="0%"/>
+<hook URI="freeplaneresource:/images/svg/Progress_tenth_00.svg" SIZE="1.0" NAME="ExternalObject"/>
+</node>
+</node>
+</node>
+</node>
+</node>
+</node>
+</node>
 </node>
 </node>
 </node>
 <node TEXT="GUI" POSITION="right" ID="ID_645972176" CREATED="1521199856441" MODIFIED="1521471303747">
 <edge COLOR="#000099"/>
+<node TEXT="GUI tooklit" ID="ID_1390755594" CREATED="1522505112172" MODIFIED="1524304638669">
+<node TEXT="button" ID="ID_1887095688" CREATED="1522505200331" MODIFIED="1522505209304"/>
+<node TEXT="text box" ID="ID_222898649" CREATED="1524304650877" MODIFIED="1524304653463"/>
+<node TEXT="scrollable list" ID="ID_371880663" CREATED="1522505209619" MODIFIED="1522505215520"/>
+<node TEXT="button menu" ID="ID_476590784" CREATED="1522505222491" MODIFIED="1522505227695"/>
+<node TEXT="tick box" ID="ID_1483449338" CREATED="1522505232227" MODIFIED="1522505240024"/>
+<node TEXT="element grouping / relative linkage" ID="ID_381901278" CREATED="1524304671690" MODIFIED="1524304685422"/>
+</node>
 <node TEXT="main game screen" ID="ID_1378555589" CREATED="1521201067961" MODIFIED="1522505075881">
 <node TEXT="game_text_log" ID="ID_1148108455" CREATED="1521199882916" MODIFIED="1521200958291"><richcontent TYPE="NOTE">
 
@@ -229,14 +263,12 @@
 <node TEXT="direction of north" ID="ID_563071002" CREATED="1521201090113" MODIFIED="1521201123420"/>
 <node TEXT="? date year/month/day" ID="ID_1172604771" CREATED="1521206724946" MODIFIED="1521206749579"/>
 </node>
+<node TEXT="general info tabs" ID="ID_1066520524" CREATED="1524304921643" MODIFIED="1524304954147">
 <node TEXT="inventory window" ID="ID_1483204129" CREATED="1522505268715" MODIFIED="1522505280503"/>
-<node TEXT="main menu" ID="ID_1816847510" CREATED="1522505078187" MODIFIED="1522505089984"/>
-<node TEXT="GUI tools" ID="ID_1390755594" CREATED="1522505112172" MODIFIED="1522505120784">
-<node TEXT="button" ID="ID_1887095688" CREATED="1522505200331" MODIFIED="1522505209304"/>
-<node TEXT="scrollable list" ID="ID_371880663" CREATED="1522505209619" MODIFIED="1522505215520"/>
-<node TEXT="button menu" ID="ID_476590784" CREATED="1522505222491" MODIFIED="1522505227695"/>
-<node TEXT="tick box" ID="ID_1483449338" CREATED="1522505232227" MODIFIED="1522505240024"/>
+<node TEXT="spellbook" ID="ID_1400094240" CREATED="1524304833092" MODIFIED="1524304835467"/>
+<node TEXT="character sheet" ID="ID_412645833" CREATED="1524304839635" MODIFIED="1524304848491"/>
 </node>
+<node TEXT="main menu" ID="ID_1816847510" CREATED="1522505078187" MODIFIED="1522505089984"/>
 </node>
 <node TEXT="gameplay" POSITION="right" ID="ID_1493560594" CREATED="1521199867552" MODIFIED="1521471272603">
 <edge COLOR="#000099"/>
@@ -253,8 +285,7 @@
 <node TEXT="traveling" ID="ID_1293654211" CREATED="1522505664081" MODIFIED="1522505677917"/>
 <node TEXT="different dimensions/planes" ID="ID_1527456771" CREATED="1522505708064" MODIFIED="1522505717101"/>
 </node>
-<node TEXT="combat" ID="ID_1448152466" CREATED="1521206835603" MODIFIED="1521206842546">
-<node TEXT="turn based or real-time with pause ?" ID="ID_498224140" CREATED="1521206851402" MODIFIED="1522508795844"><richcontent TYPE="NOTE">
+<node TEXT="combat" ID="ID_1448152466" CREATED="1521206835603" MODIFIED="1524305614059"><richcontent TYPE="NOTE">
 
 <html>
   <head>
@@ -262,21 +293,42 @@
   </head>
   <body>
     <p>
-      see existing solutions in RPG and CRPG systems.
+      turn-based with initiative rolls at beginning of combat (the queue can later be modified with speed spells, etc)
     </p>
     <p>
       
     </p>
     <p>
-      Heard something about initiative scores in D&amp;D, how does GURPS handle that.
+      key concepts:
     </p>
     <p>
-      A straight-forward turn based system doesn't sound as the best thing probably, but simple real-time might be too far from tabletop RPG roots. I feel like character speed should be a factor in this, and players do take turns naturally when plaing a tabletop RPG, so it feels like it should be something turn-based'ey... with some sort of a twist maybe?
+      * tile based
+    </p>
+    <p>
+      * initative
+    </p>
+    <p>
+      * speed
+    </p>
+    <p>
+      * dodge (agility)
+    </p>
+    <p>
+      * accuracy ( perception + dexterity)
+    </p>
+    <p>
+      * line of sight
+    </p>
+    <p>
+      * area of attack
+    </p>
+    <p>
+      * stealth
     </p>
   </body>
 </html>
+
 </richcontent>
-</node>
 </node>
 <node TEXT="rules system" ID="ID_1371799708" CREATED="1521448693769" MODIFIED="1522505867767">
 <arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="80" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_849925476" STARTINCLINATION="164;0;" ENDINCLINATION="164;0;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
@@ -313,19 +365,24 @@
 </node>
 </node>
 <node TEXT="unseen/hidden areas" ID="ID_1895349804" CREATED="1522509387864" MODIFIED="1522509448893"/>
-<node TEXT="? line of sight" ID="ID_185159235" CREATED="1522509449711" MODIFIED="1522509455203"/>
+<node TEXT="line of sight" ID="ID_185159235" CREATED="1522509449711" MODIFIED="1524305334494"/>
 </node>
 <node TEXT="graphics" POSITION="right" ID="ID_414721570" CREATED="1522505130771" MODIFIED="1522506848774">
 <edge COLOR="#000099"/>
 <node TEXT="GUI" ID="ID_143614907" CREATED="1522505157907" MODIFIED="1522505190183"/>
+<node TEXT="tile" ID="ID_1240829521" CREATED="1524304977868" MODIFIED="1524304980785"/>
+<node TEXT="characters" ID="ID_76325938" CREATED="1524304981009" MODIFIED="1524304986417"/>
+<node TEXT="glyphs / typefaces" ID="ID_399381904" CREATED="1524304993498" MODIFIED="1524305012682"/>
 </node>
 <node TEXT="gameworld" POSITION="right" ID="ID_1428979350" CREATED="1523900431091" MODIFIED="1523901453379">
 <edge COLOR="#0000cc"/>
 <arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="80" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1895058731" STARTINCLINATION="608;0;" ENDINCLINATION="608;0;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <node TEXT="places" ID="ID_972821133" CREATED="1523899762743" MODIFIED="1523900070584">
-<node TEXT="overworld" ID="ID_1158081633" CREATED="1523899769559" MODIFIED="1523899773798">
 <node TEXT="sky ruler city" ID="ID_1910882644" CREATED="1523899786943" MODIFIED="1523899817153"/>
+<node TEXT="overworld" ID="ID_1158081633" CREATED="1523899769559" MODIFIED="1523899773798">
 <node TEXT="the chasm" ID="ID_965260102" CREATED="1523899832503" MODIFIED="1523899841507"/>
+<node TEXT="the heartlands" ID="ID_1446022692" CREATED="1524299282337" MODIFIED="1524299295283"/>
+<node TEXT="heartland sea" ID="ID_527373138" CREATED="1524299226386" MODIFIED="1524299262523"/>
 <node TEXT="realms" ID="ID_433691568" CREATED="1523899847655" MODIFIED="1523899890215"/>
 <node TEXT="more regions" ID="ID_508471641" CREATED="1523899822895" MODIFIED="1523900088471"/>
 </node>
@@ -334,6 +391,18 @@
 <node TEXT="the depths" ID="ID_241610251" CREATED="1523899947182" MODIFIED="1523899960302"/>
 <node TEXT="fey-dark" ID="ID_1283609369" CREATED="1523900040473" MODIFIED="1523900047344"/>
 </node>
+</node>
+<node TEXT="story" ID="ID_863943016" CREATED="1524299862590" MODIFIED="1524299866318">
+<node TEXT="main quest" ID="ID_202901484" CREATED="1524299872013" MODIFIED="1524299874157">
+<node TEXT="chapter I" ID="ID_1179679000" CREATED="1524299900725" MODIFIED="1524299903389"/>
+<node TEXT="chapter II" ID="ID_1331840769" CREATED="1524299905845" MODIFIED="1524299908621"/>
+<node TEXT="chapter III" ID="ID_616968864" CREATED="1524299909261" MODIFIED="1524299911492"/>
+<node TEXT="chapter IV" ID="ID_1415952694" CREATED="1524299912193" MODIFIED="1524299914492"/>
+<node TEXT="chapter V" ID="ID_947703547" CREATED="1524299914749" MODIFIED="1524299933791"/>
+<node TEXT="chapter VI" ID="ID_1655391984" CREATED="1524299918302" MODIFIED="1524299927497"/>
+<node TEXT="chapter VII" ID="ID_409068687" CREATED="1524299937485" MODIFIED="1524299943549"/>
+</node>
+<node TEXT="side quests" ID="ID_952199190" CREATED="1524299874477" MODIFIED="1524299876988"/>
 </node>
 </node>
 <node TEXT="do reasearch" POSITION="right" ID="ID_1749869023" CREATED="1521448763958" MODIFIED="1523901432106">
