@@ -1,6 +1,0 @@
-= TOOLS USED IN THE PROJECT
-
-Mind mapping (*.mm):: Freeplane (probably compatible with Freemind)
-Diagrams (.dia):: Dia
-General Documentation (.adoc):: Asciidoctor
-Versioning:: Git
