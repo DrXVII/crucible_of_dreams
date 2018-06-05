@@ -1,6 +1,9 @@
 #include "Font_atlas.hpp" //header for this implementation file
 
 Font_atlas::Font_atlas(string const& _fpath, int _sz, SDL_Renderer* _ren)
+: glyph_w(0)
+, glyph_h(0)
+, atlas(nullptr)
 {
     if(this->fill(_fpath, _sz, _ren) != 0) {
         errlogf(ERRLOG_GEN, "failed to fill font atlas from '%s'.",
@@ -10,21 +13,10 @@ Font_atlas::Font_atlas(string const& _fpath, int _sz, SDL_Renderer* _ren)
 
 Font_atlas::~Font_atlas()
 {
-    dbg(9, "font atlas unloading glyphs\n");
-
-    for(unsigned i = 0; i < FONT_ATLAS_TX_ARR_LEN; ++i) {
-        dbgf(10, "font atlas unloading glyph %u\n", i);
-
-        this->glyphs[i].w = 0;
-        this->glyphs[i].h = 0;
-
-        SDL_ClearError();
-        SDL_DestroyTexture(this->glyphs[i].tx);
-        if(strlen(SDL_GetError()) != 0) {
-            errlog(ERRLOG_SDL,
-                    "failed to free texture while destroying font_atlas.");
-        }
-        else { this->glyphs[i].tx = nullptr; }
+    if(this->atlas != nullptr) {
+        SDL_DestroyTexture(this->atlas);
+        //TODO error handling
+        this->atlas = nullptr;
     }
 }
 
@@ -34,97 +26,91 @@ int Font_atlas::fill(string const& _fpath, int _sz, SDL_Renderer* _ren)
      * when needed */
     SDL_Colour clr = {0xFF, 0xFF, 0xFF, 0xFF};
 
-    for(unsigned i = 0; i < FONT_ATLAS_TX_ARR_LEN; ++i) {
-        this->glyphs[i] = Texture_obj {nullptr, 0, 0};
+    //get dimensions of one glyph
+    SDL_Texture* glyph = txt_to_tx("a", _sz, clr, _fpath.c_str(), _ren);
+    SDL_QueryTexture(glyph, NULL, NULL, &this->glyph_w, &this->glyph_h);
+    SDL_DestroyTexture(glyph);
+    glyph = nullptr;
 
+    //painting the texture atlas
+    dbgf(9, "painting font texture atlas from %s\n", _fpath.c_str());
+    int atlas_w = this->glyph_w * FONT_ATLAS_TX_ARR_LEN;
+    int atlas_h = this->glyph_h;
+    this->atlas = SDL_CreateTexture(
+            _ren, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET,
+            atlas_w, atlas_h);
+
+    SDL_SetRenderTarget(_ren, this->atlas);
+    SDL_Rect dst_rect { .x = 0, .y = 0,
+                        .w = this->glyph_w, .h = this->glyph_h};
+
+    for(unsigned i = 0; i < FONT_ATLAS_TX_ARR_LEN; ++i) {
         char txt_buf[2] = "?"; // translates to "?\0" when compiling
         txt_buf[0] = FONT_ATLAS_TX_ARR_START + i;
-        this->glyphs[i].tx = txt_to_tx(txt_buf, _sz, clr,
-                _fpath.c_str(), _ren);
+        glyph = txt_to_tx(txt_buf, _sz, clr, _fpath.c_str(), _ren);
 
-        if(this->glyphs[i].tx == nullptr) {
+        if(glyph == nullptr) {
             errlog(ERRLOG_GEN, "font_atlas glyph loading error.");
             return -1;
         }
 
-        SDL_QueryTexture(this->glyphs[i].tx, NULL, NULL,
-                &this->glyphs[i].w, &this->glyphs[i].h);
+        int tx_w = 0;
+        int tx_h = 0;
+        SDL_QueryTexture(glyph, NULL, NULL, &tx_w, &tx_h);
 
-        if(this->glyphs[i].w == 0 || this->glyphs[i].h == 0) {
+        if(tx_w == 0 || tx_h == 0) {
             errlog(ERRLOG_GEN, "font atlas glyph w or h == 0 !");
             return -1;
         }
 
-        dbgf(10, "making font_atlas glyph for '%s', w = %d, h = %d\n", txt_buf,
-                this->glyphs[i].w, this->glyphs[i].h);
+        dbgf(10, "made font_atlas glyph for '%s', w = %d, h = %d\n", txt_buf,
+                tx_w, tx_h);
+
+        dst_rect.x = dst_rect.w * i;
+        SDL_RenderCopy(_ren, glyph, NULL, &dst_rect);
+        dbgf(10, "painted glyph %u(%c)\n", i, i + FONT_ATLAS_TX_ARR_START);
+
+        SDL_DestroyTexture(glyph);
+        glyph = nullptr;
     }
+
+    //reset to default render target
+    SDL_SetRenderTarget(_ren, NULL);
 
     return 0;
 }
 
 int Font_atlas::print(const char* _txt, SDL_Point* _xy, SDL_Renderer* _ren)
 {
-    SDL_Rect rect {_xy->x, _xy->y, 0, 0};
     size_t txt_len = strlen(_txt);
 
-    //get the correct texture and render
-    for(size_t i = 0; i < txt_len; ++i) {
-        rect.w = this->glyphs[_txt[i] - FONT_ATLAS_TX_ARR_START].w;
-        rect.h = this->glyphs[_txt[i] - FONT_ATLAS_TX_ARR_START].h;
-
-        int rc = SDL_RenderCopy(_ren,
-                 this->glyphs[_txt[i] - FONT_ATLAS_TX_ARR_START].tx,
-                 NULL, &rect);
-        if(rc != 0) {
-            errlog(ERRLOG_SDL, "could not render font_atlas glyph.");
-        }
-
-        rect.x += rect.w;
-    }
-
-    return 0;
+    return this->nprint(_txt, _xy, txt_len, _ren);
 }
 
-//TODO looks like this is meant to be called from print()
 int Font_atlas::nprint(const char* _txt, SDL_Point* _xy, int _txt_len,
         SDL_Renderer* _ren)
 {
-    SDL_Rect rect {_xy->x, _xy->y, 0, 0};
 
-    //get the correct texture and render
+    SDL_Rect dst_rect { .x = _xy->x, .y = _xy->y,
+        .w = this->glyph_w, .h = this->glyph_h };
+    SDL_Rect src_rect { .x = 0, .y = 0, .w = dst_rect.w, .h = dst_rect.h };
+
     for(int i = 0; i < _txt_len; ++i) {
-        rect.w = this->glyphs[_txt[i] - FONT_ATLAS_TX_ARR_START].w;
-        rect.h = this->glyphs[_txt[i] - FONT_ATLAS_TX_ARR_START].h;
+        src_rect.x = src_rect.w * (_txt[i] - FONT_ATLAS_TX_ARR_START);
 
-        int rc = SDL_RenderCopy(_ren,
-                 this->glyphs[_txt[i] - FONT_ATLAS_TX_ARR_START].tx,
-                 NULL, &rect);
-        if(rc != 0) {
-            errlog(ERRLOG_SDL, "could not render font_atlas glyph.");
-        }
-
-        rect.x += rect.w;
+        SDL_RenderCopy(_ren, this->atlas, &src_rect, &dst_rect);
+        dst_rect.x += src_rect.w;
     }
 
     return 0;
 }
 
 #ifdef DEBUG
-void Font_atlas::test(SDL_Renderer* _ren)
+void Font_atlas::show_atlas(SDL_Renderer* _ren)
 {
-    SDL_Rect rect {0, 0, 0, 0};
-
-    for(unsigned i = 0; i < FONT_ATLAS_TX_ARR_LEN; ++i) {
-        rect.w = this->glyphs[i].w;
-        rect.h = this->glyphs[i].h;
-
-        SDL_RenderCopy(_ren, this->glyphs[i].tx, NULL, &rect);
-
-        rect.x += this->glyphs[i].w;
-        if(rect.x >= 600) {
-            rect.x = 20;
-            rect.y += this->glyphs[i].h;
-        }
-    }
+    SDL_Rect dst_rect { .x = 0, .y = 0,
+                        .w = this->glyph_w * FONT_ATLAS_TX_ARR_LEN,
+                        .h = this->glyph_h};
+    SDL_RenderCopy(_ren, this->atlas, NULL, &dst_rect);
 }
 #endif //#ifdef DEBUG

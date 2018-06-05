@@ -22,16 +22,16 @@ NAME = crucible
 all: $(OBJ_DIR) $(NAME)
 
 $(NAME): $(OBJ)
-	echo "LL $@        ($^)"
-	$(LL) -o $@ $(OBJ) $(LIBS)
+	@echo "LL $@        ($^)"
+	@$(LL) -o $@ $(OBJ) $(LIBS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
-	echo "CXX $@        ($<)"
-	$(CXX) $(INCLUDE) $(CXX_FLAGS) $(DBG_FLAGS) -c -o $@ $<
+	@echo "CXX $@        ($<)"
+	@$(CXX) $(INCLUDE) $(CXX_FLAGS) $(DBG_FLAGS) -c -o $@ $<
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	echo "CC $@        ($<)"
-	$(CC) $(INCLUDE) $(CC_FLAGS) $(DBG_FLAGS) -c -o $@ $<
+	@echo "CC $@        ($<)"
+	@$(CC) $(INCLUDE) $(CC_FLAGS) $(DBG_FLAGS) -c -o $@ $<
 
 $(OBJ_DIR):
 	mkdir -p $@

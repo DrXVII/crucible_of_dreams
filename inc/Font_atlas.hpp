@@ -13,7 +13,7 @@ using std::string;
 #include "utils.hpp"
 #include "dbg.h"
 
-//there are 95 printable characters in ASCII table (positions 32-126)
+//there are 95 printable characters in the ASCII table (positions 32-126)
 #define FONT_ATLAS_TX_ARR_START 32
 #define FONT_ATLAS_TX_ARR_END 126
 #define FONT_ATLAS_TX_ARR_LEN (FONT_ATLAS_TX_ARR_END-FONT_ATLAS_TX_ARR_START +1)
@@ -23,19 +23,22 @@ public:
     Font_atlas(string const& _fpath, int _sz, SDL_Renderer* _ren);
     ~Font_atlas();
 
+    //TODO printing functions should not be a part of this class
     //render text with _ren
     int print(const char* _txt, SDL_Point* _xy, SDL_Renderer* _ren);
     int nprint(const char* _txt, SDL_Point* _xy, int _txt_len,
         SDL_Renderer* _ren);
 
 #ifdef DEBUG
-    void test(SDL_Renderer* _ren);
+    void show_atlas(SDL_Renderer* _ren);
 #endif //#ifdef DEBUG
 
 private:
     int fill(string const& _fpath, int _sz, SDL_Renderer* _ren);
 
-    Texture_obj glyphs[FONT_ATLAS_TX_ARR_LEN];
+    int glyph_w;
+    int glyph_h;
+    SDL_Texture* atlas;
 };
 
 #endif //#ifndef FONT_ATLAS_HPP
