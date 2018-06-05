@@ -32,13 +32,14 @@ int Font_atlas::fill(string const& _fpath, int _sz, SDL_Renderer* _ren)
 {
     /* will use white for now, could then just modify color on render later
      * when needed */
-    SDL_Colour col = {0xFF, 0xFF, 0xFF, 0xFF};
+    SDL_Colour clr = {0xFF, 0xFF, 0xFF, 0xFF};
+
     for(unsigned i = 0; i < FONT_ATLAS_TX_ARR_LEN; ++i) {
         this->glyphs[i] = Texture_obj {nullptr, 0, 0};
 
         char txt_buf[2] = "?"; // translates to "?\0" when compiling
         txt_buf[0] = FONT_ATLAS_TX_ARR_START + i;
-        this->glyphs[i].tx = txt_to_tx(txt_buf, _sz, col,
+        this->glyphs[i].tx = txt_to_tx(txt_buf, _sz, clr,
                 _fpath.c_str(), _ren);
 
         if(this->glyphs[i].tx == nullptr) {
@@ -84,6 +85,7 @@ int Font_atlas::print(const char* _txt, SDL_Point* _xy, SDL_Renderer* _ren)
     return 0;
 }
 
+//TODO looks like this is meant to be called from print()
 int Font_atlas::nprint(const char* _txt, SDL_Point* _xy, int _txt_len,
         SDL_Renderer* _ren)
 {
