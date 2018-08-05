@@ -65,6 +65,7 @@ int make_txpaths(vector<string>* fpath_arr_)
 
     fpath_arr_->push_back(string{"data/gfx/tiles/floor_border.png"});
     fpath_arr_->push_back(string{"data/gfx/tiles/floor_cobble.png"});
+    fpath_arr_->push_back(string{"data/gfx/buttons/button.png"});
 
     return 0;
 }

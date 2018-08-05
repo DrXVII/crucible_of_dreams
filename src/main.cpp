@@ -7,7 +7,6 @@ using std::cerr;
 using std::vector;
 #include <string>
 using std::string;
-using std::to_string;
 #include <memory>
 using std::shared_ptr;
 #include <cmath>
@@ -26,6 +25,7 @@ using std::acos;
 #include "Timer.hpp"
 #include "utils.hpp"
 #include "Tile.hpp"
+#include "Button.hpp"
 #include "Font_atlas.hpp"
 
 #define SEC_NS 1000000000 /* one second expressed in nanoseconds int literal */
@@ -180,6 +180,12 @@ void run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h)
         //TODO just a placeholer
         Tile border(tx_arr[0]);
         Tile cobble(tx_arr[1]);
+
+        //TODO temporary - testing buttons - remove later
+        Button tst_btn("epic button", tx_arr[2]);
+        SDL_Rect tst_btn_rect {20, 20, 140, 40};
+        tst_btn.set_rect(&tst_btn_rect);
+
         //--end-placeholder-----------------------------------------------------
 
         //render phase
@@ -206,6 +212,7 @@ void run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h)
         }
         ren_pt = SDL_Point{50, 70};
         border.render(_ren, &ren_pt);
+        tst_btn.render(_ren);
         //--end-placeholder-----------------------------------------------------
 
         if(show_fps) {
