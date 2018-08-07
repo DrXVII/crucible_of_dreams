@@ -1,12 +1,14 @@
 #include "Button.hpp"
 
-Button::Button(string const& _txt, SDL_Texture* _tx)
+Button::Button(string const& _txt, SDL_Texture* _tx, int _x, int _y)
 : tx {_tx}
 , tx_press {nullptr}
-, rect {0, 0, 0, 0}
+, rect {_x, _y, 0, 0}
 , txt {_txt}
 {
-    dbgf(0, "creating button \"%s\"\n", this->txt);
+    if(this->tx != nullptr) { this->sync_wh_to_tx(); }
+
+    dbgf(0, "created button \"%s\"\n", this->txt.c_str());
 };
 
 void Button::render(SDL_Renderer* _ren)
@@ -26,6 +28,8 @@ void Button::set_tx(
     this->tx_press = _tx_press;
     //this->tx_disab = _tx_disab;
     //this->tx_sel = _tx_sel;
+
+    if(this->tx != nullptr) { this->sync_wh_to_tx(); }
 }
 
 void Button::set_rect(SDL_Rect* _rect)
@@ -33,7 +37,18 @@ void Button::set_rect(SDL_Rect* _rect)
     this->rect = *_rect;
 }
 
+void Button::set_xy(int _x, int _y)
+{
+    this->rect.x = _x;
+    this->rect.y = _y;
+}
+
 void Button::set_txt(string const& _txt)
 {
     this->txt = _txt;
+}
+
+void Button::sync_wh_to_tx()
+{
+    SDL_QueryTexture(this->tx, NULL, NULL, &this->rect.w, &this->rect.h);
 }

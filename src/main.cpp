@@ -157,6 +157,15 @@ void run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h)
 
     Font_atlas def_mono_font(DEF_MONO_FONT_PATH, 12, _ren);
 
+    //TODO just a placeholer
+    Tile border(tx_arr[0]);
+    Tile cobble(tx_arr[1]);
+
+    //TODO temporary - testing buttons - remove later
+    Button tst_btn("epic button", tx_arr[2], 30, 30);
+
+    //--end-placeholder-----------------------------------------------------
+
     //main loop
     bool flag_quit {false};
     while(flag_quit == false) {
@@ -177,21 +186,12 @@ void run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h)
             else if(event.type == SDL_QUIT) {flag_quit = true;}
         }
 
-        //TODO just a placeholer
-        Tile border(tx_arr[0]);
-        Tile cobble(tx_arr[1]);
-
-        //TODO temporary - testing buttons - remove later
-        Button tst_btn("epic button", tx_arr[2]);
-        SDL_Rect tst_btn_rect {20, 20, 140, 40};
-        tst_btn.set_rect(&tst_btn_rect);
-
-        //--end-placeholder-----------------------------------------------------
-
         //render phase
         SDL_RenderClear(_ren);
 
         //TODO just a placeholer
+        //
+        //temporary solution to tilemap rendering
         SDL_Point ren_pt{50, 50};
         bool offs = true;
         for(unsigned i = 400; i > 0; --i) {

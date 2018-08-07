@@ -16,7 +16,7 @@ using std::string;
 
 class Button {
 public:
-    Button(string const& _txt, SDL_Texture* _tx);
+    Button(string const& _txt, SDL_Texture* _tx, int _x, int _y);
     //~Button();
 
     void render(SDL_Renderer* _ren);
@@ -28,8 +28,9 @@ public:
             SDL_Texture* _tx_disab,
             SDL_Texture* _tx_sel);
     void set_rect(SDL_Rect* _rect);
-    //TODO void set_wh_from_tx(); //get width and height of rect from loaded texture
+    void set_xy(int _x, int _y);
     void set_txt(string const& _txt);
+    void sync_wh_to_tx(); //set width and height of rect to that of loaded texture
 
 private:
     SDL_Texture* tx; //the default button appearance
