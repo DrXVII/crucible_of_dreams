@@ -80,6 +80,12 @@ int Font_atlas::fill(string const& _fpath, int _sz, SDL_Renderer* _ren)
     return 0;
 }
 
+int Font_atlas::print(const char* _txt, int _x, int _y, SDL_Renderer* _ren)
+{
+    SDL_Point pt{_x, _y};
+    return this->print(_txt, &pt, _ren);
+}
+
 int Font_atlas::print(const char* _txt, SDL_Point* _xy, SDL_Renderer* _ren)
 {
     size_t txt_len = strlen(_txt);
@@ -104,6 +110,9 @@ int Font_atlas::nprint(const char* _txt, SDL_Point* _xy, int _txt_len,
 
     return 0;
 }
+
+int Font_atlas::get_h() { return this->glyph_h; }
+int Font_atlas::get_w() { return this->glyph_w; }
 
 #ifdef DEBUG
 void Font_atlas::show_atlas(SDL_Renderer* _ren)

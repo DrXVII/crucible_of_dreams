@@ -162,7 +162,7 @@ void run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h)
     Tile cobble(tx_arr[1]);
 
     //TODO temporary - testing buttons - remove later
-    Button tst_btn("epic button", tx_arr[2], 30, 30);
+    Button tst_btn("epic button", &def_mono_font, tx_arr[2], tx_arr[3], 30, 30);
 
     //--end-placeholder-----------------------------------------------------
 
@@ -182,6 +182,14 @@ void run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h)
                 if(key_states[SDL_SCANCODE_F]) { show_fps = !show_fps; }
                 if(key_states[SDL_SCANCODE_Q]) { flag_quit = true; }
                 if(key_states[SDL_SCANCODE_U]) { cap_fps = !cap_fps; }
+            }
+            else if(event.type == SDL_MOUSEBUTTONDOWN) {
+                int mouse_x, mouse_y;
+                SDL_GetMouseState(&mouse_x, &mouse_y);
+                if(tst_btn.check_click(mouse_x, mouse_y)) { tst_btn.press(); }
+            }
+            else if(event.type == SDL_MOUSEBUTTONUP) {
+                tst_btn.unpress();
             }
             else if(event.type == SDL_QUIT) {flag_quit = true;}
         }

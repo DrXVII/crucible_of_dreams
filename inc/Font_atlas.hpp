@@ -25,9 +25,13 @@ public:
 
     //TODO printing functions should not be a part of this class
     //render text with _ren
+    int print(const char* _txt, int _x, int _y, SDL_Renderer* _ren);
     int print(const char* _txt, SDL_Point* _xy, SDL_Renderer* _ren);
     int nprint(const char* _txt, SDL_Point* _xy, int _txt_len,
         SDL_Renderer* _ren);
+
+    int get_h();
+    int get_w();
 
 #ifdef DEBUG
     void show_atlas(SDL_Renderer* _ren);

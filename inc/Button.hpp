@@ -9,6 +9,7 @@ using std::string;
 
 //homebrew
 #include "dbg.h"
+#include "Font_atlas.hpp"
 
 /* TODO This is a work in progress,
  * texture handle changing and other things are
@@ -16,10 +17,16 @@ using std::string;
 
 class Button {
 public:
-    Button(string const& _txt, SDL_Texture* _tx, int _x, int _y);
+    Button(string const& _txt, Font_atlas* _font,
+           SDL_Texture* _tx, SDL_Texture* _tx_p,
+           int _x, int _y);
     //~Button();
 
     void render(SDL_Renderer* _ren);
+    bool check_click(int _x, int _y);
+
+    void press();
+    void unpress();
 
     //set texture(s)
     void set_tx(
@@ -33,12 +40,14 @@ public:
     void sync_wh_to_tx(); //set width and height of rect to that of loaded texture
 
 private:
+    Font_atlas* font;
     SDL_Texture* tx; //the default button appearance
     SDL_Texture* tx_press; //when the button is pressed down
-    //shared_ptr<SDL_Texture> tx_disab; //when the button is disabled
-    //shared_ptr<SDL_Texture> tx_sel; //when button is sellected (e.g. mouse-over)
-    SDL_Rect rect;
+    SDL_Texture* tx_disp; //the current active texture of the button
     string txt; //the button text
+    int txt_x_offs; //the offset of button text
+    int txt_y_offs; //the offset of button text
+    SDL_Rect rect;
 };
 
 

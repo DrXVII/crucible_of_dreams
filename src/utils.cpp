@@ -66,6 +66,7 @@ int make_txpaths(vector<string>* fpath_arr_)
     fpath_arr_->push_back(string{"data/gfx/tiles/floor_border.png"});
     fpath_arr_->push_back(string{"data/gfx/tiles/floor_cobble.png"});
     fpath_arr_->push_back(string{"data/gfx/buttons/button.png"});
+    fpath_arr_->push_back(string{"data/gfx/buttons/button_pressed.png"});
 
     return 0;
 }
@@ -78,6 +79,7 @@ int load_textures(SDL_Renderer* _ren,
     }
 
     for(size_t i = 0; i < _fpath_arr->size(); ++i) {
+        dbgf(0, "loading texture: %s\n", (*_fpath_arr)[i].c_str());
         _tx_arr->push_back(load_texture((*_fpath_arr)[i], _ren));
     }
 
