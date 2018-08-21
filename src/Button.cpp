@@ -3,14 +3,15 @@
 Button::Button(string const& _txt, Font_atlas* _font,
         SDL_Texture* _tx, SDL_Texture* _tx_p,
         int _x, int _y)
-: font {_font}
+: rect {_x, _y, 0, 0}
+, font {_font}
 , tx {_tx}
 , tx_press {_tx_p}
 , tx_disp {this->tx}
 , txt {_txt}
 , txt_x_offs {0}
 , txt_y_offs {0}
-, rect {_x, _y, 0, 0}
+, pressed {false}
 {
     if(this->tx != nullptr) {
         this->sync_wh_to_tx();
@@ -22,6 +23,11 @@ Button::Button(string const& _txt, Font_atlas* _font,
 
     dbgf(0, "created button \"%s\"\n", this->txt.c_str());
 };
+
+Button::~Button()
+{
+    dbgf(9, "destroying button \"%s\"\n", this->txt.c_str());
+}
 
 void Button::render(SDL_Renderer* _ren)
 {
@@ -51,18 +57,18 @@ void Button::press() {
     this->tx_disp = this->tx_press;
     this->txt_x_offs += this->rect.h / 20;
     this->txt_y_offs += this->rect.h / 20;
+    this->pressed = true;
 }
 void Button::unpress() {
-    this->tx_disp = this->tx;
-    this->txt_x_offs -= this->rect.h / 20;
-    this->txt_y_offs -= this->rect.h / 20;
+    if(this->pressed) {
+        this->tx_disp = this->tx;
+        this->txt_x_offs -= this->rect.h / 20;
+        this->txt_y_offs -= this->rect.h / 20;
+        this->pressed = false;
+    }
 }
 
-void Button::set_tx(
-        SDL_Texture* _tx,
-        SDL_Texture* _tx_press,
-        SDL_Texture* _tx_disab __attribute__((unused)),
-        SDL_Texture* _tx_sel __attribute__((unused)))
+void Button::set_tx( SDL_Texture* _tx, SDL_Texture* _tx_press)
 {
     this->tx = _tx;
     this->tx_press = _tx_press;

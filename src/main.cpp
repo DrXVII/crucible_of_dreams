@@ -137,11 +137,15 @@ void run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h)
     //init game
     Timer loop_timer;
     int tgt_fps {61};
+    unsigned sec_frame_count {0}; //how many frames we actually did so far this second
+    unsigned fact_fps {0}; //how many frames we actually did over the last second
+    long ns_this_sec {0}; //how many ns have passed this second
     std::chrono::nanoseconds tgt_frm_len = std::chrono::nanoseconds{SEC_NS} / tgt_fps;
     std::chrono::nanoseconds frm_delta {0}; //how long the frame took to execute
     bool show_fps {false};
     bool cap_fps {true};
     SDL_Point fps_xy {20, 20};
+    char fps_str_buf[12];
 
     vector<string> tx_paths;
     make_txpaths(&tx_paths);
@@ -170,6 +174,8 @@ void run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h)
     bool flag_quit {false};
     while(flag_quit == false) {
         loop_timer.start();
+
+        ns_this_sec += frm_delta.count(); //adding length of last frame for averaging
 
         SDL_SetRenderDrawColor(_ren, 0x00, 0x00, 0x00, 0x00);
         
@@ -220,19 +226,22 @@ void run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h)
         }
         ren_pt = SDL_Point{50, 70};
         border.render(_ren, &ren_pt);
+
         tst_btn.render(_ren);
         //--end-placeholder-----------------------------------------------------
 
         if(show_fps) {
-            char buf[11];
-            int len = sprintf(buf, "FPS: %ld", SEC_NS / frm_delta.count());
+            if(ns_this_sec >= SEC_NS) {
+                ns_this_sec -= SEC_NS;
+                fact_fps = sec_frame_count - 1;
+                sec_frame_count = 1;
+            }
 
-            def_mono_font.nprint(buf, &fps_xy, len, _ren);
+            int len = snprintf(fps_str_buf, sizeof fps_str_buf, "FPS: %u", fact_fps);
+            def_mono_font.nprint(fps_str_buf, &fps_xy, len, _ren);
         }
 
-        if(flag_quit == true) {
-            break;
-        }
+        if(flag_quit == true) { break; }
 
         SDL_RenderPresent(_ren);
 
@@ -247,9 +256,10 @@ void run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h)
             }
         }
 
+        ++sec_frame_count;
+
         //final length of the frame (after frame-cap procedure if any, etc)
         frm_delta = loop_timer.get_dur();
-
     }
 
     dbg(8, "unloading general textures\n");

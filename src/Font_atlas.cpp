@@ -93,6 +93,13 @@ int Font_atlas::print(const char* _txt, SDL_Point* _xy, SDL_Renderer* _ren)
     return this->nprint(_txt, _xy, txt_len, _ren);
 }
 
+int Font_atlas::nprint(const char* _txt, int _x, int _y, int _txt_len,
+        SDL_Renderer* _ren)
+{
+    SDL_Point pt{_x, _y};
+    return this->nprint(_txt, &pt, _txt_len, _ren);
+}
+
 int Font_atlas::nprint(const char* _txt, SDL_Point* _xy, int _txt_len,
         SDL_Renderer* _ren)
 {

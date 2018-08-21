@@ -20,7 +20,7 @@ public:
     Button(string const& _txt, Font_atlas* _font,
            SDL_Texture* _tx, SDL_Texture* _tx_p,
            int _x, int _y);
-    //~Button();
+    ~Button();
 
     void render(SDL_Renderer* _ren);
     bool check_click(int _x, int _y);
@@ -29,17 +29,14 @@ public:
     void unpress();
 
     //set texture(s)
-    void set_tx(
-            SDL_Texture* _tx,
-            SDL_Texture* _tx_press,
-            SDL_Texture* _tx_disab,
-            SDL_Texture* _tx_sel);
+    void set_tx( SDL_Texture* _tx, SDL_Texture* _tx_press);
     void set_rect(SDL_Rect* _rect);
     void set_xy(int _x, int _y);
     void set_txt(string const& _txt);
     void sync_wh_to_tx(); //set width and height of rect to that of loaded texture
 
 private:
+    SDL_Rect rect;
     Font_atlas* font;
     SDL_Texture* tx; //the default button appearance
     SDL_Texture* tx_press; //when the button is pressed down
@@ -47,7 +44,7 @@ private:
     string txt; //the button text
     int txt_x_offs; //the offset of button text
     int txt_y_offs; //the offset of button text
-    SDL_Rect rect;
+    bool pressed;
 };
 
 

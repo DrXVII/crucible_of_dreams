@@ -27,6 +27,8 @@ public:
     //render text with _ren
     int print(const char* _txt, int _x, int _y, SDL_Renderer* _ren);
     int print(const char* _txt, SDL_Point* _xy, SDL_Renderer* _ren);
+    int nprint(const char* _txt, int _x, int _y, int _txt_len,
+        SDL_Renderer* _ren);
     int nprint(const char* _txt, SDL_Point* _xy, int _txt_len,
         SDL_Renderer* _ren);
 
