@@ -14,7 +14,6 @@ using std::sin;
 using std::cos;
 using std::acos;
 #include <chrono>
-#include <thread>
 
 //3rd party libs
 #include <SDL2/SDL.h>
@@ -22,28 +21,28 @@ using std::acos;
 #include <SDL2/SDL_ttf.h>
 
 //homebrew
-#include "Timer.hpp"
-#include "utils.hpp"
-#include "Tile.hpp"
-#include "Button.hpp"
-#include "Font_atlas.hpp"
+#include "win_main_menu.hpp"
+#include "win_game.hpp"
+#include "Asset_container.hpp"
 
-#define SEC_NS 1000000000 /* one second expressed in nanoseconds int literal */
 //TODO default font paths should be set differently, preferably from cfg files
 #define DEF_MONO_FONT_PATH "data/fonts/terminus/TerminusTTF-4.46.0.ttf"
 
 const string win_title = "Crucible of Dreams";
 
-int init(); //initialise SDL
+int init_sdl(); //initialise SDL
+//initialise assets (textures, fonts, animations, etc)
+int load_assets(SDL_Renderer* _ren,
+        vector<SDL_Texture*>* tx_arr_, Font_atlas** font_);
+void unload_assets(vector<SDL_Texture*>* _tx_arr, Font_atlas* _font);
 int create_main_win(SDL_Window*& _win,
                     string const& _title, const int _w, const int _h);
 int create_win_renderer(SDL_Window* _win, SDL_Renderer*& _ren);
 void close(SDL_Window*& _win, SDL_Renderer*& _ren);
-void run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h);
 
 int main()
 {
-    if(init() != 0) {
+    if(init_sdl() != 0) {
         printf("the application will now exit.\n");
         return -1;
     }
@@ -64,13 +63,27 @@ int main()
         return -1;
     }
 
-    run_game(ren_main, win_w, win_h);
+    vector<string> paths;
+    make_txpaths(&paths);
+
+    Asset_container assets;
+    assets.load_textures(ren_main, &paths);
+
+    paths.clear();
+    paths.shrink_to_fit();
+    paths.push_back(DEF_MONO_FONT_PATH);
+
+    assets.load_fonts(ren_main, &paths);
+
+    main_menu(ren_main, &assets);
+    //run_game(ren_main, win_w, win_h, &assets);
     
+    assets.unload();
     close(win_main, ren_main);
     return 0;
 }
 
-int init()
+int init_sdl()
 {
     if(SDL_Init(SDL_INIT_VIDEO) < 0) {
         errlog(ERRLOG_SDL, "FATAL - could not initialise SDL!");
@@ -89,6 +102,38 @@ int init()
     }
     
     return 0;
+}
+
+/*TODO HIGH_PRI make one structure/function to all the game assets
+ * if it will be a class - this function and friends should go there */
+int load_assets(SDL_Renderer* _ren,
+        vector<SDL_Texture*>* tx_arr_, Font_atlas** font_)
+{
+    //*** load textures ***
+    vector<string> tx_paths;
+    make_txpaths(&tx_paths);
+
+    if(load_textures(_ren, tx_arr_, &tx_paths) != 0) {
+        errlog(ERRLOG_GEN, "texture loading not successfull.");
+    }
+
+    //no longer need to store the paths
+    tx_paths.clear();
+    tx_paths.shrink_to_fit();
+
+    //*** load fonts ***
+    *font_ = nullptr;
+    *font_ = new Font_atlas(DEF_MONO_FONT_PATH, 12, _ren);
+    if(*font_ == nullptr) {return 1;}
+
+    return 0;
+}
+
+void unload_assets(vector<SDL_Texture*>* _tx_arr, Font_atlas* _font)
+{
+    unload_textures(_tx_arr);
+
+    delete _font;
 }
 
 int create_main_win(SDL_Window*& _win,
@@ -130,138 +175,4 @@ void close(SDL_Window*& _win, SDL_Renderer*& _ren)
     _ren = NULL;
     
     SDL_Quit();
-}
-
-void run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h)
-{
-    //init game
-    Timer loop_timer;
-    int tgt_fps {61};
-    unsigned sec_frame_count {0}; //how many frames we actually did so far this second
-    unsigned fact_fps {0}; //how many frames we actually did over the last second
-    long ns_this_sec {0}; //how many ns have passed this second
-    std::chrono::nanoseconds tgt_frm_len = std::chrono::nanoseconds{SEC_NS} / tgt_fps;
-    std::chrono::nanoseconds frm_delta {0}; //how long the frame took to execute
-    bool show_fps {false};
-    bool cap_fps {true};
-    SDL_Point fps_xy {20, 20};
-    char fps_str_buf[12];
-
-    vector<string> tx_paths;
-    make_txpaths(&tx_paths);
-
-    vector<SDL_Texture*> tx_arr;
-    if(load_textures(_ren, &tx_arr, &tx_paths) != 0) {
-        errlog(ERRLOG_GEN, "texture loading not successfull.");
-    }
-
-    //no longer need to store the paths
-    tx_paths.clear();
-    tx_paths.shrink_to_fit();
-
-    Font_atlas def_mono_font(DEF_MONO_FONT_PATH, 12, _ren);
-
-    //TODO just a placeholer
-    Tile border(tx_arr[0]);
-    Tile cobble(tx_arr[1]);
-
-    //TODO temporary - testing buttons - remove later
-    Button tst_btn("epic button", &def_mono_font, tx_arr[2], tx_arr[3], 30, 30);
-
-    //--end-placeholder-----------------------------------------------------
-
-    //main loop
-    bool flag_quit {false};
-    while(flag_quit == false) {
-        loop_timer.start();
-
-        ns_this_sec += frm_delta.count(); //adding length of last frame for averaging
-
-        SDL_SetRenderDrawColor(_ren, 0x00, 0x00, 0x00, 0x00);
-        
-        //input and update phase
-        SDL_Event event;
-        const Uint8* key_states = SDL_GetKeyboardState(NULL);
-        //key down/up check
-        while(SDL_PollEvent(&event) != 0) {
-            if(event.type == SDL_KEYDOWN) {
-                if(key_states[SDL_SCANCODE_F]) { show_fps = !show_fps; }
-                if(key_states[SDL_SCANCODE_Q]) { flag_quit = true; }
-                if(key_states[SDL_SCANCODE_U]) { cap_fps = !cap_fps; }
-            }
-            else if(event.type == SDL_MOUSEBUTTONDOWN) {
-                int mouse_x, mouse_y;
-                SDL_GetMouseState(&mouse_x, &mouse_y);
-                if(tst_btn.check_click(mouse_x, mouse_y)) { tst_btn.press(); }
-            }
-            else if(event.type == SDL_MOUSEBUTTONUP) {
-                tst_btn.unpress();
-            }
-            else if(event.type == SDL_QUIT) {flag_quit = true;}
-        }
-
-        //render phase
-        SDL_RenderClear(_ren);
-
-        //TODO just a placeholer
-        //
-        //temporary solution to tilemap rendering
-        SDL_Point ren_pt{50, 50};
-        bool offs = true;
-        for(unsigned i = 400; i > 0; --i) {
-
-            cobble.render(_ren, &ren_pt);
-            //border.render(_ren, &ren_pt);
-            ren_pt.x += 64;
-
-            if(ren_pt.x >= _win_w) {
-                ren_pt.x = 50;
-                ren_pt.y += 16;
-
-                if(offs) { ren_pt.x -= 32; }
-                offs = !offs;
-            }
-
-            if(ren_pt.y >= _win_h) { break; }
-        }
-        ren_pt = SDL_Point{50, 70};
-        border.render(_ren, &ren_pt);
-
-        tst_btn.render(_ren);
-        //--end-placeholder-----------------------------------------------------
-
-        if(show_fps) {
-            if(ns_this_sec >= SEC_NS) {
-                ns_this_sec -= SEC_NS;
-                fact_fps = sec_frame_count - 1;
-                sec_frame_count = 1;
-            }
-
-            int len = snprintf(fps_str_buf, sizeof fps_str_buf, "FPS: %u", fact_fps);
-            def_mono_font.nprint(fps_str_buf, &fps_xy, len, _ren);
-        }
-
-        if(flag_quit == true) { break; }
-
-        SDL_RenderPresent(_ren);
-
-        //limit framerate
-        if(cap_fps) {
-            frm_delta = loop_timer.get_dur();
-
-            if(frm_delta < tgt_frm_len) {
-                std::chrono::nanoseconds wait_len = tgt_frm_len - frm_delta;
-
-                std::this_thread::sleep_for(wait_len);
-            }
-        }
-
-        ++sec_frame_count;
-
-        //final length of the frame (after frame-cap procedure if any, etc)
-        frm_delta = loop_timer.get_dur();
-    }
-
-    dbg(8, "unloading general textures\n");
-    unload_textures(&tx_arr);
 }

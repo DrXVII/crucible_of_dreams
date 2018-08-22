@@ -11,9 +11,12 @@ SRC_DIR = src
 OBJ_DIR = obj
 
 _OBJ = main.o \
+       win_main_menu.o \
+       win_game.o \
        Timer.o \
        utils.o \
        Font_atlas.o \
+       Asset_container.o \
        Tile.o \
        Button.o \
        dbg.o

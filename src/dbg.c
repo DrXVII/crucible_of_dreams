@@ -12,7 +12,7 @@ void dbg(int _lvl, const char *_txt)
             "%Y-%m-%d %T", localtime(&ts.tv_sec));
     snprintf(time_buf + rc, sizeof time_buf - rc, ".%06ld", ts.tv_nsec / 1000);
 
-    fprintf(stderr, "DBG[%s]: %s", time_buf, _txt);
+    fprintf(stderr, "DBG[%s](L%d): %s", time_buf, _lvl, _txt);
 }
 
 void dbgf(int _lvl, const char *_fmt, ...)

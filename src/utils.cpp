@@ -71,6 +71,7 @@ int make_txpaths(vector<string>* fpath_arr_)
     return 0;
 }
 
+//TODO remove - is now obsoleted by Asset_container
 int load_textures(SDL_Renderer* _ren,
         vector<SDL_Texture*>* _tx_arr, vector<string>* _fpath_arr)
 {
@@ -86,10 +87,11 @@ int load_textures(SDL_Renderer* _ren,
     return 0;
 }
 
+//TODO remove - is now obsoleted by Asset_container
 void unload_textures(vector<SDL_Texture*>* _arr)
 {
     for(unsigned i = 0; i < _arr->size(); ++i) {
-        dbgf(9, "unloading texture %u\n", i);
+        dbgf(0, "unloading texture %u\n", i);
 
         SDL_ClearError();
         SDL_DestroyTexture((*_arr)[i]);

@@ -13,6 +13,8 @@ Font_atlas::Font_atlas(string const& _fpath, int _sz, SDL_Renderer* _ren)
 
 Font_atlas::~Font_atlas()
 {
+    dbgf(9, "destroying font atlas\n");
+
     if(this->atlas != nullptr) {
         SDL_DestroyTexture(this->atlas);
         //TODO error handling

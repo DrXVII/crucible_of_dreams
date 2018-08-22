@@ -1,3 +1,6 @@
+#ifndef TILE_HPP
+#define TILE_HPP
+
 //third party libs
 #include <SDL2/SDL.h>
 
@@ -16,3 +19,5 @@ private:
     int w, h;
     SDL_Texture* tx;
 };
+
+#endif //define TILE_HPP
