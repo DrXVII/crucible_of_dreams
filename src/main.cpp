@@ -28,6 +28,8 @@ using std::acos;
 //TODO default font paths should be set differently, preferably from cfg files
 #define DEF_MONO_FONT_PATH "data/fonts/terminus/TerminusTTF-4.46.0.ttf"
 
+//TODO ASAP version
+
 const string win_title = "Crucible of Dreams";
 
 int init_sdl(); //initialise SDL
