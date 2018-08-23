@@ -27,10 +27,6 @@ SDL_Texture* txt_to_tx(const char* _txt, int _sz, SDL_Colour _col,
 SDL_Surface* load_surface(string const& _fpath);
 SDL_Texture* load_texture(string const& _fpath, SDL_Renderer* _ren);
 
-int load_textures(SDL_Renderer* _ren,
-        vector<SDL_Texture*>* _tx_arr, vector<string>* _fpath_arr);
-void unload_textures(vector<SDL_Texture*>* _arr);
-
 /*TODO temporary placeholder while there is not a config file
  * textures and the like should be loaded
  * dynamically from config files (e.g. a level file). */

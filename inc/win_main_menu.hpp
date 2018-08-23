@@ -9,8 +9,9 @@ using std::vector;
 #include <SDL2/SDL.h>
 
 //homebrew
-#include "win_game.hpp"
 #include "dbg.h"
+#include "version.h"
+#include "win_game.hpp"
 #include "Font_atlas.hpp"
 #include "Button.hpp"
 #include "Asset_container.hpp"

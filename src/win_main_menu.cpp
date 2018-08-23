@@ -10,6 +10,8 @@ struct Win_env {
 struct Game_env {
     SDL_Renderer* ren;
     Asset_container* assets;
+    /*TODO remove make_ver_str() call from main_menu()
+    / char* ver_cstr; //readable string of the program version */
     Win_env* win_env; //TODO think - maybe this should just be "void* local_data" or something
     //TODO int win_w, win_h;
 };
@@ -25,6 +27,9 @@ void btnf_run(void* _data) {
 
 int main_menu(SDL_Renderer* _ren, Asset_container* _assets)
 {
+    char ver_cstr[32];
+    make_ver_str(ver_cstr, sizeof ver_cstr);
+
     Win_env win_env { .state = 0 };
     Game_env game_env { .ren = _ren, .assets = _assets, .win_env = &win_env };
 
@@ -32,13 +37,13 @@ int main_menu(SDL_Renderer* _ren, Asset_container* _assets)
     vector<Button*> btn_arr;
     btn_arr.push_back(new Button("epic button nop", _assets->get_font(0),
             _assets->get_tx(2), _assets->get_tx(3), 290, btn_y += 50));
-    btn_arr.push_back(new Button("button 2 nop", _assets->get_font(0),
+    btn_arr.push_back(new Button("-s sandbox", _assets->get_font(0),
             _assets->get_tx(2), _assets->get_tx(3), 290, btn_y += 50));
     btn_arr.push_back(new Button("button 3 nop", _assets->get_font(0),
             _assets->get_tx(2), _assets->get_tx(3), 290, btn_y += 50));
     btn_arr.push_back(new Button("button 4 nop", _assets->get_font(0),
             _assets->get_tx(2), _assets->get_tx(3), 290, btn_y += 50));
-    btn_arr.push_back(new Button("quit", _assets->get_font(0),
+    btn_arr.push_back(new Button("-q quit", _assets->get_font(0),
             _assets->get_tx(2), _assets->get_tx(3), 290, btn_y += 50));
 
     btn_arr[1]->set_on_rel(btnf_run);
@@ -59,6 +64,7 @@ int main_menu(SDL_Renderer* _ren, Asset_container* _assets)
                 //if(key_states[SDL_SCANCODE_F]) {show_fps = !show_fps;}
                 if(key_states[SDL_SCANCODE_Q]) {win_env.state = MAIN_MENU_QUIT;}
                 //if(key_states[SDL_SCANCODE_U]) {cap_fps = !cap_fps;}
+                if(key_states[SDL_SCANCODE_S]) {btnf_run((void*) &game_env);}
             }
             else if(event.type == SDL_MOUSEBUTTONDOWN) {
                 for(size_t i = 0; i < btn_arr.size(); ++i) {
@@ -76,8 +82,8 @@ int main_menu(SDL_Renderer* _ren, Asset_container* _assets)
         //*** render phase ***
         SDL_RenderClear(_ren);
 
-        //tst_btn.render(_ren);
         for(size_t i = 0; i < btn_arr.size(); ++i) {btn_arr[i]->render(_ren);}
+        game_env.assets->get_font(0)->print(ver_cstr, 0, 620, _ren);
 
         //finalizing render phase
         SDL_RenderPresent(_ren);

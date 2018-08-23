@@ -19,6 +19,7 @@ _OBJ = main.o \
        Asset_container.o \
        Tile.o \
        Button.o \
+       version.o \
        dbg.o
 OBJ = $(patsubst %, $(OBJ_DIR)/%, $(_OBJ))
 NAME = crucible

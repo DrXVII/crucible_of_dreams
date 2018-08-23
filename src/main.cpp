@@ -28,15 +28,9 @@ using std::acos;
 //TODO default font paths should be set differently, preferably from cfg files
 #define DEF_MONO_FONT_PATH "data/fonts/terminus/TerminusTTF-4.46.0.ttf"
 
-//TODO ASAP version
-
 const string win_title = "Crucible of Dreams";
 
 int init_sdl(); //initialise SDL
-//initialise assets (textures, fonts, animations, etc)
-int load_assets(SDL_Renderer* _ren,
-        vector<SDL_Texture*>* tx_arr_, Font_atlas** font_);
-void unload_assets(vector<SDL_Texture*>* _tx_arr, Font_atlas* _font);
 int create_main_win(SDL_Window*& _win,
                     string const& _title, const int _w, const int _h);
 int create_win_renderer(SDL_Window* _win, SDL_Renderer*& _ren);
@@ -104,38 +98,6 @@ int init_sdl()
     }
     
     return 0;
-}
-
-/*TODO HIGH_PRI make one structure/function to all the game assets
- * if it will be a class - this function and friends should go there */
-int load_assets(SDL_Renderer* _ren,
-        vector<SDL_Texture*>* tx_arr_, Font_atlas** font_)
-{
-    //*** load textures ***
-    vector<string> tx_paths;
-    make_txpaths(&tx_paths);
-
-    if(load_textures(_ren, tx_arr_, &tx_paths) != 0) {
-        errlog(ERRLOG_GEN, "texture loading not successfull.");
-    }
-
-    //no longer need to store the paths
-    tx_paths.clear();
-    tx_paths.shrink_to_fit();
-
-    //*** load fonts ***
-    *font_ = nullptr;
-    *font_ = new Font_atlas(DEF_MONO_FONT_PATH, 12, _ren);
-    if(*font_ == nullptr) {return 1;}
-
-    return 0;
-}
-
-void unload_assets(vector<SDL_Texture*>* _tx_arr, Font_atlas* _font)
-{
-    unload_textures(_tx_arr);
-
-    delete _font;
 }
 
 int create_main_win(SDL_Window*& _win,

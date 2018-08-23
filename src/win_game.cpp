@@ -37,7 +37,11 @@ int run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h,
             if(event.type == SDL_KEYDOWN) {
                 if(key_states[SDL_SCANCODE_F]) { show_fps = !show_fps; }
                 if(key_states[SDL_SCANCODE_Q]) { flag_quit = true; }
-                if(key_states[SDL_SCANCODE_U]) { cap_fps = !cap_fps; }
+                if(key_states[SDL_SCANCODE_U]) {
+                    if(cap_fps) {dbg(9, "uncapping fps\n");}
+                    else {dbg(9, "capping fps\n");}
+                    cap_fps = !cap_fps;
+                }
             }
             else if(event.type == SDL_QUIT) {flag_quit = true;}
         }

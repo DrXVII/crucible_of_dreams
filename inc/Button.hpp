@@ -11,9 +11,8 @@ using std::string;
 #include "dbg.h"
 #include "Font_atlas.hpp"
 
-/* TODO This is a work in progress,
- * texture handle changing and other things are
- * still to be implemented/designed */
+/*TODO LOW_PRI make it possible to emphasise a letter (e.g. different color
+ * or bold) to represent keyboard shorcuts */
 
 class Button {
 public:
@@ -49,10 +48,10 @@ private:
     SDL_Texture* tx_disp; //the current active texture of the button
     void (*on_click)(void*); //callback to execute on button click
     void (*on_rel)(void*); //callback to execute on button release
-    string txt; //the button text
     int txt_x_offs; //the offset of button text
     int txt_y_offs; //the offset of button text
     bool pressed;
+    string txt; //the button text
 };
 
 

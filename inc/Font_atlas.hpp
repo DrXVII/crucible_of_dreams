@@ -23,8 +23,7 @@ public:
     Font_atlas(string const& _fpath, int _sz, SDL_Renderer* _ren);
     ~Font_atlas();
 
-    //TODO printing functions should not be a part of this class
-    //render text with _ren
+    //render text
     int print(const char* _txt, int _x, int _y, SDL_Renderer* _ren);
     int print(const char* _txt, SDL_Point* _xy, SDL_Renderer* _ren);
     int nprint(const char* _txt, int _x, int _y, int _txt_len,

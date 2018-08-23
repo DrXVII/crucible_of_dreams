@@ -23,9 +23,8 @@ public:
     void unload_textures();
     void unload_fonts();
 
-    //TODO moved out of private temporarily for quick tests, but back ASAP
-    vector<SDL_Texture*> txs; //textures
 private:
+    vector<SDL_Texture*> txs; //textures
     vector<Font_atlas*> fonts; //fonts
     //store animations and other things here too in the future
 };

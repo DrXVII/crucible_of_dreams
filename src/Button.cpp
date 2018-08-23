@@ -14,10 +14,10 @@ Button::Button(string const& _txt, Font_atlas* _font,
 , tx_disp {this->tx}
 , on_click {nullptr}
 , on_rel {nullptr}
-, txt {_txt}
 , txt_x_offs {0}
 , txt_y_offs {0}
 , pressed {false}
+, txt {_txt}
 {
     if(this->tx != nullptr) {
         this->sync_wh_to_tx();
