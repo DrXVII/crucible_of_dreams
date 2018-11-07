@@ -46,6 +46,7 @@ int main_menu(SDL_Renderer* _ren, Asset_container* _assets)
     btn_arr.push_back(new Button("-q quit", _assets->get_font(0),
             _assets->get_tx(2), _assets->get_tx(3), 290, btn_y += 50));
 
+    //assign functions to buttons
     btn_arr[1]->set_on_rel(btnf_run);
     btn_arr[4]->set_on_rel(btnf_quit);
 

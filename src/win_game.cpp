@@ -17,8 +17,14 @@ int run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h,
     char fps_str_buf[12];
 
     //TODO just a placeholer
-    Tile border(_assets->get_tx(0));
     Tile cobble(_assets->get_tx(1));
+    Tile wall(_assets->get_tx(4));
+    //using the tile object to represent player graphically (placeholder solution)
+    Tile player(_assets->get_tx(0));
+
+    //TODO temporary solution (brought here to use in move key input processing)
+    int tile_hw = 16;
+    SDL_Point player_xy{5*tile_hw, 5*tile_hw};
 
     //main loop
     bool flag_quit {false};
@@ -42,6 +48,10 @@ int run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h,
                     else {dbg(9, "capping fps\n");}
                     cap_fps = !cap_fps;
                 }
+                if(key_states[SDL_SCANCODE_UP])    { player_xy.y -= tile_hw; }
+                else if(key_states[SDL_SCANCODE_DOWN])  { player_xy.y += tile_hw; }
+                else if(key_states[SDL_SCANCODE_LEFT])  { player_xy.x -= tile_hw; }
+                else if(key_states[SDL_SCANCODE_RIGHT]) { player_xy.x += tile_hw; }
             }
             else if(event.type == SDL_QUIT) {flag_quit = true;}
         }
@@ -52,26 +62,34 @@ int run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h,
         //TODO just a placeholer
         //
         //temporary solution to tilemap rendering
-        SDL_Point ren_pt{50, 50};
-        bool offs = true;
-        for(unsigned i = 400; i > 0; --i) {
+        int start_x = 0;
+        int start_y = 0;
+        SDL_Point ren_pt{start_x, start_y};
+        for(unsigned i = 1000; i > 0; --i) {
 
             cobble.render(_ren, &ren_pt);
-            //border.render(_ren, &ren_pt);
-            ren_pt.x += 64;
+            ren_pt.x += tile_hw;
 
             if(ren_pt.x >= _win_w) {
-                ren_pt.x = 50;
-                ren_pt.y += 16;
-
-                if(offs) { ren_pt.x -= 32; }
-                offs = !offs;
+                ren_pt.x = start_x;
+                ren_pt.y += tile_hw;
             }
 
             if(ren_pt.y >= _win_h) { break; }
         }
-        ren_pt = SDL_Point{50, 70};
-        border.render(_ren, &ren_pt);
+
+        //putting in a square room
+        SDL_Rect room_rect{10 * tile_hw, 3 * tile_hw, 3, 5};
+        for(int x {0}; x < room_rect.w; ++x) {
+            for(int y {0}; y < room_rect.h; ++y) {
+                if(x == 0 || x == room_rect.w - 1 || y == 0 || y == room_rect.h - 1) {
+                    ren_pt = {room_rect.x + x * tile_hw, room_rect.y + y * tile_hw};
+                    wall.render(_ren, &ren_pt);
+                }
+            }
+        }
+
+        player.render(_ren, &player_xy);
         //--end-placeholder-----------------------------------------------------
 
         if(show_fps) {

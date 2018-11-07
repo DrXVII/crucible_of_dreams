@@ -1,8 +1,8 @@
 = Crucible of Dreams
 
-The goal of this projest is a game that tells a story in the fashion of the classic RPG method.
-
+2D tile-based turn-based RPG game and engine.
 
 == Technical Notes (below will most likely be moved to some other document later)
+
 * Graphics - SDL2
 * Sound - SDL2

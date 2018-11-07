@@ -12,8 +12,8 @@ extern "C" {
 #include "dbg.h"
 
 #define VER_MAJOR 0
-#define VER_MINOR 1
-#define VER_PATCH 1
+#define VER_MINOR 0
+#define VER_PATCH 0
 
 #define VER_TYPE_REL 0
 #define VER_TYPE_ALPHA 1

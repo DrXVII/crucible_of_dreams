@@ -63,10 +63,11 @@ int make_txpaths(vector<string>* fpath_arr_)
 {
     if(fpath_arr_ == nullptr) { return -1; }
 
-    fpath_arr_->push_back(string{"data/gfx/tiles/floor_border.png"});
+    fpath_arr_->push_back(string{"data/gfx/other/player.png"});
     fpath_arr_->push_back(string{"data/gfx/tiles/floor_cobble.png"});
     fpath_arr_->push_back(string{"data/gfx/buttons/button.png"});
     fpath_arr_->push_back(string{"data/gfx/buttons/button_pressed.png"});
+    fpath_arr_->push_back(string{"data/gfx/tiles/floor_wall.png"});
 
     return 0;
 }
