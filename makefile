@@ -18,6 +18,7 @@ _OBJ = main.o \
        Font_atlas.o \
        Asset_container.o \
        Tile.o \
+       Tilemap.o \
        Button.o \
        version.o \
        dbg.o
