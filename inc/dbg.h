@@ -1,3 +1,6 @@
+#ifndef DBG_H
+#define DBG_H
+
 //c std lib
 #include <stdio.h>
 #include <stdarg.h>
@@ -8,12 +11,14 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
-//general error
-#define ERRLOG_GEN 0
-//defines for sld error reporting
-#define ERRLOG_SDL 1
-#define ERRLOG_IMG 2
-#define ERRLOG_TTF 3
+enum sdl_error_types {
+    //general error
+    ERRLOG_GEN = 0,
+    //defines for sld error reporting
+    ERRLOG_SDL,
+    ERRLOG_IMG,
+    ERRLOG_TTF
+};
 
 // make sure we can call this from c++
 #ifdef __cplusplus
@@ -31,3 +36,5 @@ void errlogf(int _lib, const char *_fmt, ...);
 #ifdef __cplusplus
 }
 #endif //#ifdef __cplusplus
+
+#endif //define DBG_H
