@@ -1,4 +1,6 @@
-#include "win_game.hpp" //headef of this implementation file
+#include "win_game.hpp" //header of this implementation file
+
+#include "Tilemap.hpp"
 
 int run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h,
         Asset_container* _assets)
@@ -25,6 +27,13 @@ int run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h,
     //TODO temporary solution (brought here to use in move key input processing)
     int tile_hw = 16;
     SDL_Point player_xy{5*tile_hw, 5*tile_hw};
+
+    Tilemap tiles(20, 20);
+    for(size_t x = 0; x < tiles.get_w(); ++x) {
+        for(size_t y = 0; y < tiles.get_h(); ++y) {
+            tiles.put_tile(&cobble, x, y);
+        }
+    }
 
     //main loop
     bool flag_quit {false};
@@ -59,35 +68,38 @@ int run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h,
         //render phase
         SDL_RenderClear(_ren);
 
+        //TODO window dimensions shoud be in a program_environment struct/class
+        tiles.render(0, 0, _win_w, _win_h, _ren);
+
         //TODO just a placeholer
         //
         //temporary solution to tilemap rendering
-        int start_x = 0;
-        int start_y = 0;
-        SDL_Point ren_pt{start_x, start_y};
-        for(unsigned i = 1000; i > 0; --i) {
+        ////int start_x = 0;
+        ////int start_y = 0;
+        ////SDL_Point ren_pt{start_x, start_y};
+        ////for(unsigned i = 1000; i > 0; --i) {
 
-            cobble.render(_ren, &ren_pt);
-            ren_pt.x += tile_hw;
+        ////    cobble.render(_ren, &ren_pt);
+        ////    ren_pt.x += tile_hw;
 
-            if(ren_pt.x >= _win_w) {
-                ren_pt.x = start_x;
-                ren_pt.y += tile_hw;
-            }
+        ////    if(ren_pt.x >= _win_w) {
+        ////        ren_pt.x = start_x;
+        ////        ren_pt.y += tile_hw;
+        ////    }
 
-            if(ren_pt.y >= _win_h) { break; }
-        }
+        ////    if(ren_pt.y >= _win_h) { break; }
+        ////}
 
-        //putting in a square room
-        SDL_Rect room_rect{10 * tile_hw, 3 * tile_hw, 3, 5};
-        for(int x {0}; x < room_rect.w; ++x) {
-            for(int y {0}; y < room_rect.h; ++y) {
-                if(x == 0 || x == room_rect.w - 1 || y == 0 || y == room_rect.h - 1) {
-                    ren_pt = {room_rect.x + x * tile_hw, room_rect.y + y * tile_hw};
-                    wall.render(_ren, &ren_pt);
-                }
-            }
-        }
+        //////putting in a square room
+        ////SDL_Rect room_rect{10 * tile_hw, 3 * tile_hw, 3, 5};
+        ////for(int x {0}; x < room_rect.w; ++x) {
+        ////    for(int y {0}; y < room_rect.h; ++y) {
+        ////        if(x == 0 || x == room_rect.w - 1 || y == 0 || y == room_rect.h - 1) {
+        ////            ren_pt = {room_rect.x + x * tile_hw, room_rect.y + y * tile_hw};
+        ////            wall.render(_ren, &ren_pt);
+        ////        }
+        ////    }
+        ////}
 
         player.render(_ren, &player_xy);
         //--end-placeholder-----------------------------------------------------

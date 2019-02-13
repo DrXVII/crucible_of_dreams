@@ -8,13 +8,17 @@ using std::vector;
 //TODO think on concept and probably rename to Area_map
 class Tilemap {
 public:
-    Tilemap(unsigned i_w, unsigned i_h);
+    Tilemap(size_t w, size_t h);
 
-    //render(unsigned i_x, unsigned i_y, unsigned i_w, unsigned i_h, SDL_Renderer i_ren);
+    void put_tile(Tile* tile, size_t x, size_t y);
+    void render(int x, int y, int w, int h, SDL_Renderer* ren);
+
+    size_t get_w();
+    size_t get_h();
 private:
-    unsigned w;
-    unsigned h;
-    vector<vector<Tile*>> tiles;
+    size_t m_w;
+    size_t m_h;
+    vector<vector<Tile*>> m_tiles;
     //vector<vector<Wall*>> walls;
     //vector<vector<Interact_object*>> objects;
     //vector<vector<Event_trigger*>> events;
