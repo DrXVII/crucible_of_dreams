@@ -72,7 +72,6 @@ int main()
     assets.load_fonts(ren_main, &paths);
 
     main_menu(ren_main, &assets);
-    //run_game(ren_main, win_w, win_h, &assets);
     
     assets.unload();
     close(win_main, ren_main);

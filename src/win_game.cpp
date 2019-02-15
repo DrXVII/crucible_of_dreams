@@ -1,6 +1,14 @@
 #include "win_game.hpp" //header of this implementation file
 
 #include "Tilemap.hpp"
+#include "utils.hpp"
+
+struct tmp_tiles {
+    Tile cobble;
+    Tile wall;
+};
+
+void load_lvl(Tilemap* tilemap, tmp_tiles* tiles);
 
 int run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h,
         Asset_container* _assets)
@@ -19,21 +27,19 @@ int run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h,
     char fps_str_buf[12];
 
     //TODO just a placeholer
-    Tile cobble(_assets->get_tx(1));
-    Tile wall(_assets->get_tx(4));
+    struct tmp_tiles tiles {
+        .cobble = Tile(_assets->get_tx(TX_FLOOR_COBBLE)),
+        .wall = Tile(_assets->get_tx(TX_WALL))
+    };
     //using the tile object to represent player graphically (placeholder solution)
-    Tile player(_assets->get_tx(0));
+    Tile player(_assets->get_tx(TX_PLAYER));
 
     //TODO temporary solution (brought here to use in move key input processing)
     int tile_hw = 16;
     SDL_Point player_xy{5*tile_hw, 5*tile_hw};
 
-    Tilemap tiles(20, 20);
-    for(size_t x = 0; x < tiles.get_w(); ++x) {
-        for(size_t y = 0; y < tiles.get_h(); ++y) {
-            tiles.put_tile(&cobble, x, y);
-        }
-    }
+    Tilemap tilemap(20, 20);
+    load_lvl(&tilemap, &tiles);
 
     //main loop
     bool flag_quit {false};
@@ -69,37 +75,7 @@ int run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h,
         SDL_RenderClear(_ren);
 
         //TODO window dimensions shoud be in a program_environment struct/class
-        tiles.render(0, 0, _win_w, _win_h, _ren);
-
-        //TODO just a placeholer
-        //
-        //temporary solution to tilemap rendering
-        ////int start_x = 0;
-        ////int start_y = 0;
-        ////SDL_Point ren_pt{start_x, start_y};
-        ////for(unsigned i = 1000; i > 0; --i) {
-
-        ////    cobble.render(_ren, &ren_pt);
-        ////    ren_pt.x += tile_hw;
-
-        ////    if(ren_pt.x >= _win_w) {
-        ////        ren_pt.x = start_x;
-        ////        ren_pt.y += tile_hw;
-        ////    }
-
-        ////    if(ren_pt.y >= _win_h) { break; }
-        ////}
-
-        //////putting in a square room
-        ////SDL_Rect room_rect{10 * tile_hw, 3 * tile_hw, 3, 5};
-        ////for(int x {0}; x < room_rect.w; ++x) {
-        ////    for(int y {0}; y < room_rect.h; ++y) {
-        ////        if(x == 0 || x == room_rect.w - 1 || y == 0 || y == room_rect.h - 1) {
-        ////            ren_pt = {room_rect.x + x * tile_hw, room_rect.y + y * tile_hw};
-        ////            wall.render(_ren, &ren_pt);
-        ////        }
-        ////    }
-        ////}
+        tilemap.render(0, 0, _win_w, _win_h, _ren);
 
         player.render(_ren, &player_xy);
         //--end-placeholder-----------------------------------------------------
@@ -138,4 +114,25 @@ int run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h,
     }
 
     return 0;
+}
+
+void load_lvl(Tilemap* tilemap, tmp_tiles* tiles)
+{
+    for(size_t x = 0; x < tilemap->get_w(); ++x) {
+        for(size_t y = 0; y < tilemap->get_h(); ++y) {
+            tilemap->put_tile(&tiles->cobble, x, y);
+        }
+    }
+
+    //making a square room
+    SDL_Rect room_rect{10, 3, 3, 5};
+    for(int x {0}; x < room_rect.w; ++x) {
+        for(int y {0}; y < room_rect.h; ++y) {
+            if(x == 0 || x == room_rect.w - 1
+            || y == 0 || y == room_rect.h - 1) {
+                tilemap->put_tile(&tiles->wall,
+                        room_rect.x + x, room_rect.y + y);
+            }
+        }
+    }
 }
