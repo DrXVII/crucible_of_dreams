@@ -15,10 +15,14 @@ extern "C" {
 #define VER_MINOR 0
 #define VER_PATCH 0
 
-#define VER_TYPE_REL 0
-#define VER_TYPE_ALPHA 1
-#define VER_TYPE_BETA 2
-#define VER_TYPE VER_TYPE_ALPHA
+enum {
+    VER_TYPE_DEV = 0,
+    VER_TYPE_ALPHA,
+    VER_TYPE_BETA,
+    VER_TYPE_REL
+};
+
+#define VER_TYPE VER_TYPE_DEV
 
 int make_ver_str(char *_buf, int _max_len);
 

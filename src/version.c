@@ -7,9 +7,10 @@ int make_ver_str(char *_buf, int _max_len)
     if(VER_TYPE == 0) {spec_str[0] = 0;}
     
     switch(VER_TYPE) {
-    case 0: spec_str[0] = 0; break;
-    case 1: strcpy(spec_str, "-alpha"); break;
-    case 2: strcpy(spec_str, "-beta"); break;
+    case VER_TYPE_REL: spec_str[0] = 0; break;
+    case VER_TYPE_ALPHA: strcpy(spec_str, "-alpha"); break;
+    case VER_TYPE_BETA: strcpy(spec_str, "-beta"); break;
+    case VER_TYPE_DEV: strcpy(spec_str, "-DEV"); break;
     default: strcpy(spec_str, "-unknown"); break;
     }
 
