@@ -1,5 +1,18 @@
 #include "win_main_menu.hpp"
 
+//cpp std lib
+#include <vector>
+using std::vector;
+#include <array>
+using std::array;
+
+//homebrew
+#include "dbg.h"
+#include "version.h"
+#include "win_game.hpp"
+#include "Font_atlas.hpp"
+#include "Button.hpp"
+
 #define MAIN_MENU_QUIT 1
 
 struct Win_env {
@@ -33,22 +46,31 @@ int main_menu(SDL_Renderer* _ren, Asset_container* _assets)
     Win_env win_env { .state = 0 };
     Game_env game_env { .ren = _ren, .assets = _assets, .win_env = &win_env };
 
+    enum {
+        BTN_EPIC = 0,
+        BTN_SANDBOX,
+        BTN_3,
+        BTN_4,
+        BTN_QUIT
+    };
+
     int btn_y {30};
-    vector<Button*> btn_arr;
-    btn_arr.push_back(new Button("epic button nop", _assets->get_font(0),
-            _assets->get_tx(2), _assets->get_tx(3), 290, btn_y += 50));
-    btn_arr.push_back(new Button("-s sandbox", _assets->get_font(0),
-            _assets->get_tx(2), _assets->get_tx(3), 290, btn_y += 50));
-    btn_arr.push_back(new Button("button 3 nop", _assets->get_font(0),
-            _assets->get_tx(2), _assets->get_tx(3), 290, btn_y += 50));
-    btn_arr.push_back(new Button("button 4 nop", _assets->get_font(0),
-            _assets->get_tx(2), _assets->get_tx(3), 290, btn_y += 50));
-    btn_arr.push_back(new Button("-q quit", _assets->get_font(0),
-            _assets->get_tx(2), _assets->get_tx(3), 290, btn_y += 50));
+    //vector<Button*> btn_arr;
+    array<Button*, 5> btn_arr;
+    btn_arr[BTN_EPIC]    = new Button("epic button nop", _assets->get_font(0),
+            _assets->get_tx(2), _assets->get_tx(3), 290, btn_y += 50);
+    btn_arr[BTN_SANDBOX] = new Button("-s sandbox", _assets->get_font(0),
+            _assets->get_tx(2), _assets->get_tx(3), 290, btn_y += 50);
+    btn_arr[BTN_3]       = new Button("button 3 nop", _assets->get_font(0),
+            _assets->get_tx(2), _assets->get_tx(3), 290, btn_y += 50);
+    btn_arr[BTN_4]       = new Button("button 4 nop", _assets->get_font(0),
+            _assets->get_tx(2), _assets->get_tx(3), 290, btn_y += 50);
+    btn_arr[BTN_QUIT]    = new Button("-q quit", _assets->get_font(0),
+            _assets->get_tx(2), _assets->get_tx(3), 290, btn_y += 50);
 
     //assign functions to buttons
-    btn_arr[1]->set_on_rel(btnf_run);
-    btn_arr[4]->set_on_rel(btnf_quit);
+    btn_arr[BTN_SANDBOX]->set_on_rel(btnf_run);
+    btn_arr[BTN_QUIT]->set_on_rel(btnf_quit);
 
     //btn_arr[0].set_on_click();
     //btn_arr[0].set_on_rel();
