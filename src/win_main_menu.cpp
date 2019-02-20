@@ -33,7 +33,7 @@ void btnf_quit(void* _data) {
     ((Game_env*)_data)->win_env->state = MAIN_MENU_QUIT;
 }
 
-void btnf_run(void* _data) {
+void btnf_editor(void* _data) {
     Game_env* env = (Game_env*) _data;
     run_game(env->ren, 800, 640, env->assets);
 }
@@ -48,7 +48,7 @@ int main_menu(SDL_Renderer* _ren, Asset_container* _assets)
 
     enum {
         BTN_EPIC = 0,
-        BTN_SANDBOX,
+        BTN_EDITOR,
         BTN_3,
         BTN_4,
         BTN_QUIT
@@ -59,7 +59,7 @@ int main_menu(SDL_Renderer* _ren, Asset_container* _assets)
     array<Button*, 5> btn_arr;
     btn_arr[BTN_EPIC]    = new Button("epic button nop", _assets->get_font(0),
             _assets->get_tx(2), _assets->get_tx(3), 290, btn_y += 50);
-    btn_arr[BTN_SANDBOX] = new Button("-s sandbox", _assets->get_font(0),
+    btn_arr[BTN_EDITOR] = new Button("-e editor", _assets->get_font(0),
             _assets->get_tx(2), _assets->get_tx(3), 290, btn_y += 50);
     btn_arr[BTN_3]       = new Button("button 3 nop", _assets->get_font(0),
             _assets->get_tx(2), _assets->get_tx(3), 290, btn_y += 50);
@@ -69,11 +69,12 @@ int main_menu(SDL_Renderer* _ren, Asset_container* _assets)
             _assets->get_tx(2), _assets->get_tx(3), 290, btn_y += 50);
 
     //assign functions to buttons
-    btn_arr[BTN_SANDBOX]->set_on_rel(btnf_run);
+    btn_arr[BTN_EDITOR]->set_on_rel(btnf_editor);
     btn_arr[BTN_QUIT]->set_on_rel(btnf_quit);
 
-    //btn_arr[0].set_on_click();
-    //btn_arr[0].set_on_rel();
+    //assign shortcuts to buttons
+    btn_arr[BTN_EDITOR]->set_shortcut(SDLK_e);
+    btn_arr[BTN_QUIT]->set_shortcut(SDLK_q);
 
     while (win_env.state != MAIN_MENU_QUIT) {
         SDL_SetRenderDrawColor(_ren, 0x00, 0x00, 0x00, 0x00);
@@ -83,20 +84,27 @@ int main_menu(SDL_Renderer* _ren, Asset_container* _assets)
         //key down/up check
         while(SDL_PollEvent(&event) != 0) {
             if(event.type == SDL_KEYDOWN) {
-                const Uint8* key_states = SDL_GetKeyboardState(NULL);
-                //if(key_states[SDL_SCANCODE_F]) {show_fps = !show_fps;}
-                if(key_states[SDL_SCANCODE_Q]) {win_env.state = MAIN_MENU_QUIT;}
-                //if(key_states[SDL_SCANCODE_U]) {cap_fps = !cap_fps;}
-                if(key_states[SDL_SCANCODE_S]) {btnf_run((void*) &game_env);}
+                const Uint8 key_pressed = event.key.keysym.sym;
+                for(size_t i = 0; i < btn_arr.size(); ++i) {
+                    btn_arr[i]->keypress(
+                            key_pressed, static_cast<void*>(&game_env));
+                }
+            }
+            else if(event.type == SDL_KEYUP) {
+                const auto key_unpressed = event.key.keysym.sym;
+                for(size_t i = 0; i < btn_arr.size(); ++i) {
+                    btn_arr[i]->keyrel(
+                            key_unpressed, static_cast<void*>(&game_env));
+                }
             }
             else if(event.type == SDL_MOUSEBUTTONDOWN) {
                 for(size_t i = 0; i < btn_arr.size(); ++i) {
-                    btn_arr[i]->click((void*) &win_env);
+                    btn_arr[i]->click(static_cast<void*>(&game_env));
                 }
             }
             else if(event.type == SDL_MOUSEBUTTONUP) {
                 for(size_t i = 0; i < btn_arr.size(); ++i) {
-                    btn_arr[i]->unclick((void*) &game_env);
+                    btn_arr[i]->unclick(static_cast<void*>(&game_env));
                 }
             }
             else if(event.type == SDL_QUIT) {win_env.state = MAIN_MENU_QUIT;}
