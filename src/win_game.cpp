@@ -5,6 +5,7 @@
 #include "utils.hpp"
 
 struct tmp_tiles {
+    Tile selected;
     Tile cobble;
     Tile wall;
 };
@@ -29,8 +30,11 @@ int run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h,
 
     //TODO just a placeholer
     struct tmp_tiles tiles {
-        .cobble = Tile(_assets->get_tx(TX_FLOOR_COBBLE)),
-        .wall = Tile(_assets->get_tx(TX_WALL))
+        //.cobble = Tile(_assets->get_tx(TX_FLOOR_COBBLE)),
+        //.wall = Tile(_assets->get_tx(TX_WALL))
+        .selected = Tile(load_texture("data/gfx/tiles/tile_selected.png", _ren)),
+        .cobble = Tile(load_texture("data/gfx/tiles/floor_cobble.png", _ren)),
+        .wall =  Tile(load_texture("data/gfx/tiles/floor_wall.png", _ren))
     };
     //using the tile object to represent player graphically (placeholder solution)
     Tile player(_assets->get_tx(TX_PLAYER));
@@ -69,6 +73,14 @@ int run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h,
                 else if(key_states[SDL_SCANCODE_LEFT])  { player_xy.x -= tile_hw; }
                 else if(key_states[SDL_SCANCODE_RIGHT]) { player_xy.x += tile_hw; }
             }
+            else if(event.type == SDL_MOUSEBUTTONDOWN) {
+                int x,y;
+                SDL_GetMouseState(&x, &y);
+                dbgf(0, "mousedown at %d/%d\n", x, y);
+                /*TODO somehow we should figure out which tile the mouse is
+                 * pointing at, in the tilemap, and render the tile_selected
+                 * texture there on top of the selected tile*/
+            }
             else if(event.type == SDL_QUIT) {flag_quit = true;}
         }
 
@@ -78,8 +90,9 @@ int run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h,
         //TODO window dimensions shoud be in a program_environment struct/class
         tilemap.render(0, 0, _win_w, _win_h, _ren);
 
+        tilemap.highlight_mouseover(_ren, &tiles.selected);
+
         player.render(_ren, &player_xy);
-        //--end-placeholder-----------------------------------------------------
 
         if(show_fps) {
             if(ns_this_sec >= SEC_NS) {

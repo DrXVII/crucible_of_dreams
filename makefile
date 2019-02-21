@@ -52,7 +52,7 @@ todo:
 
 .PHONY: ctags
 ctags:
-	bash -c "ctags {src,inc}/*"
+	bash -c "ctags -R {src,inc}"
 
 .PHONY: clean
 clean:

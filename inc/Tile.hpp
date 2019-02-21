@@ -14,6 +14,7 @@ public:
     //set w and h to match texture dimensions
     int wh_to_tx();
     void render(SDL_Renderer* _ren, SDL_Point* _pt);
+    void render(SDL_Renderer* ren, int x, int y);
     int get_w();
     int get_h();
 

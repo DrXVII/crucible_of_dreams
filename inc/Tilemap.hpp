@@ -1,17 +1,25 @@
+//std c lib
+#include <stddef.h>
+
 //std c++ lib
 #include <vector>
 using std::vector;
+
+//3rd party
+#include <SDL2/SDL.h>
 
 //homebrew
 #include "Tile.hpp"
 
 //TODO think on concept and probably rename to Area_map
+//TODO Tilemap should have a Tileset within it
 class Tilemap {
 public:
     Tilemap(size_t w, size_t h);
 
     void put_tile(Tile* tile, size_t x, size_t y);
     void render(int x, int y, int w, int h, SDL_Renderer* ren);
+    void highlight_mouseover(SDL_Renderer* ren, Tile* selected_gfx);
 
     size_t get_w();
     size_t get_h();

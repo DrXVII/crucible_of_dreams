@@ -59,6 +59,7 @@ SDL_Texture* load_texture(string const& _fpath, SDL_Renderer* _ren)
     return tx;
 }
 
+//TODO having this here - and having it done this way - is just so wrong
 int make_txpaths(vector<string>* fpath_arr_)
 {
     if(fpath_arr_ == nullptr) { return -1; }
