@@ -1,5 +1,7 @@
 #include "Button.hpp"
 
+#include "utils.hpp"
+
 /* constructor for uninitialized button (e.g. for fast & easy array init, etc)
  * of course, afterwards, the button should not be used uninitialised */
 Button::Button() {};
@@ -156,24 +158,26 @@ void Button::sync_wh_to_tx()
     SDL_QueryTexture(this->tx, NULL, NULL, &this->rect.w, &this->rect.h);
 }
 
-bool Button::check_coll(int x, int y)
-{
-    if(x < this->rect.x ||
-       x > this->rect.x + this->rect.w ||
-       y < this->rect.y ||
-       y > this->rect.y + this->rect.h)
-    {
-        return false;
-    }
-    else {
-        return true;
-    }
-}
+/*TODO things like box collision mechanics should be a general utility 
+ * (utils.cpp ?)*/
+//bool Button::check_coll(int x, int y)
+//{
+//    if(x < this->rect.x ||
+//       x > this->rect.x + this->rect.w ||
+//       y < this->rect.y ||
+//       y > this->rect.y + this->rect.h)
+//    {
+//        return false;
+//    }
+//    else {
+//        return true;
+//    }
+//}
 
 bool Button::check_mouse_coll()
 {
     int x,y;
     SDL_GetMouseState(&x, &y);
 
-    return this->check_coll(x, y);
+    return collision_check_box_pt(rect.x, rect.y, rect.w, rect.h, x, y);
 }

@@ -72,3 +72,17 @@ int make_txpaths(vector<string>* fpath_arr_)
 
     return 0;
 }
+
+bool collision_check_box_pt(int x1, int y1, int w1, int h1, int x2, int y2)
+{
+    if(x2 < x1 ||
+       x2 > x1 + w1 ||
+       y2 < y1 ||
+       y2 > y1 + h1)
+    {
+        return false;
+    }
+    else {
+        return true;
+    }
+}

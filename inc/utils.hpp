@@ -4,6 +4,11 @@
  * here until they are grouped as more functions get created.
  * */
 
+/*TODO do not use SDL_Rect, SDL_Point, etc where functionality is not directly
+ * associated with calling the SDL2 library, implement own Rect and Point
+ * structures if needed.
+ */
+
 #ifndef UTILS_HPP
 #define UTILS_HPP
 
@@ -42,5 +47,7 @@ SDL_Texture* load_texture(string const& _fpath, SDL_Renderer* _ren);
  * textures and the like should be loaded
  * dynamically from config files (e.g. a level file). */
 int make_txpaths(vector<string>* fpath_arr_);
+
+bool collision_check_box_pt(int x1, int y1, int w1, int h1, int x2, int y2);
 
 #endif //define UTILS_HPP

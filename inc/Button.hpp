@@ -13,6 +13,8 @@ using std::string;
 
 /*TODO LOW_PRI make it possible to emphasise a letter (e.g. different color
  * or bold) to represent keyboard shorcuts */
+/*TODO refactor - precede member variable names with "m_", and use this-> only
+ * for functions in implementation code*/
 
 class Button {
 public:
@@ -44,7 +46,7 @@ public:
 
     void sync_wh_to_tx(); //set width and height of rect to that of loaded texture
     bool check_mouse_coll();
-    bool check_coll(int x, int y); //check for collision
+    //bool check_coll(int x, int y); //check for collision
 
 private:
     SDL_Rect rect;
