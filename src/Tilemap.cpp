@@ -5,7 +5,8 @@
 #include "dbg.h"
 
 Tilemap::Tilemap(size_t w, size_t h)
-: m_w {w}
+: m_viewport {0, 0, w, h}
+, m_w {w}
 , m_h {h}
 {
     m_tiles = vector<vector<Tile*>>(w, vector<Tile*>(h));
@@ -26,9 +27,9 @@ void Tilemap::highlight_mouseover(SDL_Renderer* ren, Tile* selected_gfx)
     int screen_coord_x = (x / tile_w) * tile_w;
     int screen_coord_y = (y / tile_h) * tile_h;
 
-    /*TODO just proof of concept, should define and use Tilemap->viewport to 
+    /*TODO just proof of concept, should define and use Tilemap->viewport to
 get x, y, w, h*/
-    if(collision_check_box_pt(0, 0, m_w * tile_w, m_h * tile_h, x, y)) {
+    if(collision_check_box_pt(0, 0, (m_w * tile_w) - 1, (m_h * tile_h) - 1, x, y)) {
         selected_gfx->render(ren, screen_coord_x, screen_coord_y);
     }
 }

@@ -10,6 +10,7 @@ using std::vector;
 
 //homebrew
 #include "Tile.hpp"
+#include "gfx_structs.hpp"
 
 //TODO think on concept and probably rename to Area_map
 //TODO Tilemap should have a Tileset within it
@@ -24,6 +25,8 @@ public:
     size_t get_w();
     size_t get_h();
 private:
+    //TODO m_viewport is not used yet in implementation, use is planned
+    U_rect m_viewport;
     size_t m_w;
     size_t m_h;
     vector<vector<Tile*>> m_tiles;

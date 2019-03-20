@@ -26,6 +26,8 @@ public:
 
     void render(SDL_Renderer* _ren);
 
+    /*TODO the click/unclick pair seems superfluous - one of the functions
+     * should suffice*/
     bool click(void* data, bool no_mouse_check = false);
     bool unclick(void* data, bool no_mouse_check = false);
     void keypress(Uint8 keycode, void* data);
