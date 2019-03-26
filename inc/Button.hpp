@@ -26,13 +26,11 @@ public:
 
     void render(SDL_Renderer* _ren);
 
-    /*TODO the click/unclick pair seems superfluous - one of the functions
-     * should suffice*/
     bool click(bool no_mouse_check = false);
     bool unclick(void* data, bool no_mouse_check = false);
     void keypress(Uint8 keycode);
     void keyrel(Uint8 keycode, void* data);
-    //TODO the naming of these two is quite confusing
+    //TODO the naming of these two is quite confusing vs click/unclick -refactor
     void press();
     void unpress();
 
@@ -55,7 +53,6 @@ private:
     SDL_Texture* tx; //the default button appearance
     SDL_Texture* tx_press; //when the button is pressed down
     SDL_Texture* tx_disp; //the current active texture of the button
-    //TODO having both on click and on release functions seems superfluous
     void (*func)(void*); //function to execute on button release
     int txt_x_offs; //the offset of button text
     int txt_y_offs; //the offset of button text
