@@ -69,8 +69,8 @@ int main_menu(SDL_Renderer* _ren, Asset_container* _assets)
             _assets->get_tx(2), _assets->get_tx(3), 290, btn_y += 50);
 
     //assign functions to buttons
-    btn_arr[BTN_EDITOR]->set_on_rel(btnf_editor);
-    btn_arr[BTN_QUIT]->set_on_rel(btnf_quit);
+    btn_arr[BTN_EDITOR]->set_func(btnf_editor);
+    btn_arr[BTN_QUIT]->set_func(btnf_quit);
 
     //assign shortcuts to buttons
     btn_arr[BTN_EDITOR]->set_shortcut(SDLK_e);
@@ -86,8 +86,7 @@ int main_menu(SDL_Renderer* _ren, Asset_container* _assets)
             if(event.type == SDL_KEYDOWN) {
                 const Uint8 key_pressed = event.key.keysym.sym;
                 for(size_t i = 0; i < btn_arr.size(); ++i) {
-                    btn_arr[i]->keypress(
-                            key_pressed, static_cast<void*>(&game_env));
+                    btn_arr[i]->keypress(key_pressed);
                 }
             }
             else if(event.type == SDL_KEYUP) {
@@ -99,7 +98,7 @@ int main_menu(SDL_Renderer* _ren, Asset_container* _assets)
             }
             else if(event.type == SDL_MOUSEBUTTONDOWN) {
                 for(size_t i = 0; i < btn_arr.size(); ++i) {
-                    btn_arr[i]->click(static_cast<void*>(&game_env));
+                    btn_arr[i]->click();
                 }
             }
             else if(event.type == SDL_MOUSEBUTTONUP) {

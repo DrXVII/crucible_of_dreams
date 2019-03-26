@@ -28,9 +28,9 @@ public:
 
     /*TODO the click/unclick pair seems superfluous - one of the functions
      * should suffice*/
-    bool click(void* data, bool no_mouse_check = false);
+    bool click(bool no_mouse_check = false);
     bool unclick(void* data, bool no_mouse_check = false);
-    void keypress(Uint8 keycode, void* data);
+    void keypress(Uint8 keycode);
     void keyrel(Uint8 keycode, void* data);
     //TODO the naming of these two is quite confusing
     void press();
@@ -40,8 +40,7 @@ public:
     void set_rect(SDL_Rect* rect);
     void set_xy(int x, int y);
     void set_txt(string const& txt);
-    void set_on_click(void (*on_click)(void*));
-    void set_on_rel(void (*on_rel)(void*));
+    void set_func(void (*on_rel)(void*));
     void set_shortcut(Uint8 keycode); //set keyboard shortcut (SDL scancode or keycode)
     void enable_shortcut(); //enable use of keyboard shortcut
     void disable_shortcut(); //disable use of keyboard shortcut
@@ -57,8 +56,7 @@ private:
     SDL_Texture* tx_press; //when the button is pressed down
     SDL_Texture* tx_disp; //the current active texture of the button
     //TODO having both on click and on release functions seems superfluous
-    void (*on_click)(void*); //callback to execute on button click
-    void (*on_rel)(void*); //callback to execute on button release
+    void (*func)(void*); //function to execute on button release
     int txt_x_offs; //the offset of button text
     int txt_y_offs; //the offset of button text
     bool pressed;

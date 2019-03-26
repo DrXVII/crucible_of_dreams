@@ -14,8 +14,7 @@ Button::Button(string const& txt, Font_atlas* font,
 , tx {tx}
 , tx_press {tx_p}
 , tx_disp {this->tx}
-, on_click {nullptr}
-, on_rel {nullptr}
+, func {nullptr}
 , txt_x_offs {0}
 , txt_y_offs {0}
 , pressed {false}
@@ -50,10 +49,10 @@ void Button::render(SDL_Renderer* ren)
             ren);
 }
 
-void Button::keypress(Uint8 keycode, void* data)
+void Button::keypress(Uint8 keycode)
 {
     if(this->use_key && keycode == this->mapped_key) {
-        this->click(data, true);
+        this->click(true);
     }
 }
 
@@ -64,7 +63,7 @@ void Button::keyrel(Uint8 keycode, void* data)
     }
 }
 
-bool Button::click(void* data, bool no_mouse_check)
+bool Button::click(bool no_mouse_check)
 {
     //refusing to click a button that is already clicked
     if(this->pressed) {return false;}
@@ -77,7 +76,6 @@ bool Button::click(void* data, bool no_mouse_check)
     if(mouseover == false) { return false; }
 
     this->press();
-    if(this->on_click != nullptr) { this->on_click(data); }
 
     return true;
 }
@@ -95,7 +93,7 @@ bool Button::unclick(void* data, bool no_mouse_check)
 
     //execute on-release callback if mouse unclicked within bounding box
     if(mouseover) {
-        if(this->on_rel != nullptr) { this->on_rel(data); }
+        if(this->func) { this->func(data); }
         return true;
     }
 
@@ -143,8 +141,7 @@ void Button::set_txt(string const& txt)
     this->txt = txt;
 }
 
-void Button::set_on_click(void (*on_click)(void*)){this->on_click = on_click;}
-void Button::set_on_rel(void (*on_rel)(void*)) {this->on_rel = on_rel;}
+void Button::set_func(void (*func)(void*)) {this->func = func;}
 
 void Button::set_shortcut(Uint8 keycode) {
     this->mapped_key = keycode;
