@@ -72,6 +72,9 @@ int run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h,
                 else if(key_states[SDL_SCANCODE_DOWN])  { player_xy.y += tile_hw; }
                 else if(key_states[SDL_SCANCODE_LEFT])  { player_xy.x -= tile_hw; }
                 else if(key_states[SDL_SCANCODE_RIGHT]) { player_xy.x += tile_hw; }
+                //TODO use less-than and greater-than (shift-comma, shift-period)
+                else if(key_states[SDL_SCANCODE_COMMA]) {/*TODO tile change*/ }
+                else if(key_states[SDL_SCANCODE_PERIOD]) {/*TODO tile change*/ }
             }
             else if(event.type == SDL_MOUSEBUTTONDOWN) {
                 int x,y;
