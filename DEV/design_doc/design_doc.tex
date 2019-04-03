@@ -1,0 +1,65 @@
+\documentclass[a4paper,10pt]{book}
+\usepackage[utf8]{inputenc}
+
+\begin{document}
+\title{Design Document for Crucible}
+\tableofcontents
+
+\newcommand{\Projectname}{Project Crucible}
+\newcommand{\Enginename}{Crucible}
+\newcommand{\Gamename}{Library of Worlds}
+
+\chapter{Overview}
+\Projectname{} is a project encompassing a game-engine (\Enginename{}) and a game written on it (\Gamename{}).
+
+\Projectname{} begins with the two-pronged passion of one person that for one - thirsts for knowledge and technical prowess in programming and believes that a game-engine is a great and multi-faceted enough challenge to embark on in hopes of becoming a better professional in the software development industry, and two - has a great passion for games and fiction and hopes to use the game as a creative outlet in addition to the creative challenge provided by game engine development.
+
+\Gamename{} is a tile-based, turn-based RPG, inspired by the looks of games made in the 90s and the look and feel of many RPG games made since then. The game is developed alongside the engine \Enginename{} and together with it forms the main and biggest portion of \Projectname{}.
+
+\section{Planned Features}
+\begin{itemize}
+ \item Tile based
+ \item Turn based
+ \item Party based (the player can -- and is encouraged to -- controll more than one character at once)
+ \item Basic tile/item animations (e.g. torches, water tiles)
+ \item Basic crafting (enchanting, enhancing player gear, etc)
+ \item Multi-genre gameplay: the game is not confined to a single setting and can span sci-fi and fantasy realms in the same grand campaign.
+\end{itemize}
+
+\subsection{Possible Features}
+\begin{itemize}
+ \item Isometric view
+ \item Animated characters (e.g. movement, combat)
+ \item Implementation in OpenGL. Currently plain SDL2 seems like a good choice, but I do want to learn OpenGL and it is quite more popular in the industry.
+\end{itemize}
+
+\section{Features that Will Not be Included}
+\begin{itemize}
+ \item \textbf{Real-time movement and/or combat.} Real-time is outside the scope of the project as it falls outside the feel that \Gamename{} aims to provide.
+ 
+ Nevertheless the challenge of supporting pusable realtime sounds like an interesting and worth-while challenge and would be something quite interesting to implement in the future, maybe in \Enginename{} II.
+ 
+ \item \textbf{3D.} The engine aims to recreate the look and feel of an era when 2D and pre-rendered 3D dominated.
+\end{itemize}
+
+\chapter{Workplan}
+The project will most likely take us through a few iterations of prototypes before we acquire enough knowledge and know-how to implement the final framework of \Enginename{}.
+
+\begin{itemize}
+ \item \Enginename{} Prototype I should provide us with the possibility to create a few basic inter-connected levels. Thus the functionality we should have:
+ \begin{itemize}
+  \item a basic level editor
+  \item a few tiles with simple graphics
+  \item it should be possible to load assets from the filesystem (e.g. textures)
+  \item definition of a starting point and a player-controlled character that can walk around
+  \item we have to be able to save the level into a file (tile settings and textures, level info, etc)
+ \end{itemize}
+ \item \Enginename{} Prototype II should allow us to implement player interaction with the gameworld
+ \begin{itemize}
+  \item doors, windows
+  \item a way to program items into the game(weapons, armors) (this does not touch on in-game crafting)
+ \end{itemize}
+\end{itemize}
+
+
+\end{document}
