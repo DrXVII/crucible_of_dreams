@@ -2,12 +2,17 @@
 \usepackage[utf8]{inputenc}
 
 \begin{document}
-\title{Design Document for Crucible}
-\tableofcontents
-
 \newcommand{\Projectname}{Project Crucible}
 \newcommand{\Enginename}{Crucible}
 \newcommand{\Gamename}{Library of Worlds}
+
+%can/should? author and title go to the preamble?
+\author{Giles Egidijus Nedzinskas}
+\title{Design Document for Crucible}
+\maketitle{}
+
+\tableofcontents
+
 
 \chapter{Overview}
 \Projectname{} is a project encompassing a game-engine (\Enginename{}) and a game written on it (\Gamename{}).
@@ -17,16 +22,26 @@
 \Gamename{} is a tile-based, turn-based RPG, inspired by the looks of games made in the 90s and the look and feel of many RPG games made since then. The game is developed alongside the engine \Enginename{} and together with it forms the main and biggest portion of \Projectname{}.
 
 \section{Planned Features}
-\subsection{gameplay}
+\subsection{general gameplay}
 \begin{itemize}
   \item Tiles
   \item Turns
   \item Party based (the player can -- and is encouraged to -- controll more than one character at once)
   \item Passage of time
-  \item Time of day
+  \item Time of day and the fun associated with it (e.g. you can hide better at night, but can allso be caught
+    unawares if not careful)
   \item Long voyages via different means of transportation
   \item Basic crafting (enchanting, enhancing player gear, etc)
 \end{itemize}
+
+\subsection{combat}
+\begin{itemize}
+  \item area of effect spells/weapons
+  \item long range, mele, thrown weapons
+  \item squad tactics
+  \item basic cover system (e.g. less accuracy if projectile crosses a non-flat item)
+\end{itemize}
+
 \subsection{unsorted (TODO - sort what should be sorted)}
 \begin{itemize}
   \item Basic tile/item animations (e.g. torches, water tiles)
