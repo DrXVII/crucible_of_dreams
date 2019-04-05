@@ -11,12 +11,14 @@ if [ "$filename" == "" ]; then
     exit 1
 fi
 
+filedir=$(dirname "${filename}")
+
 while [ $runs_done -lt $runs_needed ]; do
     echo
     echo "run #$(($runs_done +1))"
     echo
 
-    latex $filename
+    latex -output-directory=$filedir $filename
     if [ $? -ne 0 ]; then
         echo
         echo "there were latex compiler errors, aborting"

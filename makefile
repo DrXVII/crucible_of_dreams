@@ -45,6 +45,24 @@ $(OBJ_DIR):
 #release -----------------------------------------------------------------------
 #  nothing here yet
 
+#docs --------------------------------------------------------------------------
+DOC_DIR = devdoc
+DOC_SRC_LATEX_DIR = devdoc/latex
+BUILD_TOOLS_DIR = buildtools
+LATEX_COMP = $(BUILD_TOOLS_DIR)/latex_gen.sh
+DOCS = $(DOC_DIR)/design_doc.dvi
+
+docs: $(DOCS)	
+
+$(DOC_DIR)/design_doc.dvi: $(DOC_SRC_LATEX_DIR)/design_doc.tex
+	@echo "LaTeX: $@"
+	$(LATEX_COMP) $<
+	mv $(patsubst %.tex, %.dvi, $<) $@
+
+.PHONY: clean_docs
+clean_docs:
+	rm -fv $(DOCS)
+
 #other -------------------------------------------------------------------------
 .PHONY: todo
 todo:
