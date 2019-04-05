@@ -1,0 +1,45 @@
+= MAGIC
+
+Magic levels for below comparisons 1 = novice 10 = legendary master
+
+== Combat
+
+=== Elemental Flail of Fire/Shock/Cold/Acid/Death/etc
+summary::
+An elemental orb is summoned and attached to the casters hand/staff/wand via magic threads.
+Can be used as a flail-type weapon for x hits (or time).
+
+== Utility
+
+=== Interdimensional Box
+summary::
+Summon a box to store some items. The box dissapears back to it's origin dimension when the spell ends, and retains the items stored the next time it is summoned.
+
+usage notes::
+Quite useful to reduce ones encumberance as one does not need to physically carry stored items around, and said items are accessible any time the box is summoned.
+Not useful to store items that might become needed immediately e.g. weapons. Because the spell taks some time to cast and uses energy that could otherwise be used for combat spells. A mage of extraordinary skill could mostly overcome these limitations though.
+
+* LVL around 5
+* energy use - casting:moderate maintaining:moderate(about 10min max initially for average human)
+* casting time - a few minutes
+
+=== Interdimensional Room
+summary::
+The caster enters a room outside normal space and time. Here he can has considerable space for storage and other things because nothing changes here between visits. Time passes differently in this dimension, thus the caster can do most mental things here e.g. studying, but no physical or magical effects on the body will progress or take effect if acquired in this dimension - this means that time will not heal or kill, and consuming any mundane or magical substances or casting spells is of no use here.
+Regardless of how much time one spends here, he returns to the parent dimension as if no time had passed at all - less magically adept wil not even notice that anything happened.
+It does take some energy to remain in the room for a considerable ammount of time, so spending more than a few days in this place is reserved for creatures that have absurd ammounts of magical power.
+
+usage notes::
+Mages who use this spell, usualy use the place as a store room and a refuge for the mind.
+
+* LVL 7 or 8
+* energy use - casting:moderate maintaining:moderate(about 1h max initially for average human)
+* casting time - a few minutes
+
+=== Interdimensional Mansion
+(TODO) summary::
+Some constraints of the Interdimensional Room lifted, and the place is larger. The Interdimensional Room can be accessed from here at no additional cost - it is a part of this place.
+
+* LVL 10
+* energy use casting:moderate maintaining:low (a few days max initially for average human)
+* casting time - about an hour
