@@ -1,8 +1,0 @@
-\contentsline {chapter}{\numberline {1}Overview}{5}
-\contentsline {section}{\numberline {1.1}Planned Features}{5}
-\contentsline {subsection}{\numberline {1.1.1}general gameplay}{5}
-\contentsline {subsection}{\numberline {1.1.2}combat}{6}
-\contentsline {subsection}{\numberline {1.1.3}unsorted (TODO - sort what should be sorted)}{6}
-\contentsline {section}{\numberline {1.2}Possible Features}{6}
-\contentsline {section}{\numberline {1.3}Features that Will Not be Included}{6}
-\contentsline {chapter}{\numberline {2}Workplan}{7}
