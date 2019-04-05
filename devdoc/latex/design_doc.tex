@@ -1,18 +1,37 @@
 \documentclass[a4paper,10pt]{book}
 \usepackage[utf8]{inputenc}
+\usepackage{mathtools}
+\usepackage{minted}
+\usepackage{hyperref}
+\usepackage{tabu}
+\usepackage[table]{xcolor}
+
+\definecolor{milkpink}{HTML}{FFEEEE}
+\definecolor{rose}{HTML}{FFDDDD}
+\definecolor{red}{HTML}{FF0000}
 
 \begin{document}
+% new commands ------------------------------------------------------------------
+% - name variables --------------------------------------------------------------
 \newcommand{\Projectname}{Project Crucible}
 \newcommand{\Enginename}{Crucible}
 \newcommand{\Gamename}{Library of Worlds}
+% - special formats -------------------------------------------------------------
+%TODO - find a way to left-allign the TODO section, explore other tex/latex
+% boxes/containers, make similar functions for, blocks meant for reading,
+% like NOTE, WARNING, INFO, TIP, SUGGESTION etc.
+\newcommand{\TODO}[1]{
+  \begin{tabular}{l | l}
+    \textcolor{red}{TODO} & \parbox{10cm}{\textcolor{red}{{#1}}} \\
+  \end{tabular}
+}
 
 %can/should? author and title go to the preamble?
 \author{Giles Egidijus Nedzinskas}
-\title{Design Document for Crucible}
+\title{Design Document for \Projectname{}}
 \maketitle{}
 
 \tableofcontents
-
 
 \chapter{Overview}
 \Projectname{} is a project encompassing a game-engine (\Enginename{}) and a game written on it (\Gamename{}).
@@ -22,7 +41,7 @@
 \Gamename{} is a tile-based, turn-based RPG, inspired by the looks of games made in the 90s and the look and feel of many RPG games made since then. The game is developed alongside the engine \Enginename{} and together with it forms the main and biggest portion of \Projectname{}.
 
 \section{Planned Features}
-\subsection{general gameplay}
+\subsection{General Gameplay}
 \begin{itemize}
   \item Tiles
   \item Turns
@@ -34,7 +53,7 @@
   \item Basic crafting (enchanting, enhancing player gear, etc)
 \end{itemize}
 
-\subsection{combat}
+\subsection{Combat}
 \begin{itemize}
   \item area of effect spells/weapons
   \item long range, mele, thrown weapons
@@ -42,9 +61,14 @@
   \item basic cover system (e.g. less accuracy if projectile crosses a non-flat item)
 \end{itemize}
 
-\subsection{unsorted (TODO - sort what should be sorted)}
+\subsection{Graphics}
 \begin{itemize}
+  \item SDL2 (possibly OpenGL later)
   \item Basic tile/item animations (e.g. torches, water tiles)
+\end{itemize}
+
+\subsection{Other}
+\begin{itemize}
   \item Multi-genre gameplay: the game is not confined to a single setting and can span sci-fi and fantasy realms in the same grand campaign.
 \end{itemize}
 
@@ -68,7 +92,7 @@
 The project will most likely take us through a few iterations of prototypes before we acquire enough knowledge and know-how to implement the final framework of \Enginename{}.
 
 \begin{itemize}
-  \item \Enginename{} Prototype I should provide us with the possibility to create a few basic inter-connected levels. Thus the functionality we should have:
+  \item \Enginename{} 0.1 (a.k.a Prototype I) should provide us with the possibility to create a few basic inter-connected levels. Thus the functionality we should have:
   \begin{itemize}
     \item a basic level editor
     \item a few tiles with simple graphics
@@ -76,11 +100,96 @@ The project will most likely take us through a few iterations of prototypes befo
     \item definition of a starting point and a player-controlled character that can walk around
     \item we have to be able to save the level into a file (tile settings and textures, level info, etc)
   \end{itemize}
-  \item \Enginename{} Prototype II should allow us to implement player interaction with the gameworld
+  \item \Enginename{} 0.2 (a.k.a. Prototype II) should allow us to implement player interaction with the gameworld
   \begin{itemize}
     \item doors, windows
+    \item containers
     \item a way to program items into the game(weapons, armors) (this does not touch on in-game crafting)
+    \item at least partially implemented combat (we can ommit damage types and
+      similar things for now)
   \end{itemize}
 \end{itemize}
+
+\chapter{Combat}
+
+\section{Mechanics}
+Current (very early) idea of combat. Damage calculated for each damage type
+separately using the following logic and equations.
+
+\subsubsection*{Step 1}
+Attack and defence scores are calculated (random value up to stat maximum):
+\begin{equation*} atk \sim U([0,1 \dots atk_{max}) \end{equation*}
+\begin{equation*} def \sim U([0,1 \dots def_{max}) + dodge\end{equation*}
+The attack connects \begin{math} if(atk > def) \end{math}. 
+\subsubsection*{Step 2}
+If the attack is successfull , we calculate actual damage received. First,
+incoming damage and armor values are rolled for the current attack.
+\begin{equation*} dmg_i \sim U([dmg_{min}, dmg_{min}+1 \dots dmg_{max}]) \end{equation*}
+\begin{equation*} arm \sim U([0,1 \dots arm_{max}) \end{equation*}
+Then armor is substracted from damage (including resistences or weaknesses
+incurred by the armor (if worn)), and we have our final incoming damage to the entity.
+The final damage received is still subject to further modification due to entity
+resistences or weaknesses to the incoming damage type.
+\begin{equation*} dmg = (dmg_i - arm \times resist_{arm}) \div resist_{entity} \end{equation*}
+
+\TODO{The weapon's damage randomization should lean towards midrange (e.g. like
+  3d6 values have low percentage to be 3 or 18, but highest percentage to fall
+  around 12) and not rely on dice, but on value ranges. That said, maybe we
+  should not avoid dice after all, dice values have a nice RPG feel.}
+
+%Something like this (pseudocode):
+%\begin{minted}{c++}
+%  const int atk = rand(0,attacker.atk);
+%  const int def = rand(0,defender.atk);
+%  if(def >= atk) { return; }
+%
+%  const int dmg_i = rand(attacker.weapon.dmg_min, attacker.weapon.dmg_min);
+%  const int arm = rand(attacker.weapon.dmg_min, attacker.weapon.dmg_min);
+%  int dmg = (dmg_i - arm * defender.armor.resist) * defender.resist;
+%  if(dmg < 0) { dmg = 0; }
+%\end{minted}
+
+\subparagraph*{Notes}
+\begin{itemize}
+  \item This logic does not represent catering for damage types, I belive we can
+    calculate each damage type separately calling the above logic once per
+    damage type.
+  \item the armor score is randomized to emulate lucky hits, etc. If we decide to
+    suport hit-locations we may want to make the armor score non-random or reduce
+    the range coloser to the max value (to still emulate some luck, then again
+    luck can be represented with critical strikes).
+\end{itemize}
+
+\section{Item Examples}
+
+\subsubsection{weapons}
+\rowcolors{1}{milkpink}{rose}
+\begin{tabu}{l c c c l}
+  %\firsthline
+  \rowfont{\bfseries\itshape}
+  name               & damage     & cost     & weight & notes \\
+  \hline
+  axe                & sw+2 cut   & \${}50   & 4      &       \\
+  auto pistol 9mm    & 2d6+2 pi   & cost     & weight & [1]   \\
+  %\lasthline
+\end{tabu}
+
+\subsubsection{armor}
+\rowcolors{1}{milkpink}{rose}
+\begin{tabu}{l c c c c l}
+  %\firsthline
+  \rowfont{\bfseries\itshape}
+  name               & location     & DR       & cost     & weight & notes   \\
+  \hline
+  scale armor        & torso, groin & 4        & \${}420  & 35     &         \\
+  ballistic suit     & body, limbs  & 12/$4^*$ & cost     & weight & [1,2,3] \\
+  %\lasthline
+\end{tabu}
+
+\TODO{Make example combat situations with some armor and mele and ranged wepons}
+
+\TODO{Move example item tables to basic equipment section, add a few more items}
+
+\TODO{Make explanations of damage and DR notation}
 
 \end{document}

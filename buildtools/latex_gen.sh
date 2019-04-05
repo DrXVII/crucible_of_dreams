@@ -4,21 +4,26 @@
 runs_needed=3
 runs_done=0
 
-filename=$1
+filepath=$1
 
-if [ "$filename" == "" ]; then
+if [ "$filepath" == "" ]; then
     echo "no file specified"
     exit 1
 fi
 
-filedir=$(dirname "${filename}")
+filedir=$(dirname "${filepath}")
+filename=$(basename "${filepath}") 
+
+#some latex modules are capricious and want the latex compiler to be called from the same directory where the source file is
+cd $filedir
 
 while [ $runs_done -lt $runs_needed ]; do
     echo
     echo "run #$(($runs_done +1))"
     echo
 
-    latex -output-directory=$filedir $filename
+    # latex -shell-escape -output-directory=$filedir $filename
+    latex -shell-escape $filename
     if [ $? -ne 0 ]; then
         echo
         echo "there were latex compiler errors, aborting"
