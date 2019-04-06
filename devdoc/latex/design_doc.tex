@@ -5,9 +5,10 @@
 \usepackage{hyperref}
 \usepackage[table]{xcolor}
 
-\definecolor{milkpink}{HTML}{FFEEEE}
-\definecolor{rose}{HTML}{FFDDDD}
 \definecolor{red}{HTML}{FF0000}
+\definecolor{globaltablecolor}{HTML}{FF0000}
+\definecolor{blue}{HTML}{0000FF}
+\definecolor{orange}{HTML}{FF8000}
 
 \begin{document}
 % new commands ------------------------------------------------------------------
@@ -18,25 +19,34 @@
 % - special formats -------------------------------------------------------------
 % TODO - make similar functions for, other admonitions,
 % like NOTE, WARNING, INFO, TIP, SUGGESTION etc.
-\newcommand{\TODO}[1]{
-  \colorbox{rose}{
+\newcommand{\admonition}[3][white]{
+  %#1 - background color %#2 - admonition name #3 - admonition text
+  \begin{table*}[h]
+  \colorbox{#1}{
   \begin{tabular}{l | l}
-    \textcolor{red}{TODO} &
+    {#2} &
     \begin{minipage}{\linewidth - \evensidemargin - \tabcolsep}
-      \textcolor{red}{#1}
+      {#3}
     \end{minipage}
   \end{tabular}
   }
+  \end{table*}
 }
+\newcommand{\TODO}[1]{
+  \admonition[red!10]{\textcolor{red}{TODO}}{\textcolor{red}{#1}}
+}
+\newcommand{\note}[1]{\admonition[blue!10]{NOTE}{#1}}
+\newcommand{\think}[1]{\admonition[orange!15]{THNK}{\textcolor{orange}{#1}}}
 % - other -----------------------------------------------------------------------
 \newcommand{\textbi}[1]{\textbf{\textit{#1}}}
 
-%can/should? author and title go to the preamble?
 \author{Giles Egidijus Nedzinskas}
 \title{Design Document for \Projectname{}}
 \maketitle{}
 
 \tableofcontents
+
+\part{Features}
 
 \chapter{Overview}
 \Projectname{} is a project encompassing a game-engine (\Enginename{}) and a game written on it (\Gamename{}).
@@ -56,11 +66,16 @@
     unawares if not careful)
   \item Long voyages via different means of transportation
   \item Basic crafting (enchanting, enhancing player gear, etc)
+  \item Lighting levels (e.g. tiles closer to a torch are better lit, caves
+    are naturally dark, etc)
+  \item Walls between tiles - the walls do not have to occupy an entire tile
 \end{itemize}
 
 \subsection{Combat}
 \begin{itemize}
-  \item area of effect spells/weapons
+  \item magic
+  \item area of effect spells/weapons (long duration, instant, hidden(traps -
+    could be a trap-spell like a firemine-rune or something more mundane))
   \item long range, mele, thrown weapons
   \item squad tactics
   \item basic cover system (e.g. less accuracy if projectile crosses a non-flat item)
@@ -68,6 +83,7 @@
 
 \subsection{Graphics}
 \begin{itemize}
+  \item isometric tiles
   \item SDL2 (possibly OpenGL later)
   \item Basic tile/item animations (e.g. torches, water tiles)
 \end{itemize}
@@ -128,9 +144,12 @@ Attack and defence scores are calculated (random value up to stat maximum):
 The attack connects \begin{math} if(atk > def) \end{math}. 
 \subsubsection*{Step 2}
 If the attack is successfull , we calculate actual damage received. First,
-incoming damage and armor values are rolled for the current attack.
-\begin{equation*} dmg_i \sim U([dmg_{min}, dmg_{min}+1 \dots dmg_{max}]) \end{equation*}
+incoming damage(based on weapon dmg dice) and armor values are rolled for the current attack.
+\begin{equation*} dmg_i = dicethrow(\{weapon_{dice}\}) + weapon_{constdmg} \end{equation*}
 \begin{equation*} arm \sim U([0,1 \dots arm_{max}) \end{equation*}
+
+\note{what did I want to note again?}
+
 Then armor is substracted from damage (including resistences or weaknesses
 incurred by the armor (if worn)), and we have our final incoming damage to the entity.
 The final damage received is still subject to further modification due to entity
@@ -166,32 +185,28 @@ resistences or weaknesses to the incoming damage type.
 \end{itemize}
 
 \section{Item Examples}
-
-\begin{table}[h]
-  \rowcolors{2}{milkpink}{rose}
+\begin{table*}[h]
+  \rowcolors{3}{globaltablecolor!6}{globaltablecolor!12}
   \begin{tabular}{l c c c l}
     %\firsthline
     \textbf{weapons} \\
     \textbi{name}      & \textbi{damage}     & \textbi{cost}     & \textbi{weight} & \textbi{notes} \\
-    \hline
     axe                & sw+2 cut   & \${}50   & 4      &       \\
     auto pistol 9mm    & 2d6+2 pi   & cost     & weight & [1]   \\
     %\lasthline
   \end{tabular}
 
-  \rowcolors{2}{milkpink}{rose}
+  \rowcolors{3}{globaltablecolor!6}{globaltablecolor!12}
   \begin{tabular}{l c c c c l}
     %\firsthline
     \textbf{armor} \\
     \textbi{name}      & \textbi{locationq} & \textbi{DR}   & \textbi{cost} & \textbi{weight} & \textbi{notes} \\
-    \hline
     scale armor        & torso, groin & 4        & \${}420  & 35     &         \\
     ballistic suit     & body, limbs  & 12/$4^*$ & cost     & weight & [1,2,3] \\
     %\lasthline
   \end{tabular}
-\end{table}
+\end{table*}
 
-\subsection*{}
 \TODO{
   \begin{itemize}
     \item Make example combat situations with some armor and mele and ranged wepons
@@ -199,4 +214,118 @@ resistences or weaknesses to the incoming damage type.
     \item Make explanations of damage and DR notation
   \end{itemize}
 }
+
+\chapter{Taking Turns}
+\TODO{
+  Things to ponder
+  \begin{itemize}
+    \item How will we represent speed, ecpecially in combat (time units in
+      combat mode?)
+    \item we should probably have a peacefull mode and a combat mode (as we want
+      to be able to move more quiclky while not in combat (go to mouse click), etc)
+    \item what actions will take TUs (e.g. easy and hard to access inventory
+      items, attacks, spell preparation, arming grenades, etc)
+  \end{itemize}
+}
+
+\section{Combat}
+Combat will be squad-style: the player team takes a turn, then the environment
+takes a turn. Possibly we will want to support several teams, if -- for example
+-- we have several hostile parties with different friend-foe logic and agenda,
+like where there are guards that are hostile towards the player's company for
+crime, but there are also bandits on the scene that are hostile towards both the
+guards and the player's party, and there is allso that sneaking pack of starved
+lions who want dinner and nobody noticed them yet.
+
+\section{Peacefull Mode}
+\begin{itemize}
+\item resting
+  \begin{itemize}
+  \item fast movement (skip turns untill selected character reaches destination
+    (mouseclick)
+    \item no need to move each party member, they group around selected party
+      member
+    \item do we need formations? probably just gonna use line formation for simplicity.
+      If I recall correctly D\&D used to make people choose who is where in the
+      line without ever mentioning oher formations.
+  \end{itemize}
+\end{itemize}
+
+\chapter{Game Levels}
+\section{Static Pieces}
+(e.g.  tiles, walls)
+\section{Interactable Pieces}
+(e.g. doors, windows, workbenches, drawbridges)
+\section{Items, Containers, Furniture}
+\section{Decorations}
+(e.g. floor decals, etc)
+\section{Destructability}
+(e.g. burning bridge)
+\section{Lighting Levels}
+\TODO{This section will be abou lighting levels and how it affects gameplay, the
+associated abilities and some possible situations and circumstances of gameplay
+interest}
+
+\chapter{Travelling}
+\think{Maybe we should simplify travelling a bit? It will not happen all that
+  much in the game, at least the vehicles part\dots{} wil it?}
+\section{Travel Speed, Transportation and Supplies}
+\subsection{Seafairing}
+\subsection{Passing Mountains}
+\subsection{Travelling Through Forests}
+\subsection{Deserts}
+\subsection{Flying}
+\subsection{Transport animals}
+\subsection{Transport vehicles}
+\subsubsection{Muscle Powered (e.g. bicycle or animal-drawn)}
+\subsubsection{Powered}
+Energy cells, solar, other natural source, fuel (e.g. gasolene). There are
+different consideration for energy powered vehicles than fueled vehicles.
+\subsection{Rest}
+\subsection{Pathfinding}
+\subsection{Tracking and Being Tracked}
+\subsection{Time of Day}
+\subsection{Interdimentional Travel}
+\section{Difficult Terrain}
+\subsection{Mountaineering}
+\subsection{Forestry}
+\subsection{Swamps}
+\subsection{Desert Survival}
+\section{Encounters}
+\subsection{Area Danger and Peace Level}
+\note{there may be a restless area where encounters are likely, but are less
+  dangerous for a seasoned advenurer, but there may be peacefull places where
+  encounters are rare but may be very dangerous when they do happen}
+\subsection{Random Encounters}
+\subsection{Preset Encounters}
+
+\chapter{Other Features}
+
+\section{Crafting, Enhancing and Enchanting}
+Crafting will not be a large feature in the game, so we group it together with
+other topics that change equipment properties.
+\note{Maybe crafting will not be in the game at all.}
+
+\part{The Setting}
+\TODO{gather the scattered notes here and start from there}
+%could be more than one world, probably a chapter for each major world then
+\chapter{World}
+\section{Magic}
+\section{Races}
+\section{Items}
+\subsection{Weapons}
+\subsection{Armor}
+\subsection{Arcane}
+\chapter{Minor Races}
+\chapter{Beasts}
+\TODO{The chapter name ``Beasts'', implies less than we want to cover here,
+  ``Bestiary'' or ``Other Creatures'' or ``Book of Creatures'' would be
+  something more like it}
+\section{The Wilds}
+\section{The Underworld}
+\section{The Void}
+
+\part{The Story}
+\TODO{gather the scattered notes here and start from there}
+
 \end{document}
