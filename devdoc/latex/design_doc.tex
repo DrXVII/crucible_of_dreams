@@ -3,7 +3,6 @@
 \usepackage{mathtools}
 \usepackage{minted}
 \usepackage{hyperref}
-\usepackage{tabu}
 \usepackage[table]{xcolor}
 
 \definecolor{milkpink}{HTML}{FFEEEE}
@@ -17,14 +16,20 @@
 \newcommand{\Enginename}{Crucible}
 \newcommand{\Gamename}{Library of Worlds}
 % - special formats -------------------------------------------------------------
-%TODO - find a way to left-allign the TODO section, explore other tex/latex
-% boxes/containers, make similar functions for, blocks meant for reading,
+% TODO - make similar functions for, other admonitions,
 % like NOTE, WARNING, INFO, TIP, SUGGESTION etc.
 \newcommand{\TODO}[1]{
+  \colorbox{rose}{
   \begin{tabular}{l | l}
-    \textcolor{red}{TODO} & \parbox{10cm}{\textcolor{red}{{#1}}} \\
+    \textcolor{red}{TODO} &
+    \begin{minipage}{\linewidth - \evensidemargin - \tabcolsep}
+      \textcolor{red}{#1}
+    \end{minipage}
   \end{tabular}
+  }
 }
+% - other -----------------------------------------------------------------------
+\newcommand{\textbi}[1]{\textbf{\textit{#1}}}
 
 %can/should? author and title go to the preamble?
 \author{Giles Egidijus Nedzinskas}
@@ -162,34 +167,36 @@ resistences or weaknesses to the incoming damage type.
 
 \section{Item Examples}
 
-\subsubsection{weapons}
-\rowcolors{1}{milkpink}{rose}
-\begin{tabu}{l c c c l}
-  %\firsthline
-  \rowfont{\bfseries\itshape}
-  name               & damage     & cost     & weight & notes \\
-  \hline
-  axe                & sw+2 cut   & \${}50   & 4      &       \\
-  auto pistol 9mm    & 2d6+2 pi   & cost     & weight & [1]   \\
-  %\lasthline
-\end{tabu}
+\begin{table}[h]
+  \rowcolors{2}{milkpink}{rose}
+  \begin{tabular}{l c c c l}
+    %\firsthline
+    \textbf{weapons} \\
+    \textbi{name}      & \textbi{damage}     & \textbi{cost}     & \textbi{weight} & \textbi{notes} \\
+    \hline
+    axe                & sw+2 cut   & \${}50   & 4      &       \\
+    auto pistol 9mm    & 2d6+2 pi   & cost     & weight & [1]   \\
+    %\lasthline
+  \end{tabular}
 
-\subsubsection{armor}
-\rowcolors{1}{milkpink}{rose}
-\begin{tabu}{l c c c c l}
-  %\firsthline
-  \rowfont{\bfseries\itshape}
-  name               & location     & DR       & cost     & weight & notes   \\
-  \hline
-  scale armor        & torso, groin & 4        & \${}420  & 35     &         \\
-  ballistic suit     & body, limbs  & 12/$4^*$ & cost     & weight & [1,2,3] \\
-  %\lasthline
-\end{tabu}
+  \rowcolors{2}{milkpink}{rose}
+  \begin{tabular}{l c c c c l}
+    %\firsthline
+    \textbf{armor} \\
+    \textbi{name}      & \textbi{locationq} & \textbi{DR}   & \textbi{cost} & \textbi{weight} & \textbi{notes} \\
+    \hline
+    scale armor        & torso, groin & 4        & \${}420  & 35     &         \\
+    ballistic suit     & body, limbs  & 12/$4^*$ & cost     & weight & [1,2,3] \\
+    %\lasthline
+  \end{tabular}
+\end{table}
 
-\TODO{Make example combat situations with some armor and mele and ranged wepons}
-
-\TODO{Move example item tables to basic equipment section, add a few more items}
-
-\TODO{Make explanations of damage and DR notation}
-
+\subsection*{}
+\TODO{
+  \begin{itemize}
+    \item Make example combat situations with some armor and mele and ranged wepons
+    \item Move example item tables to basic equipment section, add a few more items
+    \item Make explanations of damage and DR notation
+  \end{itemize}
+}
 \end{document}
