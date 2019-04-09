@@ -40,5 +40,5 @@ devdoc/latex/*.dvi
 devdoc/latex/*.log
 devdoc/latex/*.toc
 devdoc/*.dvi
-_minted-design_doc/*
+**/_minted-design_doc/*
 **/latex/*.out

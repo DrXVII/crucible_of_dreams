@@ -1,4 +1,5 @@
 \documentclass[a4paper,10pt]{book}
+\usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{mathtools}
 \usepackage{minted}
@@ -16,11 +17,10 @@
 \newcommand{\Projectname}{Project Crucible}
 \newcommand{\Enginename}{Crucible}
 \newcommand{\Gamename}{Library of Worlds}
-% - special formats -------------------------------------------------------------
-% TODO - make similar functions for, other admonitions,
-% like NOTE, WARNING, INFO, TIP, SUGGESTION etc.
+\newcommand{\enginenamespace}{cru::}
+% - admonitions -----------------------------------------------------------------
+%#1 - background color %#2 - admonition name #3 - admonition text
 \newcommand{\admonition}[3][white]{
-  %#1 - background color %#2 - admonition name #3 - admonition text
   \begin{table*}[h]
   \colorbox{#1}{
   \begin{tabular}{l | l}
@@ -35,10 +35,15 @@
 \newcommand{\TODO}[1]{
   \admonition[red!10]{\textcolor{red}{TODO}}{\textcolor{red}{#1}}
 }
+\newcommand{\danger}[1]{
+  \admonition[red!10]{\textcolor{red}{DNGR}}{#1}
+}
 \newcommand{\note}[1]{\admonition[blue!10]{NOTE}{#1}}
 \newcommand{\think}[1]{\admonition[orange!15]{THNK}{\textcolor{orange}{#1}}}
 % - other -----------------------------------------------------------------------
 \newcommand{\textbi}[1]{\textbf{\textit{#1}}}
+%codeword: mboxing to prevent hyphenation, macro is meant for short code commands only
+\newcommand{\codew}[1]{\mbox{\texttt{#1}}}
 
 \author{Giles Egidijus Nedzinskas}
 \title{Design Document for \Projectname{}}
@@ -55,12 +60,16 @@
 
 \Gamename{} is a tile-based, turn-based RPG, inspired by the looks of games made in the 90s and the look and feel of many RPG games made since then. The game is developed alongside the engine \Enginename{} and together with it forms the main and biggest portion of \Projectname{}.
 
+Work on \Projectname{} started at the very beginning of the year 2019 in the
+form of scattered research and various technical experiments. The first lines of
+this document were written in the morning of 2019-04-05.
+
 \section{Planned Features}
 \subsection{General Gameplay}
 \begin{itemize}
   \item Tiles
   \item Turns
-  \item Party based (the player can -- and is encouraged to -- controll more than one character at once)
+  \item Party based (the player can -- and is encouraged to -- control more than one character at once)
   \item Passage of time
   \item Time of day and the fun associated with it (e.g. you can hide better at night, but can allso be caught
     unawares if not careful)
@@ -145,33 +154,18 @@ The attack connects \begin{math} if(atk > def) \end{math}.
 \subsubsection*{Step 2}
 If the attack is successfull , we calculate actual damage received. First,
 incoming damage(based on weapon dmg dice) and armor values are rolled for the current attack.
-\begin{equation*} dmg_i = dicethrow(\{weapon_{dice}\}) + weapon_{constdmg} \end{equation*}
+\begin{equation*}
+  dmg_i =
+  \Big(
+    \sum\limits_{n=1}^{dicecnt}\big(diceroll(n)\big)
+  \Big) + dmg_{const}
+\end{equation*}
 \begin{equation*} arm \sim U([0,1 \dots arm_{max}) \end{equation*}
-
-\note{what did I want to note again?}
-
 Then armor is substracted from damage (including resistences or weaknesses
 incurred by the armor (if worn)), and we have our final incoming damage to the entity.
 The final damage received is still subject to further modification due to entity
 resistences or weaknesses to the incoming damage type.
 \begin{equation*} dmg = (dmg_i - arm \times resist_{arm}) \div resist_{entity} \end{equation*}
-
-\TODO{The weapon's damage randomization should lean towards midrange (e.g. like
-  3d6 values have low percentage to be 3 or 18, but highest percentage to fall
-  around 12) and not rely on dice, but on value ranges. That said, maybe we
-  should not avoid dice after all, dice values have a nice RPG feel.}
-
-%Something like this (pseudocode):
-%\begin{minted}{c++}
-%  const int atk = rand(0,attacker.atk);
-%  const int def = rand(0,defender.atk);
-%  if(def >= atk) { return; }
-%
-%  const int dmg_i = rand(attacker.weapon.dmg_min, attacker.weapon.dmg_min);
-%  const int arm = rand(attacker.weapon.dmg_min, attacker.weapon.dmg_min);
-%  int dmg = (dmg_i - arm * defender.armor.resist) * defender.resist;
-%  if(dmg < 0) { dmg = 0; }
-%\end{minted}
 
 \subparagraph*{Notes}
 \begin{itemize}
@@ -247,7 +241,8 @@ lions who want dinner and nobody noticed them yet.
       member
     \item do we need formations? probably just gonna use line formation for simplicity.
       If I recall correctly D\&D used to make people choose who is where in the
-      line without ever mentioning oher formations.
+      line without ever mentioning oher formations. Even simpler, maybe party
+      members should just try to be as close to the player as possible.
   \end{itemize}
 \end{itemize}
 
@@ -262,13 +257,13 @@ lions who want dinner and nobody noticed them yet.
 \section{Destructability}
 (e.g. burning bridge)
 \section{Lighting Levels}
-\TODO{This section will be abou lighting levels and how it affects gameplay, the
+\TODO{This section will be about lighting levels and how it affects gameplay, the
 associated abilities and some possible situations and circumstances of gameplay
 interest}
 
 \chapter{Travelling}
-\think{Maybe we should simplify travelling a bit? It will not happen all that
-  much in the game, at least the vehicles part\dots{} wil it?}
+ \think{Maybe we should simplify travelling a bit? It will not happen all that
+   much in the game, at least the vehicles part\dots{} will it?}
 \section{Travel Speed, Transportation and Supplies}
 \subsection{Seafairing}
 \subsection{Passing Mountains}
@@ -305,6 +300,95 @@ different consideration for energy powered vehicles than fueled vehicles.
 Crafting will not be a large feature in the game, so we group it together with
 other topics that change equipment properties.
 \note{Maybe crafting will not be in the game at all.}
+
+\part{The Engine}
+\note{Often it is quite difficult to determine which components belong to the engine
+  and which to the game when the two are developed side-by-side, thus this part
+  should be reviewed and reevaluated periodically.}
+\chapter{Overview}
+The engine is implemented as a set of modules and functions accessible under the
+\codew{\enginenamespace{}} namespace.
+\chapter{Graphics}
+\section{\enginenamespace{}Viewport}
+The viewport is a way to represent a level map via isometric tiles and other sprites.
+The viewport accepts on-screen x/y position, height and width parameters to
+display the tilemap on the screen and also accepts tile-position in order to
+display the desired portion of the map.
+\begin{table}[h]
+  \rowcolors{2}{globaltablecolor!6}{globaltablecolor!12}
+  \caption{Some Values of \enginenamespace{}Tilemap}
+  \begin{tabular}{p{0.4\linewidth - 0.5\columnsep} p{0.6\linewidth - 0.5\columnsep}}
+    \textbf{Type} & \textbf{Note} \\
+    \enginenamespace{}Rect m\_screen\_pos & where to draw the Tilemap on screen (in pixels) \\
+    \enginenamespace{}Point m\_viewport\_pos & what part of the map to show (upper-left corner,
+                                               tile coordinates) \\
+    std::shared\_ptr<\enginenamespace{}Level> m\_level & handle to level data we will display \\
+  \end{tabular}
+\end{table}
+\chapter{Misc}
+\TODO{Most things under this category should get sorted to other places, with time}
+\section{\enginenamespace{}Rect}
+A rectangle: \texttt{int x, y, w, h}.
+\section{\enginenamespace{}Point}
+A two-dimentional point: \texttt{int x, y}.
+\section{\enginenamespace{}Level}
+Stores data about the level.
+\subsubsection*{Among the members:}
+\begin{itemize}
+  \item m\_tiles - to store floor tiles (e.g. floors, water, lava, etc),
+    basically the floor of the level (or lack thereof i.e. tile\_empty)
+  \item m\_items - items (e.g. loot, containers, etc). Drawn on the tiles and decor.
+  \item m\_walls - the walls. Drawn on top of everything on the tiles, can
+    obscure things, maybe we should implement a cutout.
+  \item m\_characters - everybody (people, animals, automatons) that has any
+    kind of AI element. The player character(s) will most likely be in this array
+    as well if we do not find a good reason not to put them here.
+\end{itemize}
+\section{\enginenamespace{}Character}
+Char stats, AI type (none = player control), sprite, etc.
+\TODO{}
+\chapter{Combat}
+\section{Damage}
+The damage value should be passed to the damage calculation module in the form
+of a dice notation e.g. \codew{3d6+2}, \codew{4d4+5}.
+The number and sides of dice are not restricted e.g. \codew{1d27} is perfectly legal,
+though it would be difficult to find such dice in reality.
+\begin{minted}{c++}
+  //pseudocode
+  void cru::dice_to_int(const std::string& str)
+  {
+    try {
+      size_t dpos = str.find("d");
+      size_t pluspos = str.find("+");
+      const int dice_cnt {std::stoi(str.substr(0, dpos-1))};
+      const int dice_sides {std::stoi(str.substr(dpos+1, pluspos-1))};
+      int add_val {0};
+      if(pluspos != std::string::endl) {
+        add_val = std::stoi(str.substr(pluspos+1));
+      }
+    } catch {
+      errlog("dice_to_int: bad format\n");
+    }
+  }
+\end{minted}
+\danger{
+  should make this part as simple as plausible.
+  \begin{itemize}
+    \item We may want to support something like 3d8+d6+5d15, but that is
+      unnecessarily complicated for most use cases. If someone wants to go crazy
+      with such values, let them do the work in the their game code.
+    \item Support for dice values not beginning on 1 is allso likely not necessary.
+  \end{itemize}
+}
+\note{
+  the supported format is: \\
+  %\codew{<n of dice>d<max dice value>[+<add value>]}
+  % \begin{tabular*}{0.9\linewidth}{rl}
+  %   \textbf{example values:} \\
+  %   good values: & \codew{1d6}, \codew{3d4}, \codew{6d5+3} \\
+  %   bad values: & \codew{d6}, \codew{d4+3}, \codew{2d6+1d4}, \codew{3d6+d4} \\
+  % \end{tabular*}
+}
 
 \part{The Setting}
 \TODO{gather the scattered notes here and start from there}

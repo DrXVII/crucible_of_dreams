@@ -12,17 +12,22 @@ if [ "$filepath" == "" ]; then
 fi
 
 filedir=$(dirname "${filepath}")
-filename=$(basename "${filepath}") 
+filename=$(basename "${filepath}")
 
 #some latex modules are capricious and want the latex compiler to be called from the same directory where the source file is
 cd $filedir
+
+#remove auxilary latex files before we start, *.aux has caused compilation problems before
+rm -f *.aux
+rm -f *.pyg
+rm -f *.out
+rm -f *.toc
 
 while [ $runs_done -lt $runs_needed ]; do
     echo
     echo "run #$(($runs_done +1))"
     echo
 
-    # latex -shell-escape -output-directory=$filedir $filename
     latex -shell-escape $filename
     if [ $? -ne 0 ]; then
         echo
@@ -31,3 +36,5 @@ while [ $runs_done -lt $runs_needed ]; do
     fi
     runs_done=$((++runs_done))
 done
+
+exit 0
