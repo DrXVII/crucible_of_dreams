@@ -23,9 +23,9 @@
 \newcommand{\admonition}[3][white]{
   \begin{table*}[h]
   \colorbox{#1}{
-  \begin{tabular}{l | l}
+  \begin{tabular}{p{0.1\linewidth} | l}
     {#2} &
-    \begin{minipage}{\linewidth - \evensidemargin - \tabcolsep}
+    \begin{minipage}{0.9\linewidth - 2cm}
       {#3}
     \end{minipage}
   \end{tabular}
@@ -306,9 +306,19 @@ other topics that change equipment properties.
   and which to the game when the two are developed side-by-side, thus this part
   should be reviewed and reevaluated periodically.}
 \chapter{Overview}
-The engine is implemented as a set of modules and functions accessible under the
-\codew{\enginenamespace{}} namespace.
+The engine is implemented as a modular set of objects and functions accessible under the
+\codew{\enginenamespace{}} namespace, forming a framework for game development,
+oriented at 2d isometric tile based RPG games and is targeted at the C++
+programming language.
 \chapter{Graphics}
+We will be using SDL2 as our main graphics library for now, as we already have a
+working codebase and some knowledge of working with the lib. I wish to implement
+the graphics module of the engine in OpenGL later (not because we necissarily
+needed it, but I do want to learn it some and I like the prospect of a possibility to
+use some of the features in the future.).
+\section{Function \enginenamespace{}gfxinit}
+This function should initialize the graphics module e.g. init the graphical lib,
+create main window and content, etc.
 \section{\enginenamespace{}Viewport}
 The viewport is a way to represent a level map via isometric tiles and other sprites.
 The viewport accepts on-screen x/y position, height and width parameters to
@@ -317,16 +327,50 @@ display the desired portion of the map.
 \begin{table}[h]
   \rowcolors{2}{globaltablecolor!6}{globaltablecolor!12}
   \caption{Some Values of \enginenamespace{}Tilemap}
-  \begin{tabular}{p{0.4\linewidth - 0.5\columnsep} p{0.6\linewidth - 0.5\columnsep}}
+  \begin{tabular}{p{0.4\linewidth} p{0.6\linewidth - 1cm}}
     \textbf{Type} & \textbf{Note} \\
     \enginenamespace{}Rect m\_screen\_pos & where to draw the Tilemap on screen (in pixels) \\
     \enginenamespace{}Point m\_viewport\_pos & what part of the map to show (upper-left corner,
                                                tile coordinates) \\
-    std::shared\_ptr<\enginenamespace{}Level> m\_level & handle to level data we will display \\
+    std::shared\_ptr<\enginenamespace{}Level> m\_level & pointer to the level data we will display \\
   \end{tabular}
 \end{table}
+\section{\enginenamespace{}Button}
+Settings: on-screen position and size (Rect), state graphics (idle, clicked),
+text, keyboard shortcut button (possibly optionally), an on-click function.
+\section{\enginenamespace{}Checkbox}
+Takes active and inactive state graphics.
+\section{\enginenamespace{}Textbox}
+Used to display rich text (colors, boldness, italics). \\
+Supports word-wrapping, vertical scrolling. \\
+Settings: text buffer to display, box borders - optionally, background -
+optionally. I imagine the text format syntax to be quite simple, e.g. scoped
+escape sequences a bit similar to LaTeX,
+\begin{verbatim}
+default text \color(red){\bold{ some red bold text \italic{my
+red bold italic text} bold and red again} just red} default
+text again
+\end{verbatim}
+like so.
+The object keeps the text and the resulting texture that will be used by the
+renderer.
+\paragraph{possible text format parsing logic}
+\begin{enumerate}
+  \item Keep a render-flag-enable history (first-in-last-out).
+  \item Found escape sequence = enable associated text rendering flag and add to
+    enable history.
+  \item Found end of scope = disable last enabled rendering flag and remove from
+    history.
+\end{enumerate}
+\TODO{Document the text format syntax}
 \chapter{Misc}
 \TODO{Most things under this category should get sorted to other places, with time}
+\section{\enginenamespace{}Program\_environment}
+Stores a lot of variables needed throughout the program like program arguments,
+gfx settings and possbly main assets, main window height and width,
+text colors, rendering environment (library and possibly hardware associated),
+custom cursor, etc.
+\think{Should probably be divided into system-environment and game-environment}
 \section{\enginenamespace{}Rect}
 A rectangle: \texttt{int x, y, w, h}.
 \section{\enginenamespace{}Point}
@@ -348,9 +392,11 @@ Stores data about the level.
 Char stats, AI type (none = player control), sprite, etc.
 \TODO{}
 \chapter{Combat}
-\section{Damage}
+\section{Function \enginenamespace{}diceroll}
 The damage value should be passed to the damage calculation module in the form
 of a dice notation e.g. \codew{3d6+2}, \codew{4d4+5}.
+\note{currently the number of dice is not optional, even if only one dice is
+  used. E.g. use \codew{1d6} insted of just \codew{d6}}
 The number and sides of dice are not restricted e.g. \codew{1d27} is perfectly legal,
 though it would be difficult to find such dice in reality.
 \begin{minted}{c++}
