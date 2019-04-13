@@ -80,9 +80,6 @@ int run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h,
                 int x,y;
                 SDL_GetMouseState(&x, &y);
                 dbgf(0, "mousedown at %d/%d\n", x, y);
-                /*TODO somehow we should figure out which tile the mouse is
-                 * pointing at, in the tilemap, and render the tile_selected
-                 * texture there on top of the selected tile*/
             }
             else if(event.type == SDL_QUIT) {flag_quit = true;}
         }

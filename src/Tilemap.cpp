@@ -91,6 +91,8 @@ void Tilemap::render(int x, int y, int w, int h,
             ren_pt.y += tile_h /2;
             ren_pt.x -= tile_w /2;
 
+            if(ren_pt.x >= w) {break;}
+            else if(ren_pt.x < 0) {break;}
             if(ren_pt.y >= h) {break;}
         }
 
