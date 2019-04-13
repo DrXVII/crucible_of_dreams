@@ -91,7 +91,7 @@ int run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h,
         SDL_RenderClear(_ren);
 
         //TODO window dimensions shoud be in a program_environment struct/class
-        tilemap.render(0, 0, _win_w, _win_h, _ren);
+        tilemap.render(320, 0, _win_w, _win_h, _ren);
 
         tilemap.highlight_mouseover(_ren, &tiles.selected);
 

@@ -19,6 +19,7 @@ public:
     Tilemap(size_t w, size_t h);
 
     void put_tile(Tile* tile, size_t x, size_t y);
+    void render_old(int x, int y, int w, int h, SDL_Renderer* ren);
     void render(int x, int y, int w, int h, SDL_Renderer* ren);
     void highlight_mouseover(SDL_Renderer* ren, Tile* selected_gfx);
 
