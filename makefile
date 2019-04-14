@@ -11,6 +11,8 @@ SRC_DIR = src
 OBJ_DIR = obj
 
 _OBJ = main.o \
+       Level.o \
+       Viewport.o \
        win_main_menu.o \
        win_game.o \
        Timer.o \

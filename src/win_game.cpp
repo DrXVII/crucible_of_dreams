@@ -3,6 +3,8 @@
 
 #include "Tilemap.hpp"
 #include "utils.hpp"
+#include "Level.hpp"
+#include "Viewport.hpp"
 
 struct tmp_tiles {
     Tile selected;
@@ -45,6 +47,10 @@ int run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h,
 
     Tilemap tilemap(20, 20);
     load_lvl(&tilemap, &tiles);
+    cru::Level level(&tilemap);
+    cru::Viewport viewport(&level);
+    //TODO window dimensions shoud be in a program_environment struct/class
+    viewport.set_screen_pos(cru::Rect{_win_w /2, 0, _win_w, _win_h});
 
     //main loop
     bool flag_quit {false};
@@ -87,8 +93,7 @@ int run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h,
         //render phase
         SDL_RenderClear(_ren);
 
-        //TODO window dimensions shoud be in a program_environment struct/class
-        tilemap.render(320, 0, _win_w, _win_h, _ren);
+        viewport.render(_ren);
 
         tilemap.highlight_mouseover(_ren, &tiles.selected);
 

@@ -321,6 +321,13 @@ This function should initialize the graphics module e.g. init the graphical lib,
 create main window and content, etc.
 \section{\enginenamespace{}Viewport}
 The viewport is a way to represent a level map via isometric tiles and other sprites.
+The \enginenamespace{}Level is used to load, contain and update level data, the
+\enginenamespace{}Viewport acts as a window to the Level and provides a way to
+view the data stored in the \enginenamespace{}Level with options on how to
+display said data (e.g. centner on certain character/object/etc,
+show/hide/lower walls, draw frames around obscured character sprites (or arrows
+above them, display/hide debug regions, etc).
+
 The viewport accepts on-screen x/y position, height and width parameters to
 display the tilemap on the screen and also accepts tile-position in order to
 display the desired portion of the map.
