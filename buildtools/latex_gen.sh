@@ -28,7 +28,8 @@ while [ $runs_done -lt $runs_needed ]; do
     echo "run #$(($runs_done +1))"
     echo
 
-    latex -shell-escape $filename
+    #latex -shell-escape $filename
+    pdflatex -shell-escape $filename
     if [ $? -ne 0 ]; then
         echo
         echo "there were latex compiler errors, aborting"

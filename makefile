@@ -52,14 +52,14 @@ DOC_DIR = devdoc
 DOC_SRC_LATEX_DIR = devdoc/latex
 BUILD_TOOLS_DIR = buildtools
 LATEX_COMP = $(BUILD_TOOLS_DIR)/latex_gen.sh
-DOCS = $(DOC_DIR)/design_doc.dvi
+DOCS = $(DOC_DIR)/design_doc.pdf
 
 docs: $(DOCS)	
 
-$(DOC_DIR)/design_doc.dvi: $(DOC_SRC_LATEX_DIR)/design_doc.tex
+$(DOC_DIR)/design_doc.pdf: $(DOC_SRC_LATEX_DIR)/design_doc.tex
 	@echo "LaTeX: $@"
 	$(LATEX_COMP) $<
-	mv $(patsubst %.tex, %.dvi, $<) $@
+	mv $(patsubst %.tex, %.pdf, $<) $@
 
 .PHONY: clean_docs
 clean_docs:

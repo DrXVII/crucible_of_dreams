@@ -5,6 +5,7 @@
 \usepackage{minted}
 \usepackage{hyperref}
 \usepackage[table]{xcolor}
+\usepackage{tikz}
 
 \definecolor{red}{HTML}{FF0000}
 \definecolor{globaltablecolor}{HTML}{FF0000}
@@ -12,35 +13,61 @@
 \definecolor{orange}{HTML}{FF8000}
 
 \begin{document}
-% new commands ------------------------------------------------------------------
-% - name variables --------------------------------------------------------------
+% new commands -----------------------------------------------------------------
+% - name variables -------------------------------------------------------------
 \newcommand{\Projectname}{Project Crucible}
 \newcommand{\Enginename}{Crucible}
 \newcommand{\Gamename}{Library of Worlds}
 \newcommand{\enginenamespace}{cru::}
-% - admonitions -----------------------------------------------------------------
-%#1 - background color %#2 - admonition name #3 - admonition text
-\newcommand{\admonition}[3][white]{
-  \begin{table*}[h]
+% - admonitions ----------------------------------------------------------------
+%#1 - background color #2 - text color
+%#3 - admonition name  #4 - admonition text
+\newcommand{\admonition}[4]{
+\begin{table*}[h]
   \colorbox{#1}{
-  \begin{tabular}{p{0.1\linewidth} | l}
-    {#2} &
-    \begin{minipage}{0.9\linewidth - 2cm}
-      {#3}
-    \end{minipage}
-  \end{tabular}
+    \parbox{0.96\linewidth}{\textcolor{#2}{\textbf{#3}} #4}
   }
-  \end{table*}
+\end{table*}
 }
 \newcommand{\TODO}[1]{
-  \admonition[red!10]{\textcolor{red}{TODO}}{\textcolor{red}{#1}}
+    \admonition{red!10}{red}{TODO}{#1}
 }
 \newcommand{\danger}[1]{
-  \admonition[red!10]{\textcolor{red}{DNGR}}{#1}
+  \admonition{red!10}{red}{DANGER}{#1}
 }
-\newcommand{\note}[1]{\admonition[blue!10]{NOTE}{#1}}
-\newcommand{\think}[1]{\admonition[orange!15]{THNK}{\textcolor{orange}{#1}}}
-% - other -----------------------------------------------------------------------
+\newcommand{\note}[1]{\admonition{blue!10}{black}{NOTE}{#1}}
+\newcommand{\think}[1]{\admonition{orange!15}{orange}{THINK}{#1}}
+% - grids ----------------------------------------------------------------------
+%isometric grid
+%#1 - tiles per side
+\newcommand{\isogrid}[1] {
+\begin{tikzpicture}
+  \foreach \i in {0, ..., #1} {
+    \draw (#1/2 + \i/2, #1 - \i/4) node[anchor=south west] {$\i$}
+       -- (0 + \i/2, #1/1.33 - \i/4) node[anchor=north east] {$\i$};
+    \draw (#1/2 - \i/2, #1 - \i/4) node[anchor=south east] {$\i$}
+       -- (#1 - \i/2, #1/1.33 - \i/4) node[anchor=north west] {$\i$};
+  }
+\end{tikzpicture}
+}
+
+\newcommand{\isogridsub}[1] {
+\begin{tikzpicture}
+  \foreach \i in {0, 2, ..., #1} {
+    \draw (#1/2 + \i/2, #1 - \i/4) node[anchor=south west] {$\i$}
+       -- (0 + \i/2, #1/1.33 - \i/4) node[anchor=north east] {$\i$};
+    \draw (#1/2 - \i/2, #1 - \i/4) node[anchor=south east] {$\i$}
+       -- (#1 - \i/2, #1/1.33 - \i/4) node[anchor=north west] {$\i$};
+  }
+  \foreach \i in {1, 3, ..., #1} {
+    \draw[gray,dashed] (#1/2 + \i/2, #1 - \i/4) node[anchor=south west] {$\i$}
+       -- (0 + \i/2, #1/1.33 - \i/4) node[anchor=north east] {$\i$};
+    \draw[gray,dashed] (#1/2 - \i/2, #1 - \i/4) node[anchor=south east] {$\i$}
+       -- (#1 - \i/2, #1/1.33 - \i/4) node[anchor=north west] {$\i$};
+  }
+\end{tikzpicture}
+}
+% - other ----------------------------------------------------------------------
 \newcommand{\textbi}[1]{\textbf{\textit{#1}}}
 %codeword: mboxing to prevent hyphenation, macro is meant for short code commands only
 \newcommand{\codew}[1]{\mbox{\texttt{#1}}}
@@ -54,11 +81,21 @@
 \part{Features}
 
 \chapter{Overview}
-\Projectname{} is a project encompassing a game-engine (\Enginename{}) and a game written on it (\Gamename{}).
+\Projectname{} is a project encompassing a game-engine (\Enginename{}) and a
+game written on it (\Gamename{}).
 
-\Projectname{} begins with the two-pronged passion of one person that for one - thirsts for knowledge and technical prowess in programming and believes that a game-engine is a great and multi-faceted enough challenge to embark on in hopes of becoming a better professional in the software development industry, and two - has a great passion for games and fiction and hopes to use the game as a creative outlet in addition to the creative challenge provided by game engine development.
+\Projectname{} begins with the two-pronged passion of one person that for one -
+thirsts for knowledge and technical prowess in programming and believes that a
+game-engine is a great and multi-faceted enough challenge to embark on in hopes
+of becoming a better professional in the software development industry, and two
+- has a great passion for games and fiction and hopes to use the game as a
+creative outlet in addition to the creative challenge provided by game engine
+development.
 
-\Gamename{} is a tile-based, turn-based RPG, inspired by the looks of games made in the 90s and the look and feel of many RPG games made since then. The game is developed alongside the engine \Enginename{} and together with it forms the main and biggest portion of \Projectname{}.
+\Gamename{} is a tile-based, turn-based RPG, inspired by the looks of games
+made in the 90s and the look and feel of many RPG games made since then. The
+game is developed alongside the engine \Enginename{} and together with it forms
+the main and biggest portion of \Projectname{}.
 
 Work on \Projectname{} started at the very beginning of the year 2019 in the
 form of scattered research and various technical experiments. The first lines of
@@ -69,10 +106,11 @@ this document were written in the morning of 2019-04-05.
 \begin{itemize}
   \item Tiles
   \item Turns
-  \item Party based (the player can -- and is encouraged to -- control more than one character at once)
+  \item Party based (the player can -- and is encouraged to -- control more
+    than one character at once)
   \item Passage of time
-  \item Time of day and the fun associated with it (e.g. you can hide better at night, but can allso be caught
-    unawares if not careful)
+  \item Time of day and the fun associated with it (e.g. you can hide better at
+    night, but can allso be caught unawares if not careful)
   \item Long voyages via different means of transportation
   \item Basic crafting (enchanting, enhancing player gear, etc)
   \item Lighting levels (e.g. tiles closer to a torch are better lit, caves
@@ -87,7 +125,8 @@ this document were written in the morning of 2019-04-05.
     could be a trap-spell like a firemine-rune or something more mundane))
   \item long range, mele, thrown weapons
   \item squad tactics
-  \item basic cover system (e.g. less accuracy if projectile crosses a non-flat item)
+  \item basic cover system (e.g. less accuracy if projectile crosses a non-flat
+    item)
 \end{itemize}
 
 \subsection{Graphics}
@@ -99,42 +138,59 @@ this document were written in the morning of 2019-04-05.
 
 \subsection{Other}
 \begin{itemize}
-  \item Multi-genre gameplay: the game is not confined to a single setting and can span sci-fi and fantasy realms in the same grand campaign.
+  \item Multi-genre gameplay: the game is not confined to a single setting and
+    can span sci-fi and fantasy realms in the same grand campaign.
 \end{itemize}
 
 \section{Possible Features}
 \begin{itemize}
   \item Isometric view
   \item Animated characters (e.g. movement, combat)
-  \item Implementation in OpenGL. Currently plain SDL2 seems like a good choice, but I do want to learn OpenGL and it is quite more popular in the industry.
+  \item Implementation in OpenGL. Currently plain SDL2 seems like a good
+    choice, but I do want to learn OpenGL and it is quite more popular in the
+    industry.
 \end{itemize}
 
 \section{Features that Will Not be Included}
 \begin{itemize}
-  \item \textbf{Real-time movement and/or combat.} Real-time is outside the scope of the project as it falls outside the feel that \Gamename{} aims to provide.
+  \item \textbf{Real-time movement and/or combat.} Real-time is outside the
+    scope of the project as it falls outside the feel that \Gamename{} aims to
+    provide.
  
-  Nevertheless the challenge of supporting pusable realtime sounds like an interesting and worth-while challenge and would be something quite interesting to implement in the future, maybe in \Enginename{} II.
+  Nevertheless the challenge of supporting pusable realtime sounds like an
+    interesting and worth-while challenge and would be something quite
+    interesting to implement in the future, maybe in \Enginename{} II.
  
-  \item \textbf{3D.} The engine aims to recreate the look and feel of an era when 2D and pre-rendered 3D dominated.
+  \item \textbf{3D.} The engine aims to recreate the look and feel of an era
+    when 2D and pre-rendered 3D dominated.
 \end{itemize}
 
 \chapter{Workplan}
-The project will most likely take us through a few iterations of prototypes before we acquire enough knowledge and know-how to implement the final framework of \Enginename{}.
+The project will most likely take us through a few iterations of prototypes
+before we acquire enough knowledge and know-how to implement the final
+framework of \Enginename{}.
 
 \begin{itemize}
-  \item \Enginename{} 0.1 (a.k.a Prototype I) should provide us with the possibility to create a few basic inter-connected levels. Thus the functionality we should have:
+  \item \Enginename{} 0.1 (a.k.a Prototype I) should provide us with the
+    possibility to create a few basic inter-connected levels. Thus the
+    functionality we should have:
   \begin{itemize}
     \item a basic level editor
     \item a few tiles with simple graphics
-    \item it should be possible to load assets from the filesystem (e.g. textures)
-    \item definition of a starting point and a player-controlled character that can walk around
-    \item we have to be able to save the level into a file (tile settings and textures, level info, etc)
+    \item it should be possible to load assets from the filesystem (e.g.
+      textures)
+    \item definition of a starting point and a player-controlled character that
+      can walk around
+    \item we have to be able to save the level into a file (tile settings and
+      textures, level info, etc)
   \end{itemize}
-  \item \Enginename{} 0.2 (a.k.a. Prototype II) should allow us to implement player interaction with the gameworld
+  \item \Enginename{} 0.2 (a.k.a. Prototype II) should allow us to implement
+    player interaction with the gameworld
   \begin{itemize}
     \item doors, windows
     \item containers
-    \item a way to program items into the game(weapons, armors) (this does not touch on in-game crafting)
+    \item a way to program items into the game(weapons, armors) (this does not
+      touch on in-game crafting)
     \item at least partially implemented combat (we can ommit damage types and
       similar things for now)
   \end{itemize}
@@ -153,7 +209,8 @@ Attack and defence scores are calculated (random value up to stat maximum):
 The attack connects \begin{math} if(atk > def) \end{math}. 
 \subsubsection*{Step 2}
 If the attack is successfull , we calculate actual damage received. First,
-incoming damage(based on weapon dmg dice) and armor values are rolled for the current attack.
+incoming damage(based on weapon dmg dice) and armor values are rolled for the
+current attack.
 \begin{equation*}
   dmg_i =
   \Big(
@@ -162,20 +219,22 @@ incoming damage(based on weapon dmg dice) and armor values are rolled for the cu
 \end{equation*}
 \begin{equation*} arm \sim U([0,1 \dots arm_{max}) \end{equation*}
 Then armor is substracted from damage (including resistences or weaknesses
-incurred by the armor (if worn)), and we have our final incoming damage to the entity.
-The final damage received is still subject to further modification due to entity
-resistences or weaknesses to the incoming damage type.
-\begin{equation*} dmg = (dmg_i - arm \times resist_{arm}) \div resist_{entity} \end{equation*}
+incurred by the armor (if worn)), and we have our final incoming damage to the
+entity.  The final damage received is still subject to further modification due
+to entity resistences or weaknesses to the incoming damage type.
+\begin{equation*}
+  dmg = (dmg_i - arm \times resist_{arm}) \div resist_{entity}
+\end{equation*}
 
 \subparagraph*{Notes}
 \begin{itemize}
   \item This logic does not represent catering for damage types, I belive we can
     calculate each damage type separately calling the above logic once per
     damage type.
-  \item the armor score is randomized to emulate lucky hits, etc. If we decide to
-    suport hit-locations we may want to make the armor score non-random or reduce
-    the range coloser to the max value (to still emulate some luck, then again
-    luck can be represented with critical strikes).
+  \item the armor score is randomized to emulate lucky hits, etc. If we decide
+    to suport hit-locations we may want to make the armor score non-random or
+    reduce the range coloser to the max value (to still emulate some luck, then
+    again luck can be represented with critical strikes).
 \end{itemize}
 
 \section{Item Examples}
@@ -203,8 +262,10 @@ resistences or weaknesses to the incoming damage type.
 
 \TODO{
   \begin{itemize}
-    \item Make example combat situations with some armor and mele and ranged wepons
-    \item Move example item tables to basic equipment section, add a few more items
+    \item Make example combat situations with some armor and mele and ranged
+      wepons
+    \item Move example item tables to basic equipment section, add a few more
+      items
     \item Make explanations of damage and DR notation
   \end{itemize}
 }
@@ -215,8 +276,9 @@ resistences or weaknesses to the incoming damage type.
   \begin{itemize}
     \item How will we represent speed, ecpecially in combat (time units in
       combat mode?)
-    \item we should probably have a peacefull mode and a combat mode (as we want
-      to be able to move more quiclky while not in combat (go to mouse click), etc)
+    \item we should probably have a peacefull mode and a combat mode (as we
+      want to be able to move more quiclky while not in combat (go to mouse
+      click), etc)
     \item what actions will take TUs (e.g. easy and hard to access inventory
       items, attacks, spell preparation, arming grenades, etc)
   \end{itemize}
@@ -239,10 +301,11 @@ lions who want dinner and nobody noticed them yet.
     (mouseclick)
     \item no need to move each party member, they group around selected party
       member
-    \item do we need formations? probably just gonna use line formation for simplicity.
-      If I recall correctly D\&D used to make people choose who is where in the
-      line without ever mentioning oher formations. Even simpler, maybe party
-      members should just try to be as close to the player as possible.
+    \item do we need formations? probably just gonna use line formation for
+      simplicity.  If I recall correctly D\&D used to make people choose who is
+      where in the line without ever mentioning oher formations. Even simpler,
+      maybe party members should just try to be as close to the player as
+      possible.
   \end{itemize}
 \end{itemize}
 
@@ -257,9 +320,9 @@ lions who want dinner and nobody noticed them yet.
 \section{Destructability}
 (e.g. burning bridge)
 \section{Lighting Levels}
-\TODO{This section will be about lighting levels and how it affects gameplay, the
-associated abilities and some possible situations and circumstances of gameplay
-interest}
+\TODO{This section will be about lighting levels and how it affects gameplay,
+the associated abilities and some possible situations and circumstances of
+gameplay interest}
 
 \chapter{Travelling}
  \think{Maybe we should simplify travelling a bit? It will not happen all that
@@ -302,29 +365,66 @@ other topics that change equipment properties.
 \note{Maybe crafting will not be in the game at all.}
 
 \part{The Engine}
-\note{Often it is quite difficult to determine which components belong to the engine
-  and which to the game when the two are developed side-by-side, thus this part
-  should be reviewed and reevaluated periodically.}
+\note{Often it is quite difficult to determine which components belong to the
+engine and which to the game when the two are developed side-by-side, thus this
+part should be reviewed and reevaluated periodically.}
 \chapter{Overview}
-The engine is implemented as a modular set of objects and functions accessible under the
+The engine is implemented as a modular set of objects and functions accessible
+under the
 \codew{\enginenamespace{}} namespace, forming a framework for game development,
 oriented at 2d isometric tile based RPG games and is targeted at the C++
 programming language.
 \chapter{Graphics}
-We will be using SDL2 as our main graphics library for now, as we already have a
-working codebase and some knowledge of working with the lib. I wish to implement
-the graphics module of the engine in OpenGL later (not because we necissarily
-needed it, but I do want to learn it some and I like the prospect of a possibility to
-use some of the features in the future.).
+We will be using SDL2 as our main graphics library for now, as we already have
+a working codebase and some knowledge of working with the lib. I wish to
+implement the graphics module of the engine in OpenGL later (not because we
+necissarily needed it, but I do want to learn it some and I like the prospect
+of a possibility to use some of the features in the future.).
+\section{Character Movement}
+There are two options currently being considered: \\
+The map will consist of a grid of nodes, one node every half a tile. Thus,
+wall segments can be placed on the nodes and every time the player moves to
+another tile, he has to cross the node and we can check if the node is passable,
+is there a trap there, etc. We can allso draw trigger regions, etc using this
+node system.
+\subparagraph{pros}
+\begin{itemize}
+  \item easy to calculate collissions by simply checking what is at the node
+    being traversed.
+  \item walls and a lot of various map items can be placed on and between tiles
+    using this method (items, rectagular and even polygonal areas, etc).
+  \item characters, items, triggers can be placed in door entrances, wall
+    alcoves, etc. (e.g. wall traps, objects/bodies blocking doors from closing,
+    etc)
+\end{itemize}
+\subparagraph{cons}
+\begin{itemize}
+  \item the tile coordinates will be a bit weird. Either $\displaystyle
+    tile_{xy} = \frac{node_{xy}}{2}$ or $\displaystyle tile_{xy} =
+    \frac{node_{xy}}{2} + 1$ depending on if we start the coordinate system
+    at 1 or 0 respectively.
+  \item this is not too bad, but the grid has a noticeable memory footprint
+    e.g. 256*256 grid would weigh in at exactly 512kb per layer. And we will
+    have multiple layers, unless we decide to point to arrays of map-obects
+    from the grid nodes to avoid having multiple layers, this in turn may
+    introduce unnecessary code complexity.
+\end{itemize}
+\note{so far the node-grid approach wins, having considered the following
+approaches: walls-as-tiles, walls as 2d lines represnted by 4 32bit integrals}
+\begin{figure}
+  \caption{Gameworld grid (note the coordinates being at intersections
+    \textbf{and} mid-tile)}
+  \isogridsub{10}
+\end{figure}
 \section{Function \enginenamespace{}gfxinit}
 This function should initialize the graphics module e.g. init the graphical lib,
 create main window and content, etc.
 \section{\enginenamespace{}Viewport}
-The viewport is a way to represent a level map via isometric tiles and other sprites.
-The \enginenamespace{}Level is used to load, contain and update level data, the
-\enginenamespace{}Viewport acts as a window to the Level and provides a way to
-view the data stored in the \enginenamespace{}Level with options on how to
-display said data (e.g. centner on certain character/object/etc,
+The viewport is a way to represent a level map via isometric tiles and other
+sprites.  The \enginenamespace{}Level is used to load, contain and update level
+data, the \enginenamespace{}Viewport acts as a window to the Level and provides
+a way to view the data stored in the \enginenamespace{}Level with options on
+how to display said data (e.g. centner on certain character/object/etc,
 show/hide/lower walls, draw frames around obscured character sprites (or arrows
 above them, display/hide debug regions, etc).
 
@@ -434,13 +534,13 @@ though it would be difficult to find such dice in reality.
   \end{itemize}
 }
 \note{
-  the supported format is: \\
-  %\codew{<n of dice>d<max dice value>[+<add value>]}
-  % \begin{tabular*}{0.9\linewidth}{rl}
-  %   \textbf{example values:} \\
-  %   good values: & \codew{1d6}, \codew{3d4}, \codew{6d5+3} \\
-  %   bad values: & \codew{d6}, \codew{d4+3}, \codew{2d6+1d4}, \codew{3d6+d4} \\
-  % \end{tabular*}
+  dice notation format format: \\
+  \codew{<n of dice>d<max dice value>[+<add value>]}
+   \begin{tabular*}{0.9\linewidth}{rl}
+     \textbf{example values:} \\
+     good values: & \codew{1d6}, \codew{3d4}, \codew{6d5+3} \\
+     bad values: & \codew{d6}, \codew{d4+3}, \codew{2d6+1d4}, \codew{3d6+d4} \\
+   \end{tabular*}
 }
 
 \part{The Setting}
