@@ -42,7 +42,7 @@ void Tilemap::put_tile(Tile* tile, size_t x, size_t y)
     else {dbgf(1, "could not put tile - out of tilemap range\n");}
 }
 
-//TODO this is a terribly unoptimze quick & dirty solution, needs review
+//TODO this is a quick & dirty solution, needs review
 void Tilemap::render(int x, int y, int w, int h,
         SDL_Renderer* ren)
 {

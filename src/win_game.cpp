@@ -12,8 +12,6 @@ struct tmp_tiles {
     Tile wall;
 };
 
-void load_lvl(Tilemap* tilemap, tmp_tiles* tiles);
-
 int run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h,
         Asset_container* _assets)
 {
@@ -45,9 +43,9 @@ int run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h,
     int tile_hw = 16;
     SDL_Point player_xy{5*tile_hw, 5*tile_hw};
 
-    Tilemap tilemap(20, 20);
-    load_lvl(&tilemap, &tiles);
-    cru::Level level(&tilemap);
+    cru::Level level(20, 20);
+    level.load_test_assets(_ren);
+    level.load_test_level();
     cru::Viewport viewport(&level);
     //TODO window dimensions shoud be in a program_environment struct/class
     viewport.set_screen_pos(cru::Rect{_win_w /2, 0, _win_w, _win_h});
@@ -95,8 +93,6 @@ int run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h,
 
         viewport.render(_ren);
 
-        tilemap.highlight_mouseover(_ren, &tiles.selected);
-
         player.render(_ren, &player_xy);
 
         if(show_fps) {
@@ -133,25 +129,4 @@ int run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h,
     }
 
     return 0;
-}
-
-void load_lvl(Tilemap* tilemap, tmp_tiles* tiles)
-{
-    for(size_t x = 0; x < tilemap->get_w(); ++x) {
-        for(size_t y = 0; y < tilemap->get_h(); ++y) {
-            tilemap->put_tile(&tiles->cobble, x, y);
-        }
-    }
-
-    //making a square room
-    SDL_Rect room_rect{10, 3, 3, 5};
-    for(int x {0}; x < room_rect.w; ++x) {
-        for(int y {0}; y < room_rect.h; ++y) {
-            if(x == 0 || x == room_rect.w - 1
-            || y == 0 || y == room_rect.h - 1) {
-                tilemap->put_tile(&tiles->wall,
-                        room_rect.x + x, room_rect.y + y);
-            }
-        }
-    }
 }

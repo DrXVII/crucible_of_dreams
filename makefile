@@ -20,6 +20,7 @@ _OBJ = main.o \
        Font_atlas.o \
        Asset_container.o \
        Tile.o \
+       Wall.o \
        Tilemap.o \
        Button.o \
        version.o \

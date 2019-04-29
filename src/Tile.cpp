@@ -10,6 +10,9 @@ Tile::Tile(SDL_Texture* _tx, int _w, int _h)
     }
 }
 
+Tile::~Tile()
+{}
+
 int Tile::wh_to_tx()
 {
     return SDL_QueryTexture(this->m_tx, NULL, NULL, &m_w, &m_h);

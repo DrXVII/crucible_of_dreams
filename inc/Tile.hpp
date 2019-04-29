@@ -10,6 +10,7 @@
 class Tile {
 public:
     Tile(SDL_Texture* _tx = nullptr, int _w = 0, int _h = 0);
+    virtual ~Tile();
 
     //set w and h to match texture dimensions
     int wh_to_tx();

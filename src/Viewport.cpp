@@ -10,7 +10,8 @@ Viewport::Viewport(Level* level)
 
 void Viewport::render(SDL_Renderer* ren)
 {
-    m_level->m_floor->render(m_screen_pos, ren);
+    m_level->m_floor.render(m_screen_pos, ren);
+    //m_level->m_walls.render(m_screen_pos, ren);
 }
 
 void Viewport::set_screen_pos(cru::Rect r) { m_screen_pos = r; }
