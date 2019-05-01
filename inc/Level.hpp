@@ -11,7 +11,7 @@ namespace cru {
 
 class Level {
 public:
-    Level(size_t w, size_t h);
+    Level(size_t w, size_t h, size_t tile_w, size_t tile_h);
     Level(Tilemap* floor);
 
     //void move_chars();

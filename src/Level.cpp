@@ -4,9 +4,9 @@
 
 using namespace cru;
 
-Level::Level(size_t w, size_t h)
-:m_floor {Tilemap(w, h)}
-,m_walls {Tilemap(w, h)}
+Level::Level(size_t w, size_t h, size_t tile_w, size_t tile_h)
+:m_floor {Tilemap(w, h, tile_w, tile_h)}
+,m_walls {Tilemap(w, h, tile_w, tile_h)}
 {}
 
 enum {SELECTED = 0, COBBLE, WALL, TILESET_SIZE};

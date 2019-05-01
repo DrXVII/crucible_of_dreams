@@ -20,7 +20,7 @@ using std::vector;
 //TODO Tilemap should have a Tileset within it
 class Tilemap {
 public:
-    Tilemap(size_t w, size_t h);
+    Tilemap(size_t w, size_t h, size_t tile_w, size_t tile_h);
 
     void put_tile(Tile* tile, size_t x, size_t y);
     //TODO remove render_old
@@ -35,6 +35,8 @@ public:
 private:
     size_t m_w;
     size_t m_h;
+    size_t m_tile_w;
+    size_t m_tile_h;
     vector<vector<Tile*>> m_tiles;
     //vector<vector<Wall*>> walls;
     //vector<vector<Interact_object*>> objects;

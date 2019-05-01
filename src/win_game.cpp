@@ -6,12 +6,6 @@
 #include "Level.hpp"
 #include "Viewport.hpp"
 
-struct tmp_tiles {
-    Tile selected;
-    Tile cobble;
-    Tile wall;
-};
-
 int run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h,
         Asset_container* _assets)
 {
@@ -26,24 +20,9 @@ int run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h,
     bool show_fps {false};
     bool cap_fps {true};
     SDL_Point fps_xy {20, 20};
-    char fps_str_buf[12];
+    char fps_str_buf[12] {0};
 
-    //TODO just a placeholer
-    struct tmp_tiles tiles {
-        //.cobble = Tile(_assets->get_tx(TX_FLOOR_COBBLE)),
-        //.wall = Tile(_assets->get_tx(TX_WALL))
-        .selected = Tile(load_texture("data/gfx/tiles/tile_selected.png", _ren)),
-        .cobble = Tile(load_texture("data/gfx/tiles/floor_cobble.png", _ren)),
-        .wall =  Tile(load_texture("data/gfx/tiles/floor_wall.png", _ren))
-    };
-    //using the tile object to represent player graphically (placeholder solution)
-    Tile player(_assets->get_tx(TX_PLAYER));
-
-    //TODO temporary solution (brought here to use in move key input processing)
-    int tile_hw = 16;
-    SDL_Point player_xy{5*tile_hw, 5*tile_hw};
-
-    cru::Level level(20, 20);
+    cru::Level level(20, 20, 32, 16);
     level.load_test_assets(_ren);
     level.load_test_level();
     cru::Viewport viewport(&level);
@@ -72,11 +51,6 @@ int run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h,
                     else {dbg(9, "capping fps\n");}
                     cap_fps = !cap_fps;
                 }
-                if(key_states[SDL_SCANCODE_UP])    { player_xy.y -= tile_hw; }
-                else if(key_states[SDL_SCANCODE_DOWN])  { player_xy.y += tile_hw; }
-                else if(key_states[SDL_SCANCODE_LEFT])  { player_xy.x -= tile_hw; }
-                else if(key_states[SDL_SCANCODE_RIGHT]) { player_xy.x += tile_hw; }
-                //TODO use less-than and greater-than (shift-comma, shift-period)
                 else if(key_states[SDL_SCANCODE_COMMA]) {/*TODO tile change*/ }
                 else if(key_states[SDL_SCANCODE_PERIOD]) {/*TODO tile change*/ }
             }
@@ -92,8 +66,6 @@ int run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h,
         SDL_RenderClear(_ren);
 
         viewport.render(_ren);
-
-        player.render(_ren, &player_xy);
 
         if(show_fps) {
             if(ns_this_sec >= SEC_NS) {
