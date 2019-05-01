@@ -33,9 +33,9 @@ void Level::load_test_level()
     }
 
     //making a square room
-    SDL_Rect room_rect{20, 6, 7, 11};
-    for(int x {0}; x < room_rect.w; x += 2) {
-        for(int y {0}; y < room_rect.h; y += 2) {
+    SDL_Rect room_rect{20, 6, 9, 13};
+    for(int x {0}; x < room_rect.w; ++x) {
+        for(int y {0}; y < room_rect.h; ++y) {
             if(x == 0 || x == room_rect.w - 1) {
                 m_walls.put_tile(&m_tileset[WALL_E],
                         room_rect.x + x, room_rect.y + y);

@@ -33,9 +33,6 @@ private:
     size_t m_tile_w; //width of one tile in px
     size_t m_tile_h; //height of one tile in px
     vector<vector<Tile*>> m_tiles;
-    //vector<vector<Wall*>> walls;
-    //vector<vector<Interact_object*>> objects;
-    //vector<vector<Event_trigger*>> events;
 };
 
 #endif //ifndef TILEMAP_HPP

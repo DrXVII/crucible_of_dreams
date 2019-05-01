@@ -6,6 +6,7 @@
 
 //homebrew
 #include "dbg.h"
+#include "structs.hpp"
 
 enum Direction {
     NORTH = 0,
@@ -29,6 +30,7 @@ public:
     int get_h();
 
 private:
+    cru::Point m_anchor; //TODO use to center anchor on node for rendering
     SDL_Texture* m_tx;
     Direction m_orientation;
     int m_w, m_h;

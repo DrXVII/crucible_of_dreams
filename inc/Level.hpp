@@ -23,6 +23,7 @@ private:
     Tilemap m_floor;
     Tilemap m_walls;
     //std::vector<Character*> m_characters;
+    //std::vector<Event*> m_events;
 
     friend class Viewport;
 };

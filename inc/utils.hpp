@@ -29,14 +29,6 @@ using std::cerr;
 //homebrew
 #include "dbg.h"
 
-enum {
-    TX_PLAYER = 0,
-    TX_FLOOR_COBBLE,
-    TX_BUTTON,
-    TX_BUTTON_PRESSED,
-    TX_WALL
-};
-
 //generate an SDL_Texture from a string
 SDL_Texture* txt_to_tx(const char* _txt, int _sz, SDL_Colour _col,
                       const char* _fpath, SDL_Renderer* _ren);
