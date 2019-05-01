@@ -9,10 +9,10 @@
 
 namespace cru {
 
-class Wall : Tile {
+class Wall : public Tile {
 public:
-    Wall(SDL_Texture* tx = nullptr, int w = 0, int h = 0);
-private:
+    Wall(SDL_Texture* tx = nullptr, int w = 0, int h = 0,
+            Direction dir = NORTH);
 };
 
 }

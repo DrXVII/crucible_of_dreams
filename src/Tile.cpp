@@ -1,9 +1,10 @@
 #include "Tile.hpp" //header for this implementation file
 
-Tile::Tile(SDL_Texture* _tx, int _w, int _h)
-: m_w {_w}
+Tile::Tile(SDL_Texture* _tx, int _w, int _h, Direction orientation)
+: m_tx {_tx}
+, m_orientation {orientation}
+, m_w {_w}
 , m_h {_h}
-, m_tx {_tx}
 {
     if(m_tx != nullptr && (m_w == 0 || m_h == 0)) {
         this->wh_to_tx();
@@ -18,11 +19,24 @@ int Tile::wh_to_tx()
     return SDL_QueryTexture(this->m_tx, NULL, NULL, &m_w, &m_h);
 }
 
-//TODO do we really need it to use SDL_Point?
 void Tile::render(SDL_Renderer* _ren, SDL_Point* _pt)
 {
     SDL_Rect rect {_pt->x, _pt->y, m_w, m_h};
-    if(SDL_RenderCopy(_ren, m_tx, NULL, &rect) != 0) {
+    int sdl_err {0};
+
+    switch(m_orientation) {
+    case NORTH:
+    case SOUTH:
+        sdl_err = SDL_RenderCopy(_ren, m_tx, NULL, &rect) != 0;
+        break;
+    case EAST:
+    case WEST:
+        sdl_err = SDL_RenderCopyEx(_ren, m_tx, NULL, &rect,
+                0, NULL, SDL_FLIP_HORIZONTAL);
+        break;
+    }
+
+    if(sdl_err) {
         errlog(ERRLOG_SDL, "could not render tile.");
     }
 }

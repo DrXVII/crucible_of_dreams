@@ -22,7 +22,11 @@ int run_game(SDL_Renderer* _ren, const int _win_w, const int _win_h,
     SDL_Point fps_xy {20, 20};
     char fps_str_buf[12] {0};
 
-    cru::Level level(20, 20, 32, 16);
+    //hardcoding map tile/cell size while we don't have a level file format
+    constexpr size_t tile_w = 32;
+    constexpr size_t tile_h = 16;
+
+    cru::Level level(20, 20, tile_w, tile_h);
     level.load_test_assets(_ren);
     level.load_test_level();
     cru::Viewport viewport(&level);

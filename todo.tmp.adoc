@@ -1,5 +1,0 @@
-= TODO
-
-* [ ] review project planning or get a kanban board or something and put down these tasks
-** [ ] level loader
-** [ ] solve the mess with texture loading (data declaration, initialisation, and use are scattered haphazardly from one another without a clear way of reference) (should be partially solved by doing a level loader and level data files)

@@ -13,28 +13,6 @@ Tilemap::Tilemap(size_t w, size_t h, size_t tile_w, size_t tile_h)
     m_tiles = vector<vector<Tile*>>(w, vector<Tile*>(h));
 }
 
-/*TODO - incorporate Tileset(TODO - create) into Tilemap, selected_gfx should
- * be in the Tilemap object, probably in the Tileset object*/
-//TODO - highlight moused-over tile position only when within Tilemap bounds
-//void Tilemap::highlight_mouseover(SDL_Renderer* ren, Tile* selected_gfx)
-//{
-//    int x, y;
-//    SDL_GetMouseState(&x, &y);
-//
-//    int tile_w = m_tiles[0][0]->get_w();
-//    int tile_h = m_tiles[0][0]->get_h();
-//
-//    //getting upper left corner of tile the mouse is over
-//    int screen_coord_x = (x / tile_w) * tile_w;
-//    int screen_coord_y = (y / tile_h) * tile_h;
-//
-//    /*TODO just proof of concept, should define and use Tilemap->viewport to
-//get x, y, w, h*/
-//    if(collision_check_box_pt(0, 0, (m_w * tile_w) - 1, (m_h * tile_h) - 1, x, y)) {
-//        selected_gfx->render(ren, screen_coord_x, screen_coord_y);
-//    }
-//}
-
 void Tilemap::put_tile(Tile* tile, size_t x, size_t y)
 {
     if(x < m_w && y < m_h) {
