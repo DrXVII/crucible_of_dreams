@@ -20,23 +20,42 @@
 \newcommand{\Gamename}{Library of Worlds}
 \newcommand{\enginenamespace}{cru::}
 % - admonitions ----------------------------------------------------------------
-%#1 - background color #2 - text color
-%#3 - admonition name  #4 - admonition text
-\newcommand{\admonition}[4]{
-\begin{table*}[h]
-  \colorbox{#1}{
-    \parbox{0.96\linewidth}{\textcolor{#2}{\textbf{#3}} #4}
-  }
-\end{table*}
+%#1 - title and border color
+%#2 - title text color
+%#3 - background color
+%#4 - text color
+%#5 - title text
+%#6 - contents text
+%#7 - symbol to be displaayed on left border
+\newcommand{\admonition}[7]{
+    \tikzstyle{thebox} = [draw=#1, fill=#3, text=#4, very thick,
+    rectangle, rounded corners, inner sep=10pt, inner ysep=20pt]
+    \tikzstyle{thetitle} =[fill=#1, text=#2]
+
+    \begin{tikzpicture}
+        \node [thebox] (box){
+            \begin{minipage}{0.9\textwidth-5\marginparsep}
+                #6
+            \end{minipage}
+        };
+        \node[thetitle, rounded corners, right=10pt] at (box.north west) {#5};
+        \node[thetitle, rounded corners] at (box.west) {#7};
+    \end{tikzpicture}
 }
+
 \newcommand{\TODO}[1]{
-    \admonition{red!10}{red}{TODO}{#1}
+    \admonition{red}{white}{red!10}{red}{TODO}{#1}{$!$}
 }
 \newcommand{\danger}[1]{
-  \admonition{red!10}{red}{DANGER}{#1}
+    \admonition{red}{white}{red!10}{red}{DANGER}{#1}{$!$}
 }
-\newcommand{\note}[1]{\admonition{blue!10}{black}{NOTE}{#1}}
-\newcommand{\think}[1]{\admonition{orange!15}{orange}{THINK}{#1}}
+\newcommand{\note}[1]{
+    \admonition{blue!60}{black}{blue!10}{black}{NOTE}{#1}{$?$}
+}
+\newcommand{\think}[1]{
+    \admonition{orange}{white}{orange!15}{orange}{THINK}{#1}{$?$}
+}
+
 % - grids ----------------------------------------------------------------------
 %isometric grid
 %#1 - tiles per side
