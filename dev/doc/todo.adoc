@@ -1,0 +1,89 @@
+= TODO
+
+== Next
+* [ ] redo the concept of the tilemap to a simple grid, where a wall is a tile, etc
+* [ ] updade graphical direction concept: the bulk of the graphics will be
+  simplistic foreground-background tiles, that will get colorised
+  programmatically depending on the color of the e.g. item in question. This
+  hearkens back to the text-based roguelike graphics, simplifies development (at
+  least asset creation and/or acquisition). The style will be retro
+  roguelike-ish, but using tiles and a full-fledged pixel-addressable graphics
+  will allow to use things not possible in a purely text-based or tile-based UI
+  (e.g. gui buttons, or additional tile information, sub-tile graphics, and other
+  things that do not fit into the tile-by-tile drawing constraints).
+** [ ] create a few icons
+*** [ ] weapons: sword, bow, cross-bow, wand, dagger
+*** [ ] armor: head, torso, arms, gloves, legs, feet
+*** [ ] consumables: berries, herbs, poition, bread, food rations, fruit (apple), parchment, scroll, book
+*** [ ] valuables: gem, coin
+*** [ ] tiles: grass, dirt, rocks, rock wall, brick wall, water, tree
+** [ ] do a few mock-ups
+*** [ ] do a mock-up of the player inventory menu
+*** [ ] do a mock-up of a basic map
+* [ ] make some icons
+
+== Backlog
+
+=== Basic rendering 2
+* [ ] come up with architecture to keep and call textures
+* [ ] implement first version of level files.
+* [ ] create a test level e.g. Ign Alazur - The Ancient Library. Should at least have floor and wall tiles, a few columns/pillars would be good as well.
+** [ ] a couple different tiles
+** [ ] a couple different walls
+** [ ] a pillar or two
+* [ ] render the test-level
+
+=== Mop up
+* [ ] review and refactor changes
+* [ ] plan further
+
+=== A basic arena for testing rules, etc.
+* [ ] implement a basic character
+* [ ] implement a basic mob
+* [ ] implement first iteration of the movement and combat rules, and play around with that a bit
+
+=== Containers
+* [ ] lockable containers and items to unlock containers
+* [ ] picking locks (think how to approach this, as we need both - a usable skills system and a usable magic system in place), maybe move to another milestone
+** [ ] via lock-picking skill
+** [ ] via magic
+
+=== Moving around
+* [ ] pathfinding
+* [ ] doors
+* [ ] lock-able doors, locking and unlocking doors
+** [ ] magic that changes character material properties (turn to smoke, water, incorporeal, etc)
+** [ ] teleportation spells
+** [ ] magical barriers
+** [ ] magic dampners, null-magic zones, traps that react to magic casting (e.g. thaumaturgic parasite swarm :D), etc.
+
+=== Stealth
+* [ ] stealth
+
+== Done
+
+=== 2018-08-21/24
+* [x] main_menu
+* [x] quite some work towards gui structure
+* [x] more fixes under the hood
+
+=== 2018-08-15
+additional plot elements
+
+=== [x] buttons 2018-08-14
+* [x] textures
+* [x] programming
+
+=== [x] basic rendering 2018-03-13
+* [x] the basic input-update-display loop
+* [x] framerate capping
+** [x] implement time duration registering at nanosecond resolution
+** [x] implement pauses at nanosecond resolution.
+* [x] read and store pixel data from png
+* [x] conjure a way to keep and pass tile textures efficiently.
+* [x] implement efficient text printing via the texture-atlas method, monospaced font would be quite enough for now, but design keeping in mind a future update to both mono and variable spaced fonts.
+
+=== [x] prepare 2018-02-29
+* [x] overhaul makefile
+** [x] use the `c++17` standard
+* [x] rename cpp headers to use .hpp suffix

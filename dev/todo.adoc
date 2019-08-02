@@ -1,0 +1,19 @@
+= TODO
+
+== v0.1 (Prototype I)
+* [ ] walls
+** [ ] render based on anchor-point (variable in Tile class)
+** [x] sub-tile nodes based wall placement
+** [x] sprite reflection for north/east orientation
+** [x] walls layer
+* [ ] character that can move around the map
+
+Done::
+* [x] floor
+
+== v0.2
+* [ ] move rendering functionality to cru::Viewport
+[more entries]
+
+== v0.x
+* [ ] save/load level file

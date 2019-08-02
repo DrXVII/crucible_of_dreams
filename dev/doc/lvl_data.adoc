@@ -1,0 +1,10 @@
+= Outilne of Level Data Format
+
+Tileset::
+An array of *Tiles* ; Each tile would have an associated texture (and possibly a path to that texture), and would then be used as reference to assemble tile according to the *Tilemap* (via pointers).
+
+Tilemap::
+An array of *Tiles* that has an associated width and height values denoting the total number of tiles in the map (widtx * height)
+
+Starting Point::
+*Point* {int x,y}; Could be multiple starting points in the future e.g. vector< *Point* >; would select randomly from all the *Points* in the array;
