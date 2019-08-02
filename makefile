@@ -49,8 +49,8 @@ $(OBJ_DIR):
 #  nothing here yet
 
 #docs --------------------------------------------------------------------------
-DOC_DIR = devdoc
-DOC_SRC_LATEX_DIR = devdoc/latex
+DOC_DIR = dev/doc
+DOC_SRC_LATEX_DIR = $(DOC_DIR)/latex
 BUILD_TOOLS_DIR = buildtools
 LATEX_COMP = $(BUILD_TOOLS_DIR)/latex_gen.sh
 DOCS = $(DOC_DIR)/design_doc.pdf
