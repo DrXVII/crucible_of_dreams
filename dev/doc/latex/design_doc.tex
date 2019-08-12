@@ -7,6 +7,7 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage[table]{xcolor}
 \usepackage{tikz}
+\usepackage{multirow}
 
 \definecolor{red}{HTML}{FF0000}
 \definecolor{globaltablecolor}{HTML}{FF0000}
@@ -571,6 +572,63 @@ though it would be difficult to find such dice in reality.
 \section{Races}
 \section{Items}
 \subsection{Weapons}
+\begin{table*}[h]
+  \rowcolors{3}{globaltablecolor!6}{globaltablecolor!12}
+  \begin{tabular}{l p{2cm} c c l}
+    %\firsthline
+    \textbf{melee} \\
+    \textbi{name}      & \textbi{damage}     & \textbi{cost}     & \textbi{weight} & \textbi{notes} \\
+    club               & sw+2 bl                     & \${}50   & 4      &       \\
+    shiv               & th+0 pi+ \newline sw-1 cut  & \${}50   & 1      &       \\
+    dagger             & th+0 pi+ \newline sw-1 cut  & \${}50   & 1      & [1]   \\
+    short-sword        & sw+1 cut \newline sw+1 pi+  & \${}50   & 2      & [2]   \\
+    sword              & sw+2 cut \newline sw+1 pi+  & \${}50   & 3      & [2]   \\
+    two-handed sword   & sw+4 cut \newline sw+1 pi++ & \${}50   & 4      & [2]   \\
+    axe                & sw+2 cut                    & \${}50   & 4      &       \\
+    two-handed axe     & sw+4 cut                    & \${}50   & 6      &       \\
+    %\lasthline
+  \end{tabular}
+\end{table*}
+
+\begin{table*}
+  \caption{melee weapon notes}
+  \begin{tabular}{l p{\textwidth-2cm}}
+    $[1]$ -- & Has a hilt guard that makes it a bit easier to parry \\
+    $[2]$ -- & Is ballanced, making it easier to wield and ready the weapon \\
+  \end{tabular}
+\end{table*}
+
+\begin{table*}
+  \rowcolors{3}{globaltablecolor!6}{globaltablecolor!12}
+  \begin{tabular}{l p{2cm} c c l}
+    \textbf{muscle powered} \\
+    \textbi{name}      & \textbi{damage}     & \textbi{cost}     & \textbi{weight} & \textbi{notes} \\
+    shortbow           & 1d6-2 pi+                   & \${}50   & 4      &        \\
+    bow                & 1d6   pi+                   & \${}50   & 4      &        \\
+    longbow            & 1d6+2 pi+                   & \${}50   & 4      &        \\
+    crossbow           & 1d6-1 pi+                   & \${}50   & 4      &        \\
+    arbalest           & 1d6+1 pi+                   & \${}50   & 4      &        \\
+  \end{tabular}
+  \rowcolors{3}{globaltablecolor!6}{globaltablecolor!12}
+  \begin{tabular}{l p{2cm} c c l}
+    \textbf{powered} \\
+    \textbi{name}      & \textbi{damage}     & \textbi{cost}     & \textbi{weight} & \textbi{notes} \\
+    flint-lock pistol  & 1d6+2 pi+                   & cost     & weight & [1]    \\
+    derringer          & 1d6 pi                      & cost     & weight &        \\
+    manual revolver    & 1d6+2 pi                    & cost     & weight & [2]    \\
+    revolver           & 1d6+2 pi                    & cost     & weight &        \\
+    auto pistol 9mm    & 1d6+1 pi                    & cost     & weight &        \\
+    flint-lock rifle   & 2d6 pi                      & cost     & weight & [1]    \\
+    bolt-action rifle  & 2d6+3 pi                    & cost     & weight & [2]    \\
+    assault rifle      & 2d6+1 pi                    & cost     & weight & [3]    \\
+    assault rifle (fa) & 2d6+1 pi                    & cost     & weight & [3][4] \\
+  \end{tabular}
+\end{table*}
+
+\TODO{the notes table with meanings for the [n] shorthands, separate dictionry for each type (melee, ranged, etc)}
+
+\TODO{ranged weapon specific columns (strength requrements for muscle powered weapons, range, recoil, ammo type(s), ammo capacity, etc}
+
 \subsection{Armor}
 \subsection{Arcane}
 \chapter{Minor Races}
